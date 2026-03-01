@@ -1,0 +1,564 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><div id="myscoll"></div><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ANN,IVF,HNSW | Yangjiayu</title><meta name="keywords" content="milvus"><meta name="author" content="Yangjiayu"><meta name="copyright" content="Yangjiayu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="ANN,IVF,HNSW">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ANN,IVF,HNSW">
+<meta property="og:url" content="https://yjyrichard.github.io/posts/3d21c34a.html">
+<meta property="og:site_name" content="Yangjiayu">
+<meta property="og:description" content="ANN,IVF,HNSW">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/11.png">
+<meta property="article:published_time" content="2026-03-01T07:51:37.959Z">
+<meta property="article:modified_time" content="2026-03-01T07:53:55.986Z">
+<meta property="article:author" content="Yangjiayu">
+<meta property="article:tag" content="milvus">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/11.png"><link rel="shortcut icon" href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/your_image_path_here.jpg"><link rel="canonical" href="https://yjyrichard.github.io/posts/3d21c34a"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"var(--theme-color)","bgDark":"#191919","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ANN,IVF,HNSW',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-01 15:53:55'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.5.0/css/all.min.css"><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/element-ui@2.15.6/packages/theme-chalk/lib/index.css"><style id="themeColor"></style><style id="rightSide"></style><style id="transPercent"></style><style id="blurNum"></style><style id="settingStyle"></style><span id="fps"></span><style id="defineBg"></style><style id="menu_shadow"></style><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Yangjiayu" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/your_image_path_here.jpg" onerror="onerror=null;src='/assets/r1.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">106</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon--article"></use></svg><span class="menu_word" style="font-size:17px"> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1">                   </use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-sekuaibiaoqian">                   </use></svg><span class="menu_word" style="font-size:17px"> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-fenlei">                   </use></svg><span class="menu_word" style="font-size:17px"> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pinweishenghuo"></use></svg><span class="menu_word" style="font-size:17px"> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/life/music/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-yinle">                   </use></svg><span class="menu_word" style="font-size:17px"> 八音盒</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/movies/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-dianying1">                   </use></svg><span class="menu_word" style="font-size:17px"> 影院</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/games/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-youxishoubing">                   </use></svg><span class="menu_word" style="font-size:17px"> 健身</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/books/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-lianjie">                   </use></svg><span class="menu_word" style="font-size:17px"> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-shejiaoxinxi"></use></svg><span class="menu_word" style="font-size:17px"> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/social/fcircle/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pengyouquan">                   </use></svg><span class="menu_word" style="font-size:17px"> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-liuyan">                   </use></svg><span class="menu_word" style="font-size:17px"> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-maoliang"></use></svg><span class="menu_word" style="font-size:17px"> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/personal/bb/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-qunliaotian">                   </use></svg><span class="menu_word" style="font-size:17px"> 时间管理</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/love/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-love-sign">                   </use></svg><span class="menu_word" style="font-size:17px"> 恋爱小屋</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/about/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-paperplane">                   </use></svg><span class="menu_word" style="font-size:17px"> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Yangjiayu</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon--article"></use></svg><span class="menu_word" style="font-size:17px"> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1">                   </use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-sekuaibiaoqian">                   </use></svg><span class="menu_word" style="font-size:17px"> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-fenlei">                   </use></svg><span class="menu_word" style="font-size:17px"> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pinweishenghuo"></use></svg><span class="menu_word" style="font-size:17px"> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/life/music/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-yinle">                   </use></svg><span class="menu_word" style="font-size:17px"> 八音盒</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/movies/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-dianying1">                   </use></svg><span class="menu_word" style="font-size:17px"> 影院</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/games/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-youxishoubing">                   </use></svg><span class="menu_word" style="font-size:17px"> 健身</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/books/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-lianjie">                   </use></svg><span class="menu_word" style="font-size:17px"> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-shejiaoxinxi"></use></svg><span class="menu_word" style="font-size:17px"> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/social/fcircle/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pengyouquan">                   </use></svg><span class="menu_word" style="font-size:17px"> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-liuyan">                   </use></svg><span class="menu_word" style="font-size:17px"> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-maoliang"></use></svg><span class="menu_word" style="font-size:17px"> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/personal/bb/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-qunliaotian">                   </use></svg><span class="menu_word" style="font-size:17px"> 时间管理</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/love/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-love-sign">                   </use></svg><span class="menu_word" style="font-size:17px"> 恋爱小屋</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/about/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-paperplane">                   </use></svg><span class="menu_word" style="font-size:17px"> 关于</span></a></li></ul></div></div><center id="name-container"><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></center><div id="nav-right"><div id="search-button"><a class="search faa-parent animated-hover" title="检索站内任何你想要的信息"><svg class="faa-tada icon" style="height:24px;width:24px;fill:currentColor;position:relative;top:6px" aria-hidden="true"><use xlink:href="#icon-valentine_-search-love-find-heart"></use></svg><span> 搜索</span></a></div><a class="meihua faa-parent animated-hover" onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button"><svg class="faa-tada icon" style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true"><use xlink:href="#icon-tupian1"></use></svg></a><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="浅色和深色模式转换" id="nightmode-button"><svg class="faa-tada" style="height:25px;width:25px;fill:currentColor;position:relative;top:7px" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">       </use></svg></a><div id="toggle-menu"><a><i class="fas fa-bars fa-fw"></i></a></div></div></div></nav><div id="post-info"><h1 class="post-title">ANN,IVF,HNSW</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><svg class="meta_icon post-meta-icon" style="width:30px;height:30px;position:relative;top:10px"><use xlink:href="#icon-rili"></use></svg><span class="post-meta-label">发表于 </span><time class="post-meta-date-created" datetime="2026-03-01T07:51:37.959Z" title="发表于 2026-03-01 15:51:37">2026-03-01</time><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-gengxin1"></use></svg><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-01T07:53:55.986Z" title="更新于 2026-03-01 15:53:55">2026-03-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-biaoqian"></use></svg><a class="post-meta-categories" href="/categories/milvus/">milvus</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:8px"><use xlink:href="#icon-charuword"></use></svg><span class="post-meta-label">字数总计:</span><span class="word-count">3668</span><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:20px;height:20px;position:relative;top:5px"><use xlink:href="#icon-shizhong"></use></svg><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ANN,IVF,HNSW"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:5px"><use xlink:href="#icon-eye"></use></svg><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>ANN,IVF,HNSW</h1>
+<p>哈喽大家好！</p>
+<p>上回我们聊到了向量数据库是 LLM 的&quot;外挂硬盘&quot;，而<strong>相似性搜索</strong>是这个硬盘的&quot;检索魔法&quot;。</p>
+<p>今天这篇是<strong>硬核实战篇</strong>！我们不整那些虚头巴脑的概念，直接把工业界最主流、最核心的三个算法：<strong>K-Means 聚类、IVF 倒排索引、以及大名鼎鼎的 HNSW</strong>，彻底拆解清楚！</p>
+<p>别被这些英文缩写吓跑，其实它们的原理，和你平时在超市找商品、或者在城市里找路的逻辑是一模一样的。</p>
+<hr>
+<h3 id="📌-还记得我们的专利案例吗？">📌 还记得我们的专利案例吗？</h3>
+<p>在上一篇里，我们设定了一个<strong>贯穿全系列的案例</strong>：</p>
+<blockquote>
+<p><strong>场景</strong>：你在科技公司搜索研发部实习，要从 <strong>1000 万条专利</strong> 中检索相似专利。</p>
+<p><strong>查询</strong>：<code>&quot;一种基于深度学习的图像去噪方法&quot;</code></p>
+<p><strong>目标</strong>：找到最相关的 3 条专利（真实答案是：卷积神经网络降噪、深度学习图像增强、自编码器去噪）</p>
+</blockquote>
+<p>今天我们就用这个案例，<strong>一步步演示</strong> K-Means、IVF、HNSW 到底是怎么工作的！</p>
+<hr>
+<h3 id="一、-核心思想：ANN（近似最近邻）">一、 核心思想：ANN（近似最近邻）</h3>
+<p>在讲具体算法前，我们要先达成一个共识：<strong>ANN (Approximate Nearest Neighbor)</strong>。</p>
+<p>翻译成人话就是：<strong>“差不多得了，要的是速度”</strong>。</p>
+<p>在海量数据（比如 1 亿条）面前，要找到“绝对”最近的那个向量（暴力搜索），计算机得算断气。ANN 的目标是：<strong>允许你稍微有一点点误差（比如本来是第 1 名，你找出了第 2 名），但速度要快几百倍，内存要省几倍。</strong></p>
+<p>接下来的所有算法，都是为了实现这个“又快又准”的平衡。</p>
+<hr>
+<h3 id="二、-基础中的基础：K-Means-聚类">二、 基础中的基础：K-Means 聚类</h3>
+<p>在讲高级的 IVF 之前，必须先懂 K-Means，因为它是很多索引算法的“地基”。</p>
+<h4 id="1-这是在干嘛？">1. 这是在干嘛？</h4>
+<p>想象操场上站了 1000 个学生（向量），乱七八糟的。教官吹哨子：“所有人分成 4 个班，每班选个班长！”<br>
+K-Means 就是这个<strong>自动分班、选班长</strong>的过程。</p>
+<h4 id="2-算法怎么动？（迭代过程）">2. 算法怎么动？（迭代过程）</h4>
+<p>这是一个“动态调整”的过程：</p>
+<ol>
+<li><strong>随机点将</strong>：电脑先在人堆里随便指 4 个人当“临时班长”（质心 Centroids）。</li>
+<li><strong>各自归队</strong>：剩下 996 个人，看自己离哪个临时班长最近，就站到哪个班的队伍里。</li>
+<li><strong>篡位（重新计算）</strong>：队伍站好后，大家发现临时班长其实站得偏了。于是算出这个队伍真正的“正中心”位置，那个位置变成“新班长”。</li>
+<li><strong>循环</strong>：新班长上任 -&gt; 大家根据新班长调整队伍 -&gt; 再算新中心……直到班长的位置不再变动，队伍稳定了。</li>
+</ol>
+<p>我画个图你就能看懂这个循环：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    Start((开始)) --&gt; Random[1. 随机选 K 个中心点]</span><br><span class="line">    Random --&gt; Assign[2. 所有点找最近的中心点归队]</span><br><span class="line">    Assign --&gt; Recalculate[3. 计算每队的新中心坐标]</span><br><span class="line">    Recalculate --&gt; Check&#123;中心点位置变了吗?&#125;</span><br><span class="line">    Check -- 变了很多 --&gt; Assign</span><br><span class="line">    Check -- 没变或微调 --&gt; End((收敛完成))</span><br><span class="line">    </span><br><span class="line">    style Start fill:#f9f</span><br><span class="line">    style End fill:#bfb</span><br></pre></td></tr></table></figure>
+<h4 id="3-有啥-Bug？">3. 有啥 Bug？</h4>
+<p>现实中，数据是密密麻麻连在一起的。如果查询点刚好在两个班级的<strong>交界处</strong>（边界相邻），它的&quot;真爱&quot;可能在隔壁班，但因为它离本班班长稍微近了 0.01 毫米，它就被锁死在本班里找，结果就错过了隔壁班最近的那个邻居。</p>
+<p>这个问题怎么解决？看下面 IVF 的操作。</p>
+<h4 id="🔬-专利案例演示：K-Means-聚类过程">🔬 专利案例演示：K-Means 聚类过程</h4>
+<p>让我们看看 1000 万条专利是怎么被&quot;分班&quot;的：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">🏫 K-Means 分班过程（K=1000，即分成 1000 个班）</span><br><span class="line"></span><br><span class="line">第 1 轮：随机选了 1000 个<span class="string">&quot;临时班长&quot;</span></span><br><span class="line">  - 班长 <span class="comment">#127：某个机械专利</span></span><br><span class="line">  - 班长 <span class="comment">#456：某个化学专利</span></span><br><span class="line">  - 班长 <span class="comment">#789：某个图像处理专利  ← 我们的查询可能会落在这附近！</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line"></span><br><span class="line">第 2 轮：所有专利找最近的班长归队</span><br><span class="line">  - <span class="string">&quot;卷积神经网络降噪&quot;</span> → 归入 <span class="comment">#789 班</span></span><br><span class="line">  - <span class="string">&quot;深度学习图像增强&quot;</span> → 归入 <span class="comment">#789 班</span></span><br><span class="line">  - <span class="string">&quot;自编码器去噪&quot;</span> → 归入 <span class="comment">#791 班  ← 注意！它去了隔壁班！</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line"></span><br><span class="line">第 3 轮：重新计算每个班的中心位置，更新班长</span><br><span class="line">  <span class="string">...</span></span><br><span class="line"></span><br><span class="line">第 47 轮：班长位置稳定，聚类完成！</span><br></pre></td></tr></table></figure>
+<p><strong>关键发现</strong>：我们的三个&quot;真爱&quot;专利，有 2 个在 #789 班，1 个在 #791 班！</p>
+<p>这就是为什么后面 IVF 要用 <code>nprobe</code> 参数——如果只搜 1 个班，就会漏掉那个在隔壁班的&quot;自编码器去噪&quot;！</p>
+<hr>
+<h3 id="三、-中流砥柱：IVF-倒排文件索引">三、 中流砥柱：IVF (倒排文件索引)</h3>
+<p><strong>IVF (Inverted File Index)</strong> 是目前数据库里用得超级多的一种技术。它的灵感直接来源于 K-Means。</p>
+<h4 id="1-什么是“倒排”？">1. 什么是“倒排”？</h4>
+<ul>
+<li>在搜索引擎里，倒排是：<code>单词 -&gt; 包含这个词的文章列表</code>。</li>
+<li>在向量数据库里，倒排是：<code>班长(中心点) -&gt; 属于这个班的所有向量列表</code>。</li>
+</ul>
+<h4 id="2-Voronoi-单元（泰森多边形）-了解">2. Voronoi 单元（泰森多边形）[了解]</h4>
+<p>你在很多技术文章里会看到“Voronoi”这个词，其实就是<strong>划分势力范围</strong>。<br>
+空间中每一个点，都有一个对应的“最近中心点”。把所有离中心点 A 最近的区域画个圈，就是 A 的地盘（Voronoi 单元）。这就把无限的空间切成了有限的小块。</p>
+<h4 id="3-检索过程（怎么找？）">3. 检索过程（怎么找？）</h4>
+<p>这招叫：<strong>擒贼先擒王</strong>。</p>
+<p>假设来了一个查询向量 <code>Query</code>（比如用户问“哪里有可爱的猫”）：</p>
+<ol>
+<li><strong>找班长（粗筛）</strong>：先别管那是几亿个小兵，先拿 <code>Query</code> 去跟那几千个“班长”比。算算离哪个班长最近。</li>
+<li><strong>搜小兵（细筛）</strong>：找到最近的班长后，通过倒排表拿到这个班的花名册，<strong>只在这个班里</strong>挨个算距离。</li>
+</ol>
+<p>这样，计算量瞬间从“1 亿次”变成了“几千次（找班长）+ 几百次（班里找）”，速度起飞！</p>
+<h4 id="4-解决边界问题的绝招：nprobe">4. 解决边界问题的绝招：<code>nprobe</code></h4>
+<p>为了防止“真爱在隔壁班”的情况，我们不光搜最近的那 <strong>1</strong> 个班，我们搜最近的 <strong>n</strong> 个班。<br>
+这就是参数 <code>nprobe</code> 的含义。</p>
+<ul>
+<li><code>nprobe = 1</code>：只搜最近的 1 个笼子，快但可能漏。</li>
+<li><code>nprobe = 10</code>：搜最近的 10 个笼子，稍微慢点，但基本不会漏。</li>
+</ul>
+<h4 id="🔬-专利案例演示：IVF-检索全过程">🔬 专利案例演示：IVF 检索全过程</h4>
+<p>好，现在让我们完整走一遍 IVF 检索流程！</p>
+<p><strong>Step 1：查询来了</strong></p>
+<figure class="highlight graphql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">用户输入：<span class="string">&quot;一种基于深度学习的图像去噪方法&quot;</span></span><br><span class="line">      ↓</span><br><span class="line">Embedding 模型处理</span><br><span class="line">      ↓</span><br><span class="line">得到 <span class="number">768</span> 维查询向量 <span class="keyword">Query</span></span><br></pre></td></tr></table></figure>
+<p><strong>Step 2：找班长（粗筛）</strong></p>
+<figure class="highlight graphql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Query</span> 和 <span class="number">1000</span> 个班长（中心点）比距离：</span><br><span class="line"></span><br><span class="line">班长 <span class="comment">#789（图像处理类）：距离 0.08  ← 最近！</span></span><br><span class="line">班长 <span class="comment">#791（计算机视觉类）：距离 0.11  ← 第二近</span></span><br><span class="line">班长 <span class="comment">#456（化学类）：距离 0.89  ← 太远了，不管</span></span><br><span class="line"><span class="punctuation">...</span></span><br></pre></td></tr></table></figure>
+<p><strong>Step 3：搜小兵（细筛）</strong></p>
+<p>假设 <code>nprobe = 1</code>（只搜最近的 1 个班）：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">📊 IVF 搜索结果（nprobe=1）</span><br><span class="line"></span><br><span class="line">只搜 <span class="comment">#789 班，班里有 8000 条专利</span></span><br><span class="line">逐个计算距离...</span><br><span class="line"></span><br><span class="line">✅ 第<span class="number"> 1 </span>名：基于卷积神经网络的图像降噪系统（距离 0.12）</span><br><span class="line">✅ 第<span class="number"> 2 </span>名：深度学习图像增强方法（距离 0.15）</span><br><span class="line">❌ 第<span class="number"> 3 </span>名：某个图像分割专利（距离 0.35）</span><br><span class="line"></span><br><span class="line">召回率：67%（漏了&quot;自编码器去噪&quot;，因为它在 <span class="comment">#791 班！）</span></span><br></pre></td></tr></table></figure>
+<p>假设 <code>nprobe = 3</code>（搜最近的 3 个班）：</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">📊 IVF 搜索结果（nprobe=<span class="number">3</span>）</span><br><span class="line"></span><br><span class="line">搜 #789、#791、#788 三个班，共约 <span class="number">25000</span> 条专利</span><br><span class="line">逐个计算距离<span class="params">...</span></span><br><span class="line"></span><br><span class="line">✅ 第 <span class="number">1</span> 名：基于卷积神经网络的图像降噪系统（距离 <span class="number">0.12</span>）</span><br><span class="line">✅ 第 <span class="number">2</span> 名：深度学习图像增强方法（距离 <span class="number">0.15</span>）</span><br><span class="line">✅ 第 <span class="number">3</span> 名：图像去噪的自编码器实现（距离 <span class="number">0.18</span>）  ← 从 #791 班捞回来了！</span><br><span class="line"></span><br><span class="line">召回率：<span class="number">100</span>%</span><br></pre></td></tr></table></figure>
+<p><strong>结论</strong>：<code>nprobe</code> 就是你的&quot;保险系数&quot;。调大一点，多花点时间，但不容易漏人！</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">graph</span> <span class="selector-tag">TD</span></span><br><span class="line">    <span class="selector-tag">Q</span><span class="selector-attr">[用户查询 Query]</span> <span class="selector-tag">--</span>&gt;|<span class="number">1</span>. 对比所有中心点| <span class="selector-tag">Centroids</span>&#123;计算离谁最近&#125;</span><br><span class="line">    <span class="selector-tag">Centroids</span> <span class="selector-tag">--</span>&gt;|最近| <span class="selector-tag">C1</span><span class="selector-attr">[<span class="string">&quot;班级 A (中心点)&quot;</span>]</span></span><br><span class="line">    <span class="selector-tag">Centroids</span> <span class="selector-tag">--</span>&gt;|第二近| <span class="selector-tag">C2</span><span class="selector-attr">[<span class="string">&quot;班级 B (中心点)&quot;</span>]</span></span><br><span class="line">    <span class="selector-tag">Centroids</span> <span class="selector-tag">--</span>&gt;|第三近| <span class="selector-tag">C3</span><span class="selector-attr">[<span class="string">&quot;班级 C (中心点)&quot;</span>]</span></span><br><span class="line">    </span><br><span class="line">    <span class="selector-tag">subgraph</span> <span class="selector-tag">Range</span> <span class="selector-attr">[<span class="string">&quot;nprobe=3 的搜索范围&quot;</span>]</span></span><br><span class="line">    <span class="selector-tag">C1</span> <span class="selector-tag">--</span>&gt; <span class="selector-tag">Scan1</span><span class="selector-attr">[<span class="string">&quot;扫描 A 班所有向量&quot;</span>]</span></span><br><span class="line">    <span class="selector-tag">C2</span> <span class="selector-tag">--</span>&gt; <span class="selector-tag">Scan2</span><span class="selector-attr">[<span class="string">&quot;扫描 B 班所有向量&quot;</span>]</span></span><br><span class="line">    <span class="selector-tag">C3</span> <span class="selector-tag">--</span>&gt; <span class="selector-tag">Scan3</span><span class="selector-attr">[<span class="string">&quot;扫描 C 班所有向量&quot;</span>]</span></span><br><span class="line">    <span class="selector-tag">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="selector-tag">Scan1</span> <span class="selector-tag">&amp;</span> <span class="selector-tag">Scan2</span> <span class="selector-tag">&amp;</span> <span class="selector-tag">Scan3</span> <span class="selector-tag">--</span>&gt; <span class="selector-tag">Result</span><span class="selector-attr">[汇总排序，返回 Top K]</span></span><br><span class="line">    </span><br><span class="line">    <span class="selector-tag">style</span> <span class="selector-tag">Q</span> <span class="selector-tag">fill</span>:<span class="selector-id">#f9f</span>,<span class="selector-tag">stroke</span>:<span class="selector-id">#333</span></span><br><span class="line">    <span class="selector-tag">style</span> <span class="selector-tag">Result</span> <span class="selector-tag">fill</span>:<span class="selector-id">#bfb</span>,<span class="selector-tag">stroke</span>:<span class="selector-id">#333</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="四、-HNSW-分层图索引">四、 HNSW (分层图索引)</h3>
+<p>IVF 虽然好，但它有个瓶颈：如果维数特别高，找班长也是要时间的。而且数据分布不均匀时，有的班特别挤，有的班没人。</p>
+<p>于是，<strong>HNSW (Hierarchical Navigable Small World)</strong> 横空出世。它是目前<strong>性能最强</strong>的算法之一。</p>
+<h4 id="1-NSW：小世界理论">1. NSW：小世界理论</h4>
+<p>你肯定听过“六度人脉”：你通过不超过 6 个人，就能认识美国总统。<br>
+在图论里，这意味着：<strong>虽然节点很多，但任意两点之间的路径其实很短。</strong></p>
+<p><strong>NSW (Navigable Small World)</strong> 的朴素思想是：<strong>贪婪搜索</strong>。</p>
+<ul>
+<li>我要找目标点 T。</li>
+<li>我先随便从一个入口点 E 进去。</li>
+<li>看看 E 的朋友里，谁离 T 最近？假如是 A。</li>
+<li>那就跳到 A。再看 A 的朋友里谁离 T 最近？</li>
+<li>一步步逼近，直到找不到更近的朋友为止。</li>
+</ul>
+<h4 id="2-HNSW：给-NSW-修高架桥">2. HNSW：给 NSW 修高架桥</h4>
+<p>NSW 的问题是：如果我不认识那个能“跨越半个地球”的朋友，我就得像走迷宫一样一步步挪，也就是“步长太短”。<br>
+HNSW 的改进核心是：<strong>分层 (Hierarchical)</strong>。</p>
+<p>你可以把它想象成<strong>交通系统</strong>：</p>
+<ul>
+<li><strong>第 0 层 (最底层)</strong>：包含所有数据，大家都是邻居，密密麻麻（社区街道）。</li>
+<li><strong>第 1 层</strong>：抽出一部分节点，建个稀疏点的网（城市主干道）。</li>
+<li><strong>第 2 层 (顶层)</strong>：再抽出一部分，建个超稀疏的网（高速公路/航线）。</li>
+</ul>
+<h4 id="3-检索过程：跳伞战术">3. 检索过程：跳伞战术</h4>
+<p>搜索过程就像<strong>坐飞机 -&gt; 转高铁 -&gt; 打车 -&gt; 步行</strong>。</p>
+<ol>
+<li><strong>从顶层出发</strong>：视野开阔，一步能跨很远。快速锁定大概区域（比如从北京定位到上海）。</li>
+<li><strong>降落一层</strong>：在那个大概区域里，利用更密的网，稍微精细一点找（定位到徐汇区）。</li>
+<li><strong>降落到底层</strong>：在最密集的网里，进行最后的精确搜索（找到那家咖啡馆）。</li>
+</ol>
+<h4 id="🔬-专利案例演示：HNSW-检索全过程">🔬 专利案例演示：HNSW 检索全过程</h4>
+<p>让我们跟着查询向量，走一遍 HNSW 的&quot;跳伞之旅&quot;！</p>
+<p><strong>第 2 层（高速公路层）：只有 500 个节点</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">🛫 从入口点出发</span><br><span class="line"></span><br><span class="line">当前位置：入口点（某个通用技术专利）</span><br><span class="line">目标：找到<span class="string">&quot;深度学习图像去噪&quot;</span>相关专利</span><br><span class="line"></span><br><span class="line">第 <span class="number">1</span> 跳：入口点 → <span class="string">&quot;人工智能总类&quot;</span>节点（距离目标 <span class="number">0.6</span>）</span><br><span class="line">第 <span class="number">2</span> 跳：<span class="string">&quot;人工智能总类&quot;</span> → <span class="string">&quot;计算机视觉大类&quot;</span>节点（距离目标 <span class="number">0.3</span>）</span><br><span class="line">第 <span class="number">3</span> 跳：<span class="string">&quot;计算机视觉大类&quot;</span> → <span class="string">&quot;图像处理枢纽&quot;</span>节点（距离目标 <span class="number">0.15</span>）</span><br><span class="line"></span><br><span class="line">找不到更近的邻居了，准备降落！</span><br></pre></td></tr></table></figure>
+<p><strong>第 1 层（城市主干道层）：有 5000 个节点</strong></p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">🚄 降落到第 <span class="number">1</span> 层，从<span class="string">&quot;图像处理枢纽&quot;</span>继续</span><br><span class="line"></span><br><span class="line">第 <span class="number">4</span> 跳：<span class="string">&quot;图像处理枢纽&quot;</span> → <span class="string">&quot;深度学习图像类&quot;</span>（距离目标 <span class="number">0.09</span>）</span><br><span class="line">第 <span class="number">5</span> 跳：<span class="string">&quot;深度学习图像类&quot;</span> → <span class="string">&quot;图像增强/去噪类&quot;</span>（距离目标 <span class="number">0.05</span>）</span><br><span class="line"></span><br><span class="line">找不到更近的了，继续降落！</span><br></pre></td></tr></table></figure>
+<p><strong>第 0 层（社区街道层）：全部 1000 万个节点</strong></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">🚶 降落到底层，精细搜索</span><br><span class="line"></span><br><span class="line">第<span class="number"> 6 </span>跳：&quot;图像增强/去噪类&quot; → &quot;卷积神经网络降噪&quot;（距离 0.12）✅ 找到第<span class="number"> 1 </span>个！</span><br><span class="line">第<span class="number"> 7 </span>跳：检查邻居 → &quot;深度学习图像增强&quot;（距离 0.15）✅ 找到第<span class="number"> 2 </span>个！</span><br><span class="line">第<span class="number"> 8 </span>跳：检查邻居 → &quot;自编码器去噪&quot;（距离 0.18）✅ 找到第<span class="number"> 3 </span>个！</span><br><span class="line"></span><br><span class="line">搜索完成！总共只跳了<span class="number"> 8 </span>步！</span><br></pre></td></tr></table></figure>
+<p><strong>对比一下</strong>：</p>
+<ul>
+<li>暴力搜索：比较 1000 万次</li>
+<li>HNSW：只比较了约 200 次（每跳检查几十个邻居）</li>
+</ul>
+<p><strong>这就是 HNSW 的魔力</strong>：通过分层 + 贪婪跳跃，把 O(n) 的复杂度降到了 O(log n)！</p>
+<p>我画了个分层图帮大家理解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    subgraph Layer2 [第 2 层：高速公路]</span><br><span class="line">        Entry(入口点) --&gt;|长距离跳跃| NodeA(枢纽节点 A)</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    subgraph Layer1 [第 1 层：城市主干道]</span><br><span class="line">        NodeA -.-&gt;|降落| NodeA_L1</span><br><span class="line">        NodeA_L1 --&gt;|中距离接近| NodeB(区域节点 B)</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    subgraph Layer0 [第 0 层：所有数据]</span><br><span class="line">        NodeB -.-&gt;|降落| NodeB_L0</span><br><span class="line">        NodeB_L0 --&gt;|短距离逼近| NodeC(邻居 1)</span><br><span class="line">        NodeB_L0 --&gt;|短距离逼近| NodeD(邻居 2)</span><br><span class="line">        NodeC &lt;--&gt;|最终确认| Target(目标结果!)</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    style Entry fill:#f96</span><br><span class="line">    style Target fill:#bfb</span><br></pre></td></tr></table></figure>
+<h4 id="4-HNSW-的优缺点-Trade-off">4. HNSW 的优缺点 (Trade-off)</h4>
+<p>天下没有免费的午餐，HNSW 这么强，代价是什么？</p>
+<ul>
+<li>
+<p><strong>优点</strong>：<strong>非常快！召回率极高！</strong> 它是目前最接近完美的搜索算法。</p>
+</li>
+<li>
+<p><strong>缺点</strong>：<strong>吃内存（空间换时间）</strong>。</p>
+</li>
+<li>
+<p>除了存向量本身，还得存它在每一层的“朋友关系”（邻接表）。数据量越大，这些关系占的内存越多。</p>
+</li>
+<li>
+<p><strong>建索引慢</strong>：每插入一个新数据，都要计算它在每一层跟谁连，写入速度不如 IVF。</p>
+</li>
+</ul>
+<hr>
+<h3 id="五、-终极-PK">五、 终极 PK</h3>
+<p>看完这三大金刚，咱们最后做一个大总结，帮你决定怎么选：</p>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>原理一句话</th>
+<th>核心优势</th>
+<th>核心劣势</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Flat</strong></td>
+<td>暴力硬算，绝不偷懒</td>
+<td>100% 准确</td>
+<td>慢到令人发指</td>
+<td>数据极少（&lt;1万条）做验证时用</td>
+</tr>
+<tr>
+<td><strong>IVF</strong></td>
+<td>划分地盘，擒贼先擒王</td>
+<td>内存占用低，速度均衡</td>
+<td>精度受 <code>nprobe</code> 影响，需要预训练</td>
+<td>数据量大（亿级），内存预算有限，追求高性价比</td>
+</tr>
+<tr>
+<td><strong>HNSW</strong></td>
+<td>修建分层高速公路</td>
+<td><strong>最快，最准</strong></td>
+<td><strong>内存占用大</strong>，写入稍慢</td>
+<td>追求极致检索性能，内存管够，实时性要求高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>小白选型指南：</strong></p>
+<ul>
+<li><strong>默认首选</strong>：如果不差内存，无脑上 <strong>HNSW</strong>。现在的向量数据库（Milvus, Chroma, Weaviate）很多默认都推这个。</li>
+<li><strong>海量省钱</strong>：如果数据量几千万上亿，想省点内存，用 <strong>IVF_PQ</strong>（IVF倒排 + PQ量化压缩）。</li>
+</ul>
+<p>好啦！这次咱们把**“怎么聚类分班”<strong>、</strong>“怎么倒排查表”<strong>、</strong>“怎么分层跳跃”**这三个最硬核的逻辑都拆干净了。</p>
+<p>希望这篇“人话版”教程能让你下次看到这些技术名词时，脑海里直接浮现出“找班长”和“修高速”的画面，那是真的懂了！</p>
+<p>我是 Richard，咱们下期见！👋</p>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>ANN,IVF,HNSW</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://yjyrichard.github.io/posts/3d21c34a.html">https://yjyrichard.github.io/posts/3d21c34a.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Yangjiayu</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2026-03-01</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2026-03-01</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/milvus/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>milvus</a></div></div><link rel="stylesheet" href="/css/coin.css" media="defer" onload="this.media='all'"/><div class="post-reward"><button class="tip-button reward-button"><span class="tip-button__text">投喂作者</span><div class="coin-wrapper"><div class="coin"><div class="coin__middle"></div><div class="coin__back"></div><div class="coin__front"></div></div></div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98.jpg" target="_blank"><img class="post-qr-code-img" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E6%94%AF%E4%BB%98%E5%AE%9D.jpg" target="_blank"><img class="post-qr-code-img" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E6%94%AF%E4%BB%98%E5%AE%9D.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></button></div><audio id="coinAudio" src="https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a"></audio><script defer="defer" src="/js/coin.js"></script><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/eb693b7.html"><img class="prev-cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/9.png" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">LSH,PQ,IVF-PQ</div></div></a></div><div class="next-post pull-right"><a href="/posts/4effac66.html"><img class="next-cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/7.png" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ElasticSearch 8.x</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/eb693b7.html" title="LSH,PQ,IVF-PQ"><img class="cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/9.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2026-03-01</div><div class="title">LSH,PQ,IVF-PQ</div></div></a></div><div><a href="/posts/a7a5fe41.html" title="相似搜索算法概述"><img class="cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/15.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2026-03-01</div><div class="title">相似搜索算法概述</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><svg class="meta_icon" style="width:22px;height:22px;position:relative;top:5px"><use xlink:href="#icon-mulu1"></use></svg><span style="font-weight:bold">目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">ANN,IVF,HNSW</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%8C-%E8%BF%98%E8%AE%B0%E5%BE%97%E6%88%91%E4%BB%AC%E7%9A%84%E4%B8%93%E5%88%A9%E6%A1%88%E4%BE%8B%E5%90%97%EF%BC%9F"><span class="toc-text">📌 还记得我们的专利案例吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%EF%BC%9AANN%EF%BC%88%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%EF%BC%89"><span class="toc-text">一、 核心思想：ANN（近似最近邻）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81-%E5%9F%BA%E7%A1%80%E4%B8%AD%E7%9A%84%E5%9F%BA%E7%A1%80%EF%BC%9AK-Means-%E8%81%9A%E7%B1%BB"><span class="toc-text">二、 基础中的基础：K-Means 聚类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%BF%99%E6%98%AF%E5%9C%A8%E5%B9%B2%E5%98%9B%EF%BC%9F"><span class="toc-text">1. 这是在干嘛？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%AE%97%E6%B3%95%E6%80%8E%E4%B9%88%E5%8A%A8%EF%BC%9F%EF%BC%88%E8%BF%AD%E4%BB%A3%E8%BF%87%E7%A8%8B%EF%BC%89"><span class="toc-text">2. 算法怎么动？（迭代过程）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%9C%89%E5%95%A5-Bug%EF%BC%9F"><span class="toc-text">3. 有啥 Bug？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%94%AC-%E4%B8%93%E5%88%A9%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA%EF%BC%9AK-Means-%E8%81%9A%E7%B1%BB%E8%BF%87%E7%A8%8B"><span class="toc-text">🔬 专利案例演示：K-Means 聚类过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81-%E4%B8%AD%E6%B5%81%E7%A0%A5%E6%9F%B1%EF%BC%9AIVF-%E5%80%92%E6%8E%92%E6%96%87%E4%BB%B6%E7%B4%A2%E5%BC%95"><span class="toc-text">三、 中流砥柱：IVF (倒排文件索引)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E5%80%92%E6%8E%92%E2%80%9D%EF%BC%9F"><span class="toc-text">1. 什么是“倒排”？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Voronoi-%E5%8D%95%E5%85%83%EF%BC%88%E6%B3%B0%E6%A3%AE%E5%A4%9A%E8%BE%B9%E5%BD%A2%EF%BC%89-%E4%BA%86%E8%A7%A3"><span class="toc-text">2. Voronoi 单元（泰森多边形）[了解]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B%EF%BC%88%E6%80%8E%E4%B9%88%E6%89%BE%EF%BC%9F%EF%BC%89"><span class="toc-text">3. 检索过程（怎么找？）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%A7%A3%E5%86%B3%E8%BE%B9%E7%95%8C%E9%97%AE%E9%A2%98%E7%9A%84%E7%BB%9D%E6%8B%9B%EF%BC%9Anprobe"><span class="toc-text">4. 解决边界问题的绝招：nprobe</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%94%AC-%E4%B8%93%E5%88%A9%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA%EF%BC%9AIVF-%E6%A3%80%E7%B4%A2%E5%85%A8%E8%BF%87%E7%A8%8B"><span class="toc-text">🔬 专利案例演示：IVF 检索全过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81-HNSW-%E5%88%86%E5%B1%82%E5%9B%BE%E7%B4%A2%E5%BC%95"><span class="toc-text">四、 HNSW (分层图索引)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-NSW%EF%BC%9A%E5%B0%8F%E4%B8%96%E7%95%8C%E7%90%86%E8%AE%BA"><span class="toc-text">1. NSW：小世界理论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-HNSW%EF%BC%9A%E7%BB%99-NSW-%E4%BF%AE%E9%AB%98%E6%9E%B6%E6%A1%A5"><span class="toc-text">2. HNSW：给 NSW 修高架桥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B%EF%BC%9A%E8%B7%B3%E4%BC%9E%E6%88%98%E6%9C%AF"><span class="toc-text">3. 检索过程：跳伞战术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%F0%9F%94%AC-%E4%B8%93%E5%88%A9%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA%EF%BC%9AHNSW-%E6%A3%80%E7%B4%A2%E5%85%A8%E8%BF%87%E7%A8%8B"><span class="toc-text">🔬 专利案例演示：HNSW 检索全过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-HNSW-%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9-Trade-off"><span class="toc-text">4. HNSW 的优缺点 (Trade-off)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81-%E7%BB%88%E6%9E%81-PK"><span class="toc-text">五、 终极 PK</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">格言🧬</p><div class="bg-ad"><div>再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨</div><div class="btn-xz-box"><a class="btn-xz" href="#">点击开启星辰之旅</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">猜你想看💡</p><ul class="ft-links"><li><a href="/social/link/">我的朋友</a><a href="/comments/">留点什么</a></li><li><a href="/personal/about/">关于作者</a><a href="/archives/">文章归档</a></li><li><a href="/categories/">文章分类</a><a href="/tags/">文章标签</a></li><li><a href="/box/Gallery/">我的画廊</a><a href="/personal/bb/">我的唠叨</a></li><li><a href="/site/time/">建设进程</a><a href="/site/census/">网站统计</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链⌛</p><div class="ft-img-group"></div></div></div><div class="copyright"><span><b>&copy;2025-2026</b></span><span><b>&nbsp;&nbsp;By Yangjiayu</b></span></div><div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v6.3.0"><img src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.3.1"><img src="https://sourcebucket.s3.ladydaily.com/badge/Theme-Butterfly-6513df.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" title="本站采用多线部署，主线路托管于Vercel"><img src="https://sourcebucket.s3.ladydaily.com/badge/Hosted-Vercel-brightgreen.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://user.51.la/" style="margin-inline:5px" title="本站数据分析得益于51la技术支持"><img src="https://sourcebucket.s3.ladydaily.com/badge/Analytics-51la-3db1eb.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://icp.gov.moe/?keyword=20226665" style="margin-inline:5px" title="本站已加入萌ICP豪华套餐，萌ICP备20226665号"><img src="https://sourcebucket.s3.ladydaily.com/badge/萌ICP备-20226665-fe1384.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://bitiful.dogecast.com/buckets" style="margin-inline:5px" title="本网站经Service Worker分流至缤纷云对象存储"><img src=" https://sourcebucket.s3.ladydaily.com/badge/Bucket-缤纷云-9c62da.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://www.netdun.net/" style="margin-inline:5px" title="本站使用网盾星球提供CDN加速与防护"><img src="https://sourcebucket.s3.ladydaily.com/badge/CDN-网盾星球-fff2cc.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本网站源码由Github提供存储仓库"><img src=" https://sourcebucket.s3.ladydaily.com/badge/Source-Github-d021d6.svg" alt=""/></a></p></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button class="share" type="button" title="右键模式" onclick="changeMouseMode()"><i class="fas fa-mouse"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog right_side"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button class="share" type="button" title="分享链接" onclick="share()"><i class="fas fa-share-nodes"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><span id="percent">0<span>%</span></span></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div class="js-pjax" id="rightMenu"><div class="rightMenu-group rightMenu-small"><a class="rightMenu-item" href="javascript:window.history.back();"><i class="fa fa-arrow-left"></i></a><a class="rightMenu-item" href="javascript:window.history.forward();"><i class="fa fa-arrow-right"></i></a><a class="rightMenu-item" href="javascript:window.location.reload();"><i class="fa fa-refresh"></i></a><a class="rightMenu-item" href="javascript:rmf.scrollToTop();"><i class="fa fa-arrow-up"></i></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-text"><a class="rightMenu-item" href="javascript:rmf.copySelect();"><i class="fa fa-copy"></i><span>复制</span></a><a class="rightMenu-item" href="javascript:window.open(&quot;https://www.baidu.com/s?wd=&quot;+window.getSelection().toString());window.location.reload();"><i class="fa fa-search"></i><span>百度搜索</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-too"><a class="rightMenu-item" href="javascript:window.open(window.getSelection().toString());window.location.reload();"><i class="fa fa-link"></i><span>转到链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-paste"><a class="rightMenu-item" href="javascript:rmf.paste()"><i class="fa fa-copy"></i><span>粘贴</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-post"><a class="rightMenu-item" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item" href="javascript:rmf.copyWordsLink()"><i class="fa fa-link"></i><span>复制本文地址</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-to"><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>新窗口打开</span></a><a class="rightMenu-item" id="menu-too" href="javascript:rmf.open()"><i class="fa fa-link"></i><span>转到链接</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-img"><a class="rightMenu-item" href="javascript:rmf.saveAs()"><i class="fa fa-download"></i><span>保存图片</span></a><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>在新窗口打开</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制图片链接</span></a></div><div class="rightMenu-group rightMenu-line"><a class="rightMenu-item" href="javascript:randomPost()"><i class="fa fa-paper-plane"></i><span>随便逛逛</span></a><a class="rightMenu-item" href="javascript:switchNightMode();"><i class="fa fa-moon"></i><span>昼夜切换</span></a><a class="rightMenu-item" href="/personal/about/"><i class="fa fa-info-circle"></i><span>关于博客</span></a><a class="rightMenu-item" href="javascript:toggleWinbox();"><i class="fas fa-cog"></i><span>美化设置</span></a><a class="rightMenu-item" href="javascript:rmf.fullScreen();"><i class="fas fa-expand"></i><span>切换全屏</span></a><a class="rightMenu-item" href="javascript:window.print();"><i class="fa-solid fa-print"></i><span>打印页面</span></a></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.2/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://www.312782.xyz/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://www.312782.xyz/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script><script async src="https://cdn1.tianli0.top/npm/vue@2.6.14/dist/vue.min.js"></script><script async src="https://cdn1.tianli0.top/npm/element-ui@2.15.6/lib/index.js"></script><script async src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script><script defer type="text/javascript" src="https://cdn1.tianli0.top/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script><script async src="//npm.elemecdn.com/pace-js@1.2.4/pace.min.js"></script><script defer src="https://cdn1.tianli0.top/gh/nextapps-de/winbox/dist/winbox.bundle.min.js"></script><script async src="//at.alicdn.com/t/c/font_3586335_hsivh70x0fm.js"></script><script async src="//at.alicdn.com/t/c/font_3636804_gr02jmjr3y9.js"></script><script async src="//at.alicdn.com/t/c/font_3612150_kfv55xn3u2g.js"></script><script async src="https://cdn.wpon.cn/2022-sucai/Gold-ingot.js"></script><canvas id="universe"></canvas><canvas id="snow"></canvas><script defer src="/js/fomal.js"></script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="https://yjyrichard.github.io/categories/算法/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍡 算法学习笔记 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item" style="visibility: hidden"></div><div class="magnet_item" style="visibility: hidden"></div><a class="magnet_link_more"  href="https://yjyrichard.github.io/categories/" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(33.333333333333336% - 5px);background: #e9e9e9;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: var(--text-bg-hover)}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/d522d575.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/15.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/d522d575.html" alt="">小程序起步</a><div class="blog-slider__text">初识小程序</div><a class="blog-slider__button" href="posts/d522d575.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/8610680.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/2.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/8610680.html" alt="">大模型的token究竟是啥?</a><div class="blog-slider__text">大模型的token究竟是啥?</div><a class="blog-slider__button" href="posts/8610680.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/5c2f4951.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/13.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/5c2f4951.html" alt="">基础数据结构(3)</a><div class="blog-slider__text">栈，队列，堆，二叉树</div><a class="blog-slider__button" href="posts/5c2f4951.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/45347810.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/2.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/45347810.html" alt="">基础数据结构(2)</a><div class="blog-slider__text">递归</div><a class="blog-slider__button" href="posts/45347810.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/6e192bd3.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/15.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/6e192bd3.html" alt="">基础数据结构(1)</a><div class="blog-slider__text">数组与链表</div><a class="blog-slider__button" href="posts/6e192bd3.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/3ec27523.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/15.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-21</span><a class="blog-slider__title" href="posts/3ec27523.html" alt="">微信支付</a><div class="blog-slider__text">java整合微信的网页支付包含原理</div><a class="blog-slider__button" href="posts/3ec27523.html" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script data-pjax src="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('gitZone');
+      var item_html = '<div class="recent-post-item" id="gitcalendarBar" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 320px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('gitZone') && (location.pathname ==='/site/census/'|| '/site/census/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("/api?null",['#d9e0df', '#c6e0dc', '#a8dcd4', '#9adcd2', '#89ded1', '#77e0d0', '#5fdecb', '#47dcc6', '#39dcc3', '#1fdabe', '#00dab9'],'null')
+    }
+  </script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('blog-slider swiper-container-fade swiper-container-horizontal');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('catalog_magnet');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s·');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__jackInTheBox');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><!-- hexo injector body_end end -->
+<!-- mermaid-injected: 2026-03-01 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+  try {
+    if (window.mermaid && !window.__hexo_mermaid_initialized__) {
+      window.__hexo_mermaid_initialized__ = true;
+      mermaid.initialize({"startOnLoad":true,"securityLevel":"loose"});
+    }
+  } catch (e) { console && console.warn && console.warn('Mermaid init failed:', e); }
+</script>
+</body></html>
