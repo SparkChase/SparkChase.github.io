@@ -1,0 +1,1503 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><div id="myscoll"></div><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Milvus从入门到入土 | Yangjiayu</title><meta name="keywords" content="milvus"><meta name="author" content="Yangjiayu"><meta name="copyright" content="Yangjiayu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Milvus从入门到入土">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Milvus从入门到入土">
+<meta property="og:url" content="https://yjyrichard.github.io/posts/4351da6a.html">
+<meta property="og:site_name" content="Yangjiayu">
+<meta property="og:description" content="Milvus从入门到入土">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/6.png">
+<meta property="article:published_time" content="2026-03-22T15:19:14.201Z">
+<meta property="article:modified_time" content="2026-03-22T15:31:32.363Z">
+<meta property="article:author" content="Yangjiayu">
+<meta property="article:tag" content="milvus">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/6.png"><link rel="shortcut icon" href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/your_image_path_here.jpg"><link rel="canonical" href="https://yjyrichard.github.io/posts/4351da6a"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"var(--theme-color)","bgDark":"#191919","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Milvus从入门到入土',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-22 23:31:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.5.0/css/all.min.css"><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/element-ui@2.15.6/packages/theme-chalk/lib/index.css"><style id="themeColor"></style><style id="rightSide"></style><style id="transPercent"></style><style id="blurNum"></style><style id="settingStyle"></style><span id="fps"></span><style id="defineBg"></style><style id="menu_shadow"></style><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Yangjiayu" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/your_image_path_here.jpg" onerror="onerror=null;src='/assets/r1.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">147</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">29</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon--article"></use></svg><span class="menu_word" style="font-size:17px"> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1">                   </use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-sekuaibiaoqian">                   </use></svg><span class="menu_word" style="font-size:17px"> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-fenlei">                   </use></svg><span class="menu_word" style="font-size:17px"> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pinweishenghuo"></use></svg><span class="menu_word" style="font-size:17px"> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/life/music/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-yinle">                   </use></svg><span class="menu_word" style="font-size:17px"> 八音盒</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/movies/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-dianying1">                   </use></svg><span class="menu_word" style="font-size:17px"> 影院</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/games/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-youxishoubing">                   </use></svg><span class="menu_word" style="font-size:17px"> 健身</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/books/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-lianjie">                   </use></svg><span class="menu_word" style="font-size:17px"> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-shejiaoxinxi"></use></svg><span class="menu_word" style="font-size:17px"> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/social/fcircle/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pengyouquan">                   </use></svg><span class="menu_word" style="font-size:17px"> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-liuyan">                   </use></svg><span class="menu_word" style="font-size:17px"> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-maoliang"></use></svg><span class="menu_word" style="font-size:17px"> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/personal/bb/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-qunliaotian">                   </use></svg><span class="menu_word" style="font-size:17px"> 时间管理</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/love/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-love-sign">                   </use></svg><span class="menu_word" style="font-size:17px"> 恋爱小屋</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/about/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-paperplane">                   </use></svg><span class="menu_word" style="font-size:17px"> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Yangjiayu</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon--article"></use></svg><span class="menu_word" style="font-size:17px"> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1">                   </use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-sekuaibiaoqian">                   </use></svg><span class="menu_word" style="font-size:17px"> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-fenlei">                   </use></svg><span class="menu_word" style="font-size:17px"> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pinweishenghuo"></use></svg><span class="menu_word" style="font-size:17px"> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/life/music/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-yinle">                   </use></svg><span class="menu_word" style="font-size:17px"> 八音盒</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/movies/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-dianying1">                   </use></svg><span class="menu_word" style="font-size:17px"> 影院</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/games/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-youxishoubing">                   </use></svg><span class="menu_word" style="font-size:17px"> 健身</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/books/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-lianjie">                   </use></svg><span class="menu_word" style="font-size:17px"> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-shejiaoxinxi"></use></svg><span class="menu_word" style="font-size:17px"> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/social/fcircle/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pengyouquan">                   </use></svg><span class="menu_word" style="font-size:17px"> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-liuyan">                   </use></svg><span class="menu_word" style="font-size:17px"> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-maoliang"></use></svg><span class="menu_word" style="font-size:17px"> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/personal/bb/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-qunliaotian">                   </use></svg><span class="menu_word" style="font-size:17px"> 时间管理</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/love/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-love-sign">                   </use></svg><span class="menu_word" style="font-size:17px"> 恋爱小屋</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/about/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-paperplane">                   </use></svg><span class="menu_word" style="font-size:17px"> 关于</span></a></li></ul></div></div><center id="name-container"><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></center><div id="nav-right"><div id="search-button"><a class="search faa-parent animated-hover" title="检索站内任何你想要的信息"><svg class="faa-tada icon" style="height:24px;width:24px;fill:currentColor;position:relative;top:6px" aria-hidden="true"><use xlink:href="#icon-valentine_-search-love-find-heart"></use></svg><span> 搜索</span></a></div><a class="meihua faa-parent animated-hover" onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button"><svg class="faa-tada icon" style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true"><use xlink:href="#icon-tupian1"></use></svg></a><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="浅色和深色模式转换" id="nightmode-button"><svg class="faa-tada" style="height:25px;width:25px;fill:currentColor;position:relative;top:7px" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">       </use></svg></a><div id="toggle-menu"><a><i class="fas fa-bars fa-fw"></i></a></div></div></div></nav><div id="post-info"><h1 class="post-title">Milvus从入门到入土</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><svg class="meta_icon post-meta-icon" style="width:30px;height:30px;position:relative;top:10px"><use xlink:href="#icon-rili"></use></svg><span class="post-meta-label">发表于 </span><time class="post-meta-date-created" datetime="2026-03-22T15:19:14.201Z" title="发表于 2026-03-22 23:19:14">2026-03-22</time><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-gengxin1"></use></svg><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-22T15:31:32.363Z" title="更新于 2026-03-22 23:31:32">2026-03-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-biaoqian"></use></svg><a class="post-meta-categories" href="/categories/milvus/">milvus</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:8px"><use xlink:href="#icon-charuword"></use></svg><span class="post-meta-label">字数总计:</span><span class="word-count">9960</span><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:20px;height:20px;position:relative;top:5px"><use xlink:href="#icon-shizhong"></use></svg><span class="post-meta-label">阅读时长:</span><span>32分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Milvus从入门到入土"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:5px"><use xlink:href="#icon-eye"></use></svg><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Milvus-从入门到入土：把向量数据库、底层原理和工程实战一次讲透"><a href="#Milvus-从入门到入土：把向量数据库、底层原理和工程实战一次讲透" class="headerlink" title="Milvus 从入门到入土：把向量数据库、底层原理和工程实战一次讲透"></a>Milvus 从入门到入土：把向量数据库、底层原理和工程实战一次讲透</h1><p>更新时间：2026-03-18<br>适用范围：以 Milvus 官方文档 v2.6.x 为主，辅以部分 v2.2/v2.3 文档解释历史架构名词差异。<br>阅读目标：看完以后，你应该能回答下面这些问题：</p>
+<ul>
+<li>Milvus 到底是什么，和 MySQL / Elasticsearch / Faiss 的关系是什么？</li>
+<li>Collection、Partition、Shard、Segment、Growing、Sealed、Flush、Compaction 分别是什么？</li>
+<li>为什么 <code>load()</code> 之后才能查？为什么频繁 <code>flush()</code> 反而可能变慢？</li>
+<li>写入一条向量后，Milvus 在后台到底做了什么？</li>
+<li>查询一条向量时，Proxy、QueryNode、DataNode、WAL、MinIO、etcd 分别在干嘛？</li>
+<li><code>upsert</code> 为什么是按主键工作的？为什么 <code>auto_id=True</code> 时它不一定适合业务去重？</li>
+<li>Milvus 为什么适合做海量向量检索？为什么它能扩展成集群？</li>
+<li>面试时怎样把 Milvus 讲得像一个“真正理解过”的系统，而不是 API 使用者？</li>
+</ul>
+<p>如果你是第一次接触向量数据库，这篇文章会尽量用“人话 + 工程视角”把 Milvus 讲清楚；如果你已经在做 RAG、知识库检索、图片检索、推荐召回，这篇文章则会帮你把很多“会用但说不透”的点真正串起来。</p>
+<p>你可以把这篇文章理解成两条线同时展开：</p>
+<ul>
+<li><strong>概念线</strong>：Collection、Segment、Flush、Load、Index、Query 到底是什么</li>
+<li><strong>工程线</strong>：怎么建模、怎么导入、怎么选索引、怎么理解写入与查询链路、怎么避坑</li>
+</ul>
+<hr>
+<h2 id="1-Milvus-是什么"><a href="#1-Milvus-是什么" class="headerlink" title="1. Milvus 是什么"></a>1. Milvus 是什么</h2><p>一句话版：</p>
+<p>Milvus 是一个开源、云原生、面向海量向量数据的数据库，核心能力是“存向量 + 建索引 + 近邻检索 + 标量过滤 + 分布式扩展”。</p>
+<p>你可以把它理解成：</p>
+<ul>
+<li>不是“大模型”本身，它不负责训练模型。</li>
+<li>不是“embedding 模型”本身，它不负责把文本/图片变成向量，虽然现在也支持一些 embedding function。</li>
+<li>它更像是“向量数据的数据库 + 检索执行引擎”。</li>
+</ul>
+<p>如果类比：</p>
+<ul>
+<li><code>MySQL</code> 擅长结构化数据、事务、精确查询。</li>
+<li><code>Elasticsearch</code> 擅长倒排、全文检索、日志检索。</li>
+<li><code>Faiss</code> 擅长单机向量索引和近邻搜索。</li>
+<li><code>Milvus</code> 则是在 Faiss/HNSW/DiskANN 这类检索能力之上，补齐了数据库层、分布式层、持久化层、元数据管理层、集群扩展层。</li>
+</ul>
+<p>Milvus 的典型用途：</p>
+<ul>
+<li>RAG 知识库检索</li>
+<li>图搜图、文搜图、图文混搜</li>
+<li>推荐召回</li>
+<li>专利、论文、多媒体相似检索</li>
+<li>稠密向量 + 稀疏向量 + 标量过滤的混合检索</li>
+</ul>
+<p>官方资料里也明确强调了 Milvus 面向从本地原型到大规模分布式场景的多种部署模式，并且是“计算与存储分离”的架构。</p>
+<hr>
+<h2 id="2-Milvus-解决的根问题是什么"><a href="#2-Milvus-解决的根问题是什么" class="headerlink" title="2. Milvus 解决的根问题是什么"></a>2. Milvus 解决的根问题是什么</h2><p>传统数据库擅长的是“精确匹配”：</p>
+<ul>
+<li><code>id = 123</code></li>
+<li><code>name like &#39;apple%&#39;</code></li>
+<li><code>price &gt; 10</code></li>
+</ul>
+<p>但向量检索的核心问题是：</p>
+<ul>
+<li>“这个文本和哪些文本语义最像？”</li>
+<li>“这张图片和图库中哪些图片最相似？”</li>
+<li>“这个专利 claims 向量最接近哪些历史专利？”</li>
+</ul>
+<p>这时你存的不是一句话本身，而是一个高维向量，比如：</p>
+<ul>
+<li>384 维</li>
+<li>768 维</li>
+<li>1024 维</li>
+</ul>
+<p>然后你的查询不再是 SQL 精确比较，而是：</p>
+<ul>
+<li>计算余弦相似度 <code>COSINE</code></li>
+<li>计算欧氏距离 <code>L2</code></li>
+<li>计算内积 <code>IP</code></li>
+</ul>
+<p>如果你把 1 亿条向量都暴力全扫，肯定慢。所以 Milvus 的核心价值就是：</p>
+<ol>
+<li>把向量和元数据组织成数据库里的结构</li>
+<li>给向量建适合 ANN 的索引</li>
+<li>用分布式方式存、管、查</li>
+<li>在召回速度、召回率、成本之间做工程平衡</li>
+</ol>
+<hr>
+<h2 id="3-Milvus-的基础对象"><a href="#3-Milvus-的基础对象" class="headerlink" title="3. Milvus 的基础对象"></a>3. Milvus 的基础对象</h2><h3 id="3-1-Collection"><a href="#3-1-Collection" class="headerlink" title="3.1 Collection"></a>3.1 Collection</h3><p>Collection 可以理解为“表”。</p>
+<p>官方文档的定义是：Collection 是一个二维表，固定列、可变行；列叫 field，行叫 entity。</p>
+<p>例子：</p>
+<ul>
+<li><code>Collection_Main</code></li>
+<li><code>Collection_Claims</code></li>
+<li><code>Collection_Images</code></li>
+</ul>
+<p>你项目里也就是这么用的：</p>
+<ul>
+<li><a href="d:/dev/develop/prod/dinov2_milvus_Test/发明专利导入脚本/create_utility_patent_db.py">create_utility_patent_db.py</a></li>
+</ul>
+<h3 id="3-2-Field"><a href="#3-2-Field" class="headerlink" title="3.2 Field"></a>3.2 Field</h3><p>Field 就是列。</p>
+<p>可以是：</p>
+<ul>
+<li>标量字段：<code>VARCHAR</code>、<code>INT64</code>、<code>BOOL</code>、<code>JSON</code>、<code>ARRAY</code></li>
+<li>向量字段：<code>FLOAT_VECTOR</code>、<code>SPARSE_FLOAT_VECTOR</code></li>
+</ul>
+<p>例如你的 <code>Collection_Claims</code>：</p>
+<ul>
+<li><code>application_number</code></li>
+<li><code>claim_number</code></li>
+<li><code>claim_text</code></li>
+<li><code>claim_vector_dense</code></li>
+<li><code>claim_vector_sparse</code></li>
+</ul>
+<h3 id="3-3-Entity"><a href="#3-3-Entity" class="headerlink" title="3.3 Entity"></a>3.3 Entity</h3><p>Entity 就是一行数据。</p>
+<p>比如一条权利要求：</p>
+<ul>
+<li>application_number = <code>US123...</code></li>
+<li>claim_number = <code>1</code></li>
+<li>claim_text = <code>A method for ...</code></li>
+<li>claim_vector_dense = 768 维向量</li>
+</ul>
+<h3 id="3-4-Primary-Field"><a href="#3-4-Primary-Field" class="headerlink" title="3.4 Primary Field"></a>3.4 Primary Field</h3><p>Primary Field 就是主键。</p>
+<p>Milvus 的很多操作都依赖主键：</p>
+<ul>
+<li>insert</li>
+<li>delete</li>
+<li>query</li>
+<li>upsert</li>
+</ul>
+<p>主键可以是：</p>
+<ul>
+<li><code>INT64</code></li>
+<li><code>VARCHAR</code></li>
+</ul>
+<h3 id="3-5-AutoID"><a href="#3-5-AutoID" class="headerlink" title="3.5 AutoID"></a>3.5 AutoID</h3><p>如果启用 <code>auto_id=True</code>，Milvus 自动给你生成主键。</p>
+<p>优点：</p>
+<ul>
+<li>导入简单</li>
+<li>不用自己维护唯一 ID</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>你的业务主键不再等于 Milvus 主键</li>
+<li><code>upsert</code>、<code>delete(ids=...)</code>、主键定位这类能力会没那么顺手</li>
+</ul>
+<p>你的项目当前就是这种设计：主键是自增 <code>id</code>，业务字段 <code>application_number</code> 不是主键。</p>
+<p>参考：</p>
+<ul>
+<li><a href="d:/dev/develop/prod/dinov2_milvus_Test/发明专利导入脚本/create_utility_patent_db.py#L68">create_utility_patent_db.py</a></li>
+<li><a href="d:/dev/develop/prod/dinov2_milvus_Test/发明专利导入脚本/create_utility_patent_db.py#L132">create_utility_patent_db.py</a></li>
+</ul>
+<hr>
+<h2 id="4-Partition、Shard、Segment-到底分别是什么"><a href="#4-Partition、Shard、Segment-到底分别是什么" class="headerlink" title="4. Partition、Shard、Segment 到底分别是什么"></a>4. Partition、Shard、Segment 到底分别是什么</h2><p>这三个词最容易混。</p>
+<h3 id="4-1-Partition"><a href="#4-1-Partition" class="headerlink" title="4.1 Partition"></a>4.1 Partition</h3><p>Partition 是 Collection 的子集。</p>
+<p>它更偏“逻辑分组”：</p>
+<ul>
+<li>按租户分</li>
+<li>按年份分</li>
+<li>按业务域分</li>
+</ul>
+<p>好处：</p>
+<ul>
+<li>可以缩小搜索范围</li>
+<li>方便管理</li>
+</ul>
+<p>坏处：</p>
+<ul>
+<li>不是越多越好</li>
+<li>分太碎会有管理和查询负担</li>
+</ul>
+<p>一句话记忆：</p>
+<p>Partition 是“你主动设计的逻辑分区”。</p>
+<h3 id="4-2-Shard"><a href="#4-2-Shard" class="headerlink" title="4.2 Shard"></a>4.2 Shard</h3><p>Shard 是 Collection 的水平切片，对应数据输入通道。</p>
+<p>官方文档里说得很直接：Shard 是 Collection 的水平切片，每个 shard 对应一个 data input channel。</p>
+<p>它主要服务于：</p>
+<ul>
+<li>写入吞吐扩展</li>
+<li>并发处理</li>
+<li>数据路由</li>
+</ul>
+<p>一句话记忆：</p>
+<p>Shard 是“系统为了吞吐做的并行写入切分”。</p>
+<h3 id="4-3-Segment"><a href="#4-3-Segment" class="headerlink" title="4.3 Segment"></a>4.3 Segment</h3><p>Segment 是 Milvus 真正存放数据和建立索引的基本物理单元。</p>
+<p>这是最重要的对象之一。</p>
+<p>你可以把它理解成：</p>
+<ul>
+<li>Collection 是逻辑大表</li>
+<li>Segment 是表下面一块一块的物理数据块</li>
+</ul>
+<p>Milvus 不会把一个 collection 直接当成一个整体文件去处理，而是拆成很多 segment。</p>
+<p>原因很简单：</p>
+<ul>
+<li>便于并行写入</li>
+<li>便于并行检索</li>
+<li>便于单块建索引</li>
+<li>便于 compaction</li>
+<li>便于分布到不同节点</li>
+</ul>
+<p>一句话记忆：</p>
+<p>Segment 是“Milvus 内部真正拿来存、查、建索引、搬运的数据块”。</p>
+<hr>
+<h2 id="5-Growing-Segment-和-Sealed-Segment"><a href="#5-Growing-Segment-和-Sealed-Segment" class="headerlink" title="5. Growing Segment 和 Sealed Segment"></a>5. Growing Segment 和 Sealed Segment</h2><p>这是你这次问题的核心。</p>
+<h3 id="5-1-Growing-Segment"><a href="#5-1-Growing-Segment" class="headerlink" title="5.1 Growing Segment"></a>5.1 Growing Segment</h3><p>Growing Segment 是“还在长”的 segment。</p>
+<p>官方文档在数据处理章节里说：</p>
+<ul>
+<li>Growing segment：还没有持久化到对象存储的数据</li>
+</ul>
+<p>特征：</p>
+<ul>
+<li>还能继续写入</li>
+<li>通常没有最终稳定索引</li>
+<li>更偏实时写入态</li>
+</ul>
+<h3 id="5-2-Sealed-Segment"><a href="#5-2-Sealed-Segment" class="headerlink" title="5.2 Sealed Segment"></a>5.2 Sealed Segment</h3><p>Sealed Segment 是“封口了”的 segment。</p>
+<p>官方文档里说：</p>
+<ul>
+<li>Sealed segment：数据已经持久化到对象存储，且不可变</li>
+</ul>
+<p>特征：</p>
+<ul>
+<li>不再接收新写入</li>
+<li>数据不可变</li>
+<li>更适合建索引和查询</li>
+</ul>
+<h3 id="5-3-为什么要区分-Growing-和-Sealed"><a href="#5-3-为什么要区分-Growing-和-Sealed" class="headerlink" title="5.3 为什么要区分 Growing 和 Sealed"></a>5.3 为什么要区分 Growing 和 Sealed</h3><p>因为“写入中”与“已稳定可检索”是两种完全不同的工程状态。</p>
+<p>如果一个数据块还在持续写入：</p>
+<ul>
+<li>数据量还在变</li>
+<li>向量分布还在变</li>
+<li>立即反复重建索引成本很高</li>
+</ul>
+<p>所以 Milvus 的思路是：</p>
+<ol>
+<li>先把新数据写入 growing segment</li>
+<li>累积到一定条件后 seal</li>
+<li>sealed 后再做更稳定的索引构建和 handoff</li>
+</ol>
+<p>一句话记忆：</p>
+<ul>
+<li>growing = 写入态</li>
+<li>sealed = 稳定态</li>
+</ul>
+<hr>
+<h2 id="6-Seal-是什么，Flush-又是什么"><a href="#6-Seal-是什么，Flush-又是什么" class="headerlink" title="6. Seal 是什么，Flush 又是什么"></a>6. Seal 是什么，Flush 又是什么</h2><h3 id="6-1-Seal"><a href="#6-1-Seal" class="headerlink" title="6.1 Seal"></a>6.1 Seal</h3><p>Seal 就是“封口”。</p>
+<p>一个 segment 被 seal 之后：</p>
+<ul>
+<li>不再接受新写入</li>
+<li>变成不可变</li>
+<li>后续适合持久化、建索引、被查询节点加载</li>
+</ul>
+<h3 id="6-2-Flush"><a href="#6-2-Flush" class="headerlink" title="6.2 Flush"></a>6.2 Flush</h3><p>Flush 不是“建索引”本身。</p>
+<p>Flush 更准确的含义是：</p>
+<ul>
+<li>促使 growing segment 结束写入态</li>
+<li>进入 seal / 持久化 / 后续可索引的流程</li>
+</ul>
+<p>官方 API 文档对 <code>flush()</code> 的表述非常关键：</p>
+<ul>
+<li><code>flush()</code> 会 seal collection 里的 segment</li>
+<li>之后的新插入会生成新的 segment</li>
+<li>如果你持续调用 <code>flush()</code>，会产生很多小的 sealed segment，搜索性能会逐渐下降</li>
+</ul>
+<p>这就是为什么：</p>
+<ul>
+<li><code>flush()</code> 不是越勤快越好</li>
+<li>它更像“催收口”</li>
+<li>频繁 <code>flush()</code> 会导致 segment 过碎</li>
+</ul>
+<h3 id="6-3-自动-flush-与手动-flush"><a href="#6-3-自动-flush-与手动-flush" class="headerlink" title="6.3 自动 flush 与手动 flush"></a>6.3 自动 flush 与手动 flush</h3><p>Milvus 本身就会在合适的时候自动把 growing segment seal 掉。</p>
+<p>所以通常：</p>
+<ul>
+<li>大多数导入流程不需要每插一批就手动 <code>flush()</code></li>
+<li>更合理的是按较大批次 flush，甚至只在最后 flush</li>
+</ul>
+<h3 id="6-4-你可以怎么理解"><a href="#6-4-你可以怎么理解" class="headerlink" title="6.4 你可以怎么理解"></a>6.4 你可以怎么理解</h3><p>最粗暴的类比：</p>
+<ul>
+<li>Growing segment 像正在写的 Word 文档</li>
+<li>Sealed segment 像点了“定稿锁定”的 PDF</li>
+<li>Flush 像“把当前这份先定稿，不要再往里写了”</li>
+</ul>
+<hr>
+<h2 id="7-为什么频繁-flush-会拖慢性能"><a href="#7-为什么频繁-flush-会拖慢性能" class="headerlink" title="7. 为什么频繁 flush 会拖慢性能"></a>7. 为什么频繁 flush 会拖慢性能</h2><p>因为会制造很多“小而碎”的 sealed segments。</p>
+<p>官方文档已经明确说了：持续调用 <code>flush()</code> 会产生很多小 segment，并逐步降低搜索性能。</p>
+<p>为什么？</p>
+<p>因为一次查询不是只查“一个 collection 文件”，而是要查“很多个 segment”：</p>
+<ul>
+<li>每个 segment 都要参与路由、调度、过滤、合并</li>
+<li>segment 越多，调度成本越高</li>
+<li>小 segment 越多，索引和 metadata 的碎片越多</li>
+<li>后续 compaction 压力也越大</li>
+</ul>
+<p>所以一个常见的性能思路是：</p>
+<ul>
+<li>不要频繁手动 flush</li>
+<li>尽量让 segment 长到合适大小</li>
+<li>再 seal、建索引、handoff</li>
+</ul>
+<hr>
+<h2 id="8-Load-和-Release-到底是什么"><a href="#8-Load-和-Release-到底是什么" class="headerlink" title="8. Load 和 Release 到底是什么"></a>8. Load 和 Release 到底是什么</h2><h3 id="8-1-Load"><a href="#8-1-Load" class="headerlink" title="8.1 Load"></a>8.1 Load</h3><p><code>load()</code> 的本质是把可查询所需的数据和索引加载到内存中。</p>
+<p>官方文档明确写了：</p>
+<ul>
+<li>搜索和 query 之前，load 是前提</li>
+<li>load 时，Milvus 会把 index files 和 raw data 加载到内存</li>
+<li>如果 collection 已经 load，之后新插入的数据会自动被索引并加载</li>
+</ul>
+<p>这句话很重要，因为它回答了很多误解：</p>
+<ul>
+<li><code>load()</code> 不是“重建索引”</li>
+<li><code>load()</code> 也不是“把所有历史数据重新导一遍”</li>
+<li><code>load()</code> 更像“让这张表进入可查询状态”</li>
+</ul>
+<h3 id="8-2-Release"><a href="#8-2-Release" class="headerlink" title="8.2 Release"></a>8.2 Release</h3><p><code>release()</code> 就是把已经 load 的 collection 从内存中卸下来。</p>
+<p>适用于：</p>
+<ul>
+<li>暂时不查这张表</li>
+<li>节省查询节点内存</li>
+<li>让资源给别的 collection</li>
+</ul>
+<h3 id="8-3-插入后为什么还能查到"><a href="#8-3-插入后为什么还能查到" class="headerlink" title="8.3 插入后为什么还能查到"></a>8.3 插入后为什么还能查到</h3><p>因为如果 collection 已经 load，Milvus 会让后续插入的数据自动被索引并加载。</p>
+<p>所以你的脚本里一开始 <code>load()</code>，然后边导边查重，本身不是错。</p>
+<hr>
+<h2 id="9-Index-是什么"><a href="#9-Index-是什么" class="headerlink" title="9. Index 是什么"></a>9. Index 是什么</h2><p>Index 是建在数据之上的附加结构。</p>
+<p>官方文档的定义非常经典：</p>
+<ul>
+<li>索引是 built on top of data 的额外结构</li>
+<li>它能加速搜索</li>
+<li>但会带来额外的预处理时间、空间开销、内存开销</li>
+<li>ANN 索引通常还会用少量召回率换速度</li>
+</ul>
+<p>这和传统数据库索引类似，但又不完全一样。</p>
+<p>传统数据库索引：</p>
+<ul>
+<li>B+ 树</li>
+<li>Hash</li>
+<li>倒排</li>
+</ul>
+<p>向量数据库索引：</p>
+<ul>
+<li>FLAT</li>
+<li>IVF_FLAT</li>
+<li>IVF_SQ8</li>
+<li>IVF_PQ</li>
+<li>HNSW</li>
+<li>DISKANN</li>
+<li>SPARSE_INVERTED_INDEX</li>
+</ul>
+<p>一句话记忆：</p>
+<p>索引不是数据本身，而是“为了更快找到近邻而建立的辅助结构”。</p>
+<hr>
+<h2 id="10-常见索引怎么选"><a href="#10-常见索引怎么选" class="headerlink" title="10. 常见索引怎么选"></a>10. 常见索引怎么选</h2><h3 id="10-1-FLAT"><a href="#10-1-FLAT" class="headerlink" title="10.1 FLAT"></a>10.1 FLAT</h3><p>暴力检索，不做近似。</p>
+<p>特点：</p>
+<ul>
+<li>最准</li>
+<li>最慢</li>
+<li>最吃算力</li>
+</ul>
+<p>适合：</p>
+<ul>
+<li>小数据集</li>
+<li>基准测试</li>
+<li>校验召回率</li>
+</ul>
+<h3 id="10-2-IVF-FLAT-IVF-SQ8-IVF-PQ"><a href="#10-2-IVF-FLAT-IVF-SQ8-IVF-PQ" class="headerlink" title="10.2 IVF_FLAT / IVF_SQ8 / IVF_PQ"></a>10.2 IVF_FLAT / IVF_SQ8 / IVF_PQ</h3><p>IVF 系列的核心思想：</p>
+<ul>
+<li>先把向量粗分桶</li>
+<li>查询时先找最相关的桶</li>
+<li>只在部分桶里继续搜</li>
+</ul>
+<p>区别：</p>
+<ul>
+<li><code>IVF_FLAT</code>：桶内存原始向量</li>
+<li><code>IVF_SQ8</code>：桶内向量做标量量化，省内存</li>
+<li><code>IVF_PQ</code>：进一步压缩，省得更多，但误差更大</li>
+</ul>
+<p>你项目现在大量使用的是 <code>IVF_SQ8</code>，这是一个很典型的工程折中：</p>
+<ul>
+<li>比 FLAT 省内存、省成本</li>
+<li>比 PQ 更稳一些</li>
+</ul>
+<h3 id="10-3-HNSW"><a href="#10-3-HNSW" class="headerlink" title="10.3 HNSW"></a>10.3 HNSW</h3><p>图索引，通常高召回、低延迟，但内存占用高。</p>
+<p>适合：</p>
+<ul>
+<li>追求高召回、高性能在线查询</li>
+<li>内存预算充足</li>
+</ul>
+<h3 id="10-4-DISKANN"><a href="#10-4-DISKANN" class="headerlink" title="10.4 DISKANN"></a>10.4 DISKANN</h3><p>面向大规模磁盘检索。</p>
+<p>适合：</p>
+<ul>
+<li>数据特别大</li>
+<li>希望把更多压力放到磁盘而非内存</li>
+</ul>
+<h3 id="10-5-SPARSE-INVERTED-INDEX"><a href="#10-5-SPARSE-INVERTED-INDEX" class="headerlink" title="10.5 SPARSE_INVERTED_INDEX"></a>10.5 SPARSE_INVERTED_INDEX</h3><p>用于稀疏向量，尤其是 BM25 / 全文检索场景。</p>
+<p>你项目里 <code>claim_vector_sparse</code> 就是这种路线。</p>
+<hr>
+<h2 id="11-Search、Query、Get-的区别"><a href="#11-Search、Query、Get-的区别" class="headerlink" title="11. Search、Query、Get 的区别"></a>11. Search、Query、Get 的区别</h2><h3 id="11-1-Search"><a href="#11-1-Search" class="headerlink" title="11.1 Search"></a>11.1 Search</h3><p>Search 是“按向量相似度找近邻”。</p>
+<p>输入通常是：</p>
+<ul>
+<li>一个 query vector</li>
+<li>指定向量字段</li>
+<li>指定 metric</li>
+<li>topK</li>
+</ul>
+<p>输出通常是：</p>
+<ul>
+<li>最相似的若干条实体</li>
+</ul>
+<h3 id="11-2-Query"><a href="#11-2-Query" class="headerlink" title="11.2 Query"></a>11.2 Query</h3><p>Query 是“按标量条件过滤取数据”。</p>
+<p>例如：</p>
+<ul>
+<li><code>application_number == &quot;US...&quot;</code> </li>
+<li><code>claim_number in [1,2,3]</code></li>
+</ul>
+<p>它不强调向量近邻，而是偏数据库式筛选。</p>
+<h3 id="11-3-Get"><a href="#11-3-Get" class="headerlink" title="11.3 Get"></a>11.3 Get</h3><p>Get 是“按主键取数据”。</p>
+<p>如果你知道主键，直接拿。</p>
+<p>一句话记忆：</p>
+<ul>
+<li>search = 向量近邻</li>
+<li>query = 条件过滤</li>
+<li>get = 主键直取</li>
+</ul>
+<hr>
+<h2 id="12-写入一条数据时，Milvus-后台发生了什么"><a href="#12-写入一条数据时，Milvus-后台发生了什么" class="headerlink" title="12. 写入一条数据时，Milvus 后台发生了什么"></a>12. 写入一条数据时，Milvus 后台发生了什么</h2><p>这是最值得掌握的主线。</p>
+<p>以 v2.6 的官方架构描述为主，可以理解为：</p>
+<ol>
+<li>客户端通过 SDK 或 REST 把写入请求发给 Proxy</li>
+<li>Proxy 做请求校验</li>
+<li>Proxy 按 shard 路由把数据送到对应 Streaming Node</li>
+<li>Streaming Node 为数据分配时间戳 TSO</li>
+<li>Streaming Node 先把操作写入 WAL</li>
+<li>数据进入 growing segment</li>
+<li>在 segment 满足条件或 flush 后，growing 变 sealed</li>
+<li>Data Node 对 sealed segment 做离线处理，比如 compaction、建索引</li>
+<li>索引文件和日志快照写入对象存储</li>
+<li>Query Node 加载 sealed segment 及其索引，参与稳定查询</li>
+<li>Coordinator 做 handoff，把实时态转为历史态</li>
+</ol>
+<p>你要把这条链子记成一句话：</p>
+<p>写入链路 = Proxy 接请求 -&gt; StreamingNode 记 WAL -&gt; Growing Segment 吃数据 -&gt; Flush/Seal -&gt; DataNode 建索引 -&gt; QueryNode 加载查询</p>
+<hr>
+<h2 id="13-查询一条向量时，Milvus-后台发生了什么"><a href="#13-查询一条向量时，Milvus-后台发生了什么" class="headerlink" title="13. 查询一条向量时，Milvus 后台发生了什么"></a>13. 查询一条向量时，Milvus 后台发生了什么</h2><p>同样按官方主线理解：</p>
+<ol>
+<li>客户端发起 search / query</li>
+<li>请求先到 Proxy</li>
+<li>Proxy 根据路由信息找到相关 shard / 节点</li>
+<li>对 growing 数据，由负责该 shard 的节点查实时数据</li>
+<li>对 sealed 数据，由 Query Node 查历史数据和索引</li>
+<li>各节点返回局部 topK</li>
+<li>Proxy 做归并和后处理</li>
+<li>返回最终结果</li>
+</ol>
+<p>这说明一件事：</p>
+<p>一次查询不只是“查一个索引文件”，而是一个分布式归并过程。</p>
+<p>所以面试里你可以说：</p>
+<p>“Milvus 的查询是多阶段的，既要覆盖 growing segment 的实时数据，也要覆盖 sealed segment 的历史数据，最后由 Proxy 或中间层做归并。”</p>
+<p>这句话很像真正理解过系统的人说的。</p>
+<hr>
+<h2 id="14-Compaction-是什么"><a href="#14-Compaction-是什么" class="headerlink" title="14. Compaction 是什么"></a>14. Compaction 是什么</h2><p>Compaction 可以理解为“整理碎片、合并数据块、优化存储布局”。</p>
+<p>它不是简单的“压缩文件”，而是数据重写和重组织。</p>
+<p>Milvus 做 compaction 的动机：</p>
+<ul>
+<li>segment 太碎</li>
+<li>删除标记需要清理</li>
+<li>查询要减少无关 segment</li>
+<li>让后续检索更高效</li>
+</ul>
+<h3 id="14-1-普通-compaction"><a href="#14-1-普通-compaction" class="headerlink" title="14.1 普通 compaction"></a>14.1 普通 compaction</h3><p>常见用途：</p>
+<ul>
+<li>合并小 segment</li>
+<li>清理删除痕迹</li>
+<li>优化存储布局</li>
+</ul>
+<h3 id="14-2-Clustering-Compaction"><a href="#14-2-Clustering-Compaction" class="headerlink" title="14.2 Clustering Compaction"></a>14.2 Clustering Compaction</h3><p>这是 Milvus 较新的高级优化。</p>
+<p>官方文档里说得很清楚：</p>
+<ul>
+<li>Milvus 会把实体存到多个 segment</li>
+<li>如果 segment 是随机分布的，查询时往往要扫很多 segment</li>
+<li>clustering compaction 可以按某个标量字段重排 segment</li>
+<li>这样带过滤条件的查询就能 prune 掉很多无关 segment</li>
+</ul>
+<p>最典型场景：</p>
+<ul>
+<li>多租户</li>
+<li>按 tenant_id / category / time_range 检索</li>
+</ul>
+<p>一句话记忆：</p>
+<p>Compaction 是“把已经写进去的物理数据重新整理得更适合查”。</p>
+<hr>
+<h2 id="15-Delete-为什么不是立刻“物理删除”"><a href="#15-Delete-为什么不是立刻“物理删除”" class="headerlink" title="15. Delete 为什么不是立刻“物理删除”"></a>15. Delete 为什么不是立刻“物理删除”</h2><p>从 Milvus 的设计看，删除更像：</p>
+<ul>
+<li>先记录删除操作</li>
+<li>读取时通过 bitset / tombstone 之类的机制把它屏蔽</li>
+<li>后续 compaction 再做更彻底的物理整理</li>
+</ul>
+<p>这和很多 LSM / 日志型系统的思路是类似的。</p>
+<p>你要理解：</p>
+<ul>
+<li>分布式存储里，“逻辑删除先行，物理回收滞后”很常见</li>
+<li>这样可以兼顾写入吞吐、时间旅行、恢复能力</li>
+</ul>
+<hr>
+<h2 id="16-Time-Travel-和-retentionDuration"><a href="#16-Time-Travel-和-retentionDuration" class="headerlink" title="16. Time Travel 和 retentionDuration"></a>16. Time Travel 和 retentionDuration</h2><p>Milvus 支持 Time Travel，也就是“按某个时间点看数据视图”。</p>
+<p>官方文档提到：</p>
+<ul>
+<li>Milvus 会给 DDL/DML 事件打时间戳</li>
+<li>默认允许的 Time Travel 保留时长是 <code>432000</code> 秒，也就是 120 小时</li>
+<li><code>common.retentionDuration</code> 控制删除数据可用于 Time Travel 的保留时长</li>
+</ul>
+<p>这件事意味着：</p>
+<ul>
+<li>删除过的数据不一定马上永远不可见</li>
+<li>在一定保留窗口内，系统还要维护历史可见性</li>
+<li>因此 compaction 也不能胡来，要考虑 retention window</li>
+</ul>
+<hr>
+<h2 id="17-一致性等级：Strong、Bounded、Session、Eventually"><a href="#17-一致性等级：Strong、Bounded、Session、Eventually" class="headerlink" title="17. 一致性等级：Strong、Bounded、Session、Eventually"></a>17. 一致性等级：Strong、Bounded、Session、Eventually</h2><p>Milvus 是分布式系统，所以“刚写进去的数据，立刻查，必须看到吗？”这个问题就变成一致性问题。</p>
+<p>官方文档给了四种一致性等级：</p>
+<ul>
+<li><code>Strong</code></li>
+<li><code>Bounded</code></li>
+<li><code>Session</code></li>
+<li><code>Eventually</code></li>
+</ul>
+<p>默认一般是 <code>Bounded</code>。</p>
+<h3 id="17-1-Strong"><a href="#17-1-Strong" class="headerlink" title="17.1 Strong"></a>17.1 Strong</h3><p>尽量保证读到最新写入。</p>
+<p>代价：</p>
+<ul>
+<li>等待更多同步</li>
+<li>延迟可能更高</li>
+</ul>
+<h3 id="17-2-Eventually"><a href="#17-2-Eventually" class="headerlink" title="17.2 Eventually"></a>17.2 Eventually</h3><p>更偏最终一致。</p>
+<p>好处：</p>
+<ul>
+<li>更快</li>
+</ul>
+<p>代价：</p>
+<ul>
+<li>刚写入的数据可能暂时查不到</li>
+</ul>
+<h3 id="17-3-Session"><a href="#17-3-Session" class="headerlink" title="17.3 Session"></a>17.3 Session</h3><p>更适合单会话里“我自己写的数据，我最好能看见”。</p>
+<h3 id="17-4-Bounded"><a href="#17-4-Bounded" class="headerlink" title="17.4 Bounded"></a>17.4 Bounded</h3><p>在新鲜度和延迟之间折中。</p>
+<p>这也是生产里常见的默认选择。</p>
+<p>面试里的回答方式：</p>
+<p>“Milvus 不是单机库，而是分布式向量数据库，所以它把一致性做成了可配置项。你可以在读到最新数据和查询延迟之间做权衡。”</p>
+<hr>
+<h2 id="18-Upsert-到底是什么，为什么很多人会误用"><a href="#18-Upsert-到底是什么，为什么很多人会误用" class="headerlink" title="18. Upsert 到底是什么，为什么很多人会误用"></a>18. Upsert 到底是什么，为什么很多人会误用</h2><p>官方定义很明确：</p>
+<ul>
+<li><code>upsert</code> 是“如果主键存在就更新，不存在就插入”</li>
+<li>它是按 primary key 判断的</li>
+</ul>
+<p>这是第一重点。</p>
+<p>不是按：</p>
+<ul>
+<li><code>application_number</code></li>
+<li><code>file_name</code></li>
+<li>业务唯一键</li>
+</ul>
+<p>而是按 Milvus 主键。</p>
+<h3 id="18-1-如果主键是-AutoID-会怎样"><a href="#18-1-如果主键是-AutoID-会怎样" class="headerlink" title="18.1 如果主键是 AutoID 会怎样"></a>18.1 如果主键是 AutoID 会怎样</h3><p>官方文档还明确写了：</p>
+<ul>
+<li>如果 collection 的主键启用了 <code>autoid</code></li>
+<li>upsert 时 Milvus 会为请求里的数据生成新的主键再插入</li>
+</ul>
+<p>这就意味着：</p>
+<ul>
+<li><code>auto_id=True</code> 时，<code>upsert</code> 不一定能达到你想象中的“按业务键覆盖更新”</li>
+<li>如果你的业务唯一标识不是主键，<code>upsert</code> 不能天然替你去重</li>
+</ul>
+<p>这正是你项目里之前那个问题的根本原因。</p>
+<h3 id="18-2-什么时候适合用-upsert"><a href="#18-2-什么时候适合用-upsert" class="headerlink" title="18.2 什么时候适合用 upsert"></a>18.2 什么时候适合用 upsert</h3><p>适合：</p>
+<ul>
+<li>你的业务 ID 就是 Milvus 主键</li>
+<li>你明确需要“有则更新，无则插入”</li>
+</ul>
+<p>不适合直接依赖：</p>
+<ul>
+<li>主键是 AutoID</li>
+<li>真正的业务唯一键只是普通字段</li>
+<li>你还想靠它省掉云端 embedding 成本</li>
+</ul>
+<p>因为 embedding 成本发生在“你决定调用模型”的那一刻，而不是 Milvus <code>upsert</code> 那一刻。</p>
+<hr>
+<h2 id="19-你这类导入任务里，真正该优先理解的顺序"><a href="#19-你这类导入任务里，真正该优先理解的顺序" class="headerlink" title="19. 你这类导入任务里，真正该优先理解的顺序"></a>19. 你这类导入任务里，真正该优先理解的顺序</h2><p>很多人一接触 Milvus，脑子里先冒出来的是：</p>
+<ul>
+<li>要不要 upsert</li>
+<li>要不要 flush</li>
+<li>要不要 load</li>
+</ul>
+<p>但更正确的思考顺序应该是：</p>
+<ol>
+<li>业务唯一键是什么</li>
+<li>Milvus 主键是什么</li>
+<li>去重发生在 embedding 之前还是之后</li>
+<li>collection 是否已经 load</li>
+<li>flush 是否过于频繁</li>
+<li>segment 会不会被打碎</li>
+<li>索引是在后台增量补建还是被你手动反复重建</li>
+</ol>
+<p>这才是工程上真正影响成本和性能的顺序。</p>
+<hr>
+<h2 id="20-gRPC-是什么，Milvus-为什么用它"><a href="#20-gRPC-是什么，Milvus-为什么用它" class="headerlink" title="20. gRPC 是什么，Milvus 为什么用它"></a>20. gRPC 是什么，Milvus 为什么用它</h2><h3 id="20-1-先讲-RPC"><a href="#20-1-先讲-RPC" class="headerlink" title="20.1 先讲 RPC"></a>20.1 先讲 RPC</h3><p>RPC = Remote Procedure Call，远程过程调用。</p>
+<p>意思就是：</p>
+<ul>
+<li>你的程序像调用本地函数一样</li>
+<li>去调用远程机器上的服务</li>
+</ul>
+<h3 id="20-2-gRPC-是什么"><a href="#20-2-gRPC-是什么" class="headerlink" title="20.2 gRPC 是什么"></a>20.2 gRPC 是什么</h3><p>gRPC 官方的定义是：</p>
+<ul>
+<li>一个高性能、开源、通用的 RPC 框架</li>
+<li>基于 HTTP/2</li>
+<li>常配合 Protocol Buffers</li>
+<li>支持负载均衡、追踪、健康检查、认证等能力</li>
+</ul>
+<h3 id="20-3-Milvus-为什么适合用-gRPC"><a href="#20-3-Milvus-为什么适合用-gRPC" class="headerlink" title="20.3 Milvus 为什么适合用 gRPC"></a>20.3 Milvus 为什么适合用 gRPC</h3><p>因为 Milvus 是典型的分布式系统：</p>
+<ul>
+<li>SDK 要和 Proxy 通信</li>
+<li>Proxy 要和内部组件通信</li>
+<li>集群里很多节点之间要做高频低延迟调用</li>
+</ul>
+<p>gRPC 很适合这种场景：</p>
+<ul>
+<li>二进制协议，效率高</li>
+<li>跨语言</li>
+<li>强类型接口定义</li>
+<li>适合高并发服务间调用</li>
+</ul>
+<h3 id="20-4-Milvus-的端口"><a href="#20-4-Milvus-的端口" class="headerlink" title="20.4 Milvus 的端口"></a>20.4 Milvus 的端口</h3><p>官方连接文档说明：</p>
+<ul>
+<li><code>19530</code>：gRPC 和 RESTful API</li>
+<li><code>9091</code>：metrics、pprof、health probe 等管理端口</li>
+</ul>
+<p>所以你平时连 Milvus 看到的 <code>19530</code>，本质上是服务入口端口。</p>
+<hr>
+<h2 id="21-Milvus-为什么是“计算与存储分离”"><a href="#21-Milvus-为什么是“计算与存储分离”" class="headerlink" title="21. Milvus 为什么是“计算与存储分离”"></a>21. Milvus 为什么是“计算与存储分离”</h2><p>这是 Milvus 非常核心的架构思想。</p>
+<h3 id="21-1-传统一体化数据库的特点"><a href="#21-1-传统一体化数据库的特点" class="headerlink" title="21.1 传统一体化数据库的特点"></a>21.1 传统一体化数据库的特点</h3><p>很多传统数据库里：</p>
+<ul>
+<li>数据存在哪台机器</li>
+<li>查询也在那台机器</li>
+<li>索引也在那台机器</li>
+</ul>
+<p>耦合比较紧。</p>
+<h3 id="21-2-Milvus-的特点"><a href="#21-2-Milvus-的特点" class="headerlink" title="21.2 Milvus 的特点"></a>21.2 Milvus 的特点</h3><p>Milvus 更像：</p>
+<ul>
+<li>元数据放 etcd</li>
+<li>大文件放 MinIO/S3</li>
+<li>WAL 放消息队列或 Woodpecker</li>
+<li>计算节点只是“无状态执行者”</li>
+</ul>
+<p>这带来的好处：</p>
+<ul>
+<li>查询节点可以单独扩</li>
+<li>数据节点可以单独扩</li>
+<li>索引节点可以单独扩</li>
+<li>节点挂了更容易恢复</li>
+<li>更适合上 Kubernetes</li>
+</ul>
+<p>一句话记忆：</p>
+<p>Milvus 的核心不是“单机超强”，而是“分布式、解耦、可横向扩展”。</p>
+<hr>
+<h2 id="22-Milvus-集群里都有哪些组件"><a href="#22-Milvus-集群里都有哪些组件" class="headerlink" title="22. Milvus 集群里都有哪些组件"></a>22. Milvus 集群里都有哪些组件</h2><p>这里要分“新文档主线”和“老版本常见名词”两套说法。</p>
+<h3 id="22-1-v2-6-主线理解"><a href="#22-1-v2-6-主线理解" class="headerlink" title="22.1 v2.6 主线理解"></a>22.1 v2.6 主线理解</h3><p>官方 v2.6 架构概览里，Milvus 被拆成四层：</p>
+<ol>
+<li>Access Layer</li>
+<li>Coordinator</li>
+<li>Worker Nodes</li>
+<li>Storage</li>
+</ol>
+<p>其中：</p>
+<ul>
+<li>Access Layer：Proxy</li>
+<li>Coordinator：协调器，负责拓扑、调度、一致性</li>
+<li>Worker Nodes：Streaming Node、Query Node、Data Node</li>
+<li>Storage：etcd、Object Storage、WAL</li>
+</ul>
+<h3 id="22-2-老版本-传统面试常见名词"><a href="#22-2-老版本-传统面试常见名词" class="headerlink" title="22.2 老版本 / 传统面试常见名词"></a>22.2 老版本 / 传统面试常见名词</h3><p>在很多资料和旧版本部署里，你会看到这组名字：</p>
+<ul>
+<li><code>proxy</code></li>
+<li><code>root coord</code></li>
+<li><code>data coord</code></li>
+<li><code>query coord</code></li>
+<li><code>index coord</code></li>
+<li><code>data node</code></li>
+<li><code>query node</code></li>
+<li><code>index node</code></li>
+</ul>
+<p>v2.3 文档甚至明确写了：</p>
+<ul>
+<li>最初 Milvus 2.0 集群包含这 8 个组件</li>
+<li>后来引入 <code>mix coord</code></li>
+<li><code>mix coord</code> 包含所有 coordinator 组件</li>
+</ul>
+<h3 id="22-3-这两套说法冲突吗"><a href="#22-3-这两套说法冲突吗" class="headerlink" title="22.3 这两套说法冲突吗"></a>22.3 这两套说法冲突吗</h3><p>不冲突。</p>
+<p>你可以把它理解成：</p>
+<ul>
+<li>“控制平面 + 数据平面 + 共享存储”的大思想没变</li>
+<li>只是组件划分方式、命名方式、打包方式在演进</li>
+</ul>
+<p>面试时很推荐你这样回答：</p>
+<p>“Milvus 的核心架构思想没有变，就是 Proxy 作为接入层，Coordinator 负责控制平面，Query/Data/Index 负责执行平面，底层依赖 etcd、对象存储和 WAL。不同版本会把这些能力拆成不同组件，比如历史上常见的 rootCoord/dataCoord/queryCoord/indexCoord，后来也有 mixCoord、StreamingNode 这样的演进。”</p>
+<p>这就很像真正懂系统演进的人。</p>
+<hr>
+<h2 id="23-各组件分别干什么"><a href="#23-各组件分别干什么" class="headerlink" title="23. 各组件分别干什么"></a>23. 各组件分别干什么</h2><h3 id="23-1-Proxy"><a href="#23-1-Proxy" class="headerlink" title="23.1 Proxy"></a>23.1 Proxy</h3><p>前门。</p>
+<p>职责：</p>
+<ul>
+<li>接 SDK / REST 请求</li>
+<li>校验请求</li>
+<li>路由请求</li>
+<li>聚合结果</li>
+</ul>
+<p>它本身通常是无状态的，适合多副本扩容。</p>
+<h3 id="23-2-RootCoord"><a href="#23-2-RootCoord" class="headerlink" title="23.2 RootCoord"></a>23.2 RootCoord</h3><p>偏“元操作”和时间戳管理”。</p>
+<p>负责：</p>
+<ul>
+<li>DDL / DCL</li>
+<li>collection / partition / index 的创建删除</li>
+<li>TSO</li>
+</ul>
+<h3 id="23-3-DataCoord"><a href="#23-3-DataCoord" class="headerlink" title="23.3 DataCoord"></a>23.3 DataCoord</h3><p>偏“数据后台运维调度”。</p>
+<p>负责：</p>
+<ul>
+<li>segment 管理</li>
+<li>flush / compact 等后台数据操作</li>
+<li>data node 拓扑管理</li>
+</ul>
+<h3 id="23-4-QueryCoord"><a href="#23-4-QueryCoord" class="headerlink" title="23.4 QueryCoord"></a>23.4 QueryCoord</h3><p>偏“查询资源调度”。</p>
+<p>负责：</p>
+<ul>
+<li>query node 负载均衡</li>
+<li>handoff</li>
+<li>查询侧拓扑管理</li>
+</ul>
+<h3 id="23-5-IndexCoord-IndexNode"><a href="#23-5-IndexCoord-IndexNode" class="headerlink" title="23.5 IndexCoord / IndexNode"></a>23.5 IndexCoord / IndexNode</h3><p>负责索引构建任务管理和执行。</p>
+<h3 id="23-6-StreamingNode-DataNode-QueryNode"><a href="#23-6-StreamingNode-DataNode-QueryNode" class="headerlink" title="23.6 StreamingNode / DataNode / QueryNode"></a>23.6 StreamingNode / DataNode / QueryNode</h3><p>可以按一句话记忆：</p>
+<ul>
+<li>Streaming / Data 写入链路</li>
+<li>Query 查询链路</li>
+<li>Index 建索引链路</li>
+</ul>
+<hr>
+<h2 id="24-Milvus-依赖的外部组件分别是什么"><a href="#24-Milvus-依赖的外部组件分别是什么" class="headerlink" title="24. Milvus 依赖的外部组件分别是什么"></a>24. Milvus 依赖的外部组件分别是什么</h2><p>官方文档明确说 Milvus 依赖：</p>
+<ul>
+<li><code>MinIO</code></li>
+<li><code>Kafka</code></li>
+<li><code>Pulsar</code></li>
+<li><code>etcd</code></li>
+</ul>
+<p>新版还有 <code>Woodpecker</code> 作为 WAL 方案。</p>
+<h3 id="24-1-etcd"><a href="#24-1-etcd" class="headerlink" title="24.1 etcd"></a>24.1 etcd</h3><p>etcd 是元数据存储。</p>
+<p>它负责：</p>
+<ul>
+<li>collection schema</li>
+<li>节点状态</li>
+<li>checkpoint</li>
+<li>服务注册</li>
+<li>健康检查</li>
+</ul>
+<p>为什么选 etcd：</p>
+<ul>
+<li>高可用</li>
+<li>强一致</li>
+<li>适合存元数据</li>
+</ul>
+<h3 id="24-2-MinIO-S3"><a href="#24-2-MinIO-S3" class="headerlink" title="24.2 MinIO / S3"></a>24.2 MinIO / S3</h3><p>对象存储。</p>
+<p>负责：</p>
+<ul>
+<li>日志快照</li>
+<li>索引文件</li>
+<li>原始数据持久化</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>容量大</li>
+<li>成本低</li>
+<li>延迟比内存高</li>
+</ul>
+<h3 id="24-3-Pulsar-Kafka-Woodpecker"><a href="#24-3-Pulsar-Kafka-Woodpecker" class="headerlink" title="24.3 Pulsar / Kafka / Woodpecker"></a>24.3 Pulsar / Kafka / Woodpecker</h3><p>这是 WAL / 消息通道层。</p>
+<p>职责：</p>
+<ul>
+<li>写前日志</li>
+<li>顺序写入</li>
+<li>恢复重放</li>
+<li>流式数据传递</li>
+</ul>
+<p>官方新文档里，Woodpecker 是 Milvus 2.6 的可选 WAL，强调云原生、低运维、面向对象存储。</p>
+<h3 id="24-4-RocksMQ-RocksDB"><a href="#24-4-RocksMQ-RocksDB" class="headerlink" title="24.4 RocksMQ / RocksDB"></a>24.4 RocksMQ / RocksDB</h3><p>这是旧版 standalone 常见的轻量消息层。</p>
+<p>你看到老文档里有它，不要惊讶。</p>
+<hr>
+<h2 id="25-Replica-是什么"><a href="#25-Replica-是什么" class="headerlink" title="25. Replica 是什么"></a>25. Replica 是什么</h2><p>Replica 不是“简单复制一份数据文件”这么浅。</p>
+<p>官方 in-memory replica 文档说：</p>
+<ul>
+<li>相同 segment 可以被加载到多个 query nodes</li>
+<li>这样既能提高吞吐，也能提高可用性</li>
+</ul>
+<p>你可以这样理解：</p>
+<ul>
+<li>一份 segment，多个查询节点都能服务</li>
+<li>某个查询节点忙或挂了，流量可以切到另一个副本</li>
+</ul>
+<p>作用：</p>
+<ul>
+<li>提升 QPS</li>
+<li>降低故障影响</li>
+<li>加快 failover</li>
+</ul>
+<hr>
+<h2 id="26-为什么-Milvus-适合-Kubernetes-和集群扩展"><a href="#26-为什么-Milvus-适合-Kubernetes-和集群扩展" class="headerlink" title="26. 为什么 Milvus 适合 Kubernetes 和集群扩展"></a>26. 为什么 Milvus 适合 Kubernetes 和集群扩展</h2><p>因为它大量组件是无状态或弱状态执行者，状态被外置：</p>
+<ul>
+<li>元数据去 etcd</li>
+<li>数据和索引去对象存储</li>
+<li>流式日志去 WAL</li>
+</ul>
+<p>这样带来三个巨大好处：</p>
+<h3 id="26-1-读写建索引可以分开扩"><a href="#26-1-读写建索引可以分开扩" class="headerlink" title="26.1 读写建索引可以分开扩"></a>26.1 读写建索引可以分开扩</h3><ul>
+<li>读多：加 QueryNode</li>
+<li>写多：加 DataNode / StreamingNode</li>
+<li>建索引多：加 IndexNode</li>
+</ul>
+<h3 id="26-2-故障恢复更简单"><a href="#26-2-故障恢复更简单" class="headerlink" title="26.2 故障恢复更简单"></a>26.2 故障恢复更简单</h3><p>节点不是唯一真相来源。</p>
+<p>挂了可以：</p>
+<ul>
+<li>重拉 pod</li>
+<li>从 etcd / 对象存储 / WAL 恢复</li>
+</ul>
+<h3 id="26-3-更适合弹性伸缩"><a href="#26-3-更适合弹性伸缩" class="headerlink" title="26.3 更适合弹性伸缩"></a>26.3 更适合弹性伸缩</h3><p>这就是云原生数据库最想要的能力。</p>
+<hr>
+<h2 id="27-Milvus-的三种部署模式"><a href="#27-Milvus-的三种部署模式" class="headerlink" title="27. Milvus 的三种部署模式"></a>27. Milvus 的三种部署模式</h2><p>官方概述页明确提到三种部署模式：</p>
+<h3 id="27-1-Milvus-Lite"><a href="#27-1-Milvus-Lite" class="headerlink" title="27.1 Milvus Lite"></a>27.1 Milvus Lite</h3><p>适合：</p>
+<ul>
+<li>本地原型</li>
+<li>Jupyter</li>
+<li>小规模实验</li>
+</ul>
+<h3 id="27-2-Milvus-Standalone"><a href="#27-2-Milvus-Standalone" class="headerlink" title="27.2 Milvus Standalone"></a>27.2 Milvus Standalone</h3><p>适合：</p>
+<ul>
+<li>单机部署</li>
+<li>开发测试</li>
+<li>中小规模业务</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>组件打包在一个实例里</li>
+<li>部署简单</li>
+</ul>
+<h3 id="27-3-Milvus-Distributed"><a href="#27-3-Milvus-Distributed" class="headerlink" title="27.3 Milvus Distributed"></a>27.3 Milvus Distributed</h3><p>适合：</p>
+<ul>
+<li>Kubernetes</li>
+<li>大规模生产</li>
+<li>高可用与弹性扩容</li>
+</ul>
+<hr>
+<h2 id="28-用一个真实导入案例，把前面的概念真正串起来"><a href="#28-用一个真实导入案例，把前面的概念真正串起来" class="headerlink" title="28. 用一个真实导入案例，把前面的概念真正串起来"></a>28. 用一个真实导入案例，把前面的概念真正串起来</h2><h3 id="28-1-load-是为了可查询，不是为了重建索引"><a href="#28-1-load-是为了可查询，不是为了重建索引" class="headerlink" title="28.1 load() 是为了可查询，不是为了重建索引"></a>28.1 <code>load()</code> 是为了可查询，不是为了重建索引</h3><p>假设你在做一个“专利向量导入任务”或者“知识库批量入库任务”，导入脚本通常会在建库、建索引、插入后调用 <code>load()</code>。</p>
+<p>这里特别容易误解成：</p>
+<ul>
+<li>调了 <code>load()</code>，索引才真正建立</li>
+<li>不调 <code>load()</code>，数据就还没准备好</li>
+</ul>
+<p>其实更准确的理解是：</p>
+<ul>
+<li>索引构建和持久化是后台流程</li>
+<li><code>load()</code> 的意义是把数据和索引加载到查询节点，进入<strong>可查询状态</strong></li>
+</ul>
+<p>所以它更像“把仓库里的货搬到门店上架”，而不是“现场重新造货”。</p>
+<h3 id="28-2-频繁-flush-可能把-segment-打碎"><a href="#28-2-频繁-flush-可能把-segment-打碎" class="headerlink" title="28.2 频繁 flush() 可能把 segment 打碎"></a>28.2 频繁 <code>flush()</code> 可能把 segment 打碎</h3><p>所以它不是“越勤越安全”，而是“越勤越可能制造碎片”。</p>
+<h3 id="28-3-你现在的-schema-主键是-AutoID"><a href="#28-3-你现在的-schema-主键是-AutoID" class="headerlink" title="28.3 你现在的 schema 主键是 AutoID"></a>28.3 你现在的 schema 主键是 AutoID</h3><p>因此：</p>
+<ul>
+<li><code>upsert</code> 无法天然按 <code>application_number</code> 去重</li>
+<li>真正业务唯一键和 Milvus 主键不是一回事</li>
+</ul>
+<h3 id="28-4-真正省钱的关键是-embedding-前去重"><a href="#28-4-真正省钱的关键是-embedding-前去重" class="headerlink" title="28.4 真正省钱的关键是 embedding 前去重"></a>28.4 真正省钱的关键是 embedding 前去重</h3><p>不是先求向量，再指望 Milvus 帮你去重。</p>
+<p>Milvus 解决的是“存和查”，不是替你把云端 embedding 账单抹掉。</p>
+<hr>
+<h2 id="29-面试时可以怎么讲-Segment-Seal-Flush"><a href="#29-面试时可以怎么讲-Segment-Seal-Flush" class="headerlink" title="29. 面试时可以怎么讲 Segment / Seal / Flush"></a>29. 面试时可以怎么讲 Segment / Seal / Flush</h2><p>你可以直接背这段：</p>
+<p>“Milvus 内部不是按整个 collection 作为一个物理整体处理，而是拆成多个 segment。新写入先进入 growing segment，它处于可写状态；当 segment 达到一定条件或者被 flush 后，就会从 growing 转成 sealed。sealed 之后数据不可变，更适合持久化、建索引和被查询节点加载。频繁手动 flush 会制造很多小的 sealed segments，导致查询和后台 compaction 的开销上升，所以生产上一般不建议每小批次都 flush。” </p>
+<p>这段非常像真正理解过的人说的话。</p>
+<hr>
+<h2 id="30-面试时可以怎么讲-Milvus-架构"><a href="#30-面试时可以怎么讲-Milvus-架构" class="headerlink" title="30. 面试时可以怎么讲 Milvus 架构"></a>30. 面试时可以怎么讲 Milvus 架构</h2><p>可以直接背这段：</p>
+<p>“Milvus 本质上是一个计算与存储分离的分布式向量数据库。前面是 Proxy 作为接入层，负责请求校验、路由和结果归并；中间是 Coordinator 负责控制平面，比如元数据、拓扑、时间戳、调度；执行层是 QueryNode、DataNode、IndexNode 或新版本里的 StreamingNode、QueryNode、DataNode；底层依赖 etcd 存元数据、MinIO/S3 存对象和索引文件、WAL 系统保证流式写入和恢复。这样设计的好处是读、写、建索引可以分别横向扩展。” </p>
+<hr>
+<h2 id="31-面试时可以怎么讲-gRPC"><a href="#31-面试时可以怎么讲-gRPC" class="headerlink" title="31. 面试时可以怎么讲 gRPC"></a>31. 面试时可以怎么讲 gRPC</h2><p>可以直接背这段：</p>
+<p>“Milvus 是分布式系统，组件之间和客户端到服务端之间需要高性能远程调用，所以它使用 gRPC 这类基于 HTTP/2 的 RPC 框架。gRPC 的好处是二进制协议、强类型接口定义、跨语言、低延迟，并且很适合服务间通信。Milvus 默认服务端口 19530 就是 gRPC/REST 的接入端口，9091 则偏管理和监控。” </p>
+<hr>
+<h2 id="32-最容易犯的理解错误"><a href="#32-最容易犯的理解错误" class="headerlink" title="32. 最容易犯的理解错误"></a>32. 最容易犯的理解错误</h2><h3 id="错误-1：Milvus-就是-Faiss"><a href="#错误-1：Milvus-就是-Faiss" class="headerlink" title="错误 1：Milvus 就是 Faiss"></a>错误 1：Milvus 就是 Faiss</h3><p>不对。</p>
+<p>Faiss 更像检索库；Milvus 是数据库系统，底层可能用到 Faiss 等搜索库。</p>
+<h3 id="错误-2：load-重建索引"><a href="#错误-2：load-重建索引" class="headerlink" title="错误 2：load() = 重建索引"></a>错误 2：<code>load()</code> = 重建索引</h3><p>不对。</p>
+<p><code>load()</code> 是把数据和索引装进内存进入可查询态。</p>
+<h3 id="错误-3：flush-建索引"><a href="#错误-3：flush-建索引" class="headerlink" title="错误 3：flush() = 建索引"></a>错误 3：<code>flush()</code> = 建索引</h3><p>不对。</p>
+<p><code>flush()</code> 更像促使 growing segment seal，并进入后续持久化/建索引流程。</p>
+<h3 id="错误-4：upsert-可以按任意字段去重"><a href="#错误-4：upsert-可以按任意字段去重" class="headerlink" title="错误 4：upsert 可以按任意字段去重"></a>错误 4：<code>upsert</code> 可以按任意字段去重</h3><p>不对。</p>
+<p><code>upsert</code> 是按主键，不是按你心里默认的业务键。</p>
+<h3 id="错误-5：向量数据库不需要考虑一致性"><a href="#错误-5：向量数据库不需要考虑一致性" class="headerlink" title="错误 5：向量数据库不需要考虑一致性"></a>错误 5：向量数据库不需要考虑一致性</h3><p>不对。</p>
+<p>Milvus 是分布式系统，也有 Strong / Bounded / Eventually 这类一致性权衡。</p>
+<hr>
+<h2 id="33-如果你只记-10-句话，记这-10-句"><a href="#33-如果你只记-10-句话，记这-10-句" class="headerlink" title="33. 如果你只记 10 句话，记这 10 句"></a>33. 如果你只记 10 句话，记这 10 句</h2><ol>
+<li>Milvus 是向量数据库，不是 embedding 模型。</li>
+<li>Collection 像表，Field 像列，Entity 像行。</li>
+<li>Partition 是逻辑分组，Shard 是并行写入切片，Segment 是物理数据块。</li>
+<li>新数据先进入 growing segment。</li>
+<li>growing 变成 sealed，意味着这块数据不再写、适合查、适合建索引。</li>
+<li><code>flush()</code> 会促使 segment seal，频繁 flush 会制造很多小 segment。</li>
+<li><code>load()</code> 是把数据和索引加载到内存供查询，不是重建索引。</li>
+<li><code>upsert</code> 是按主键工作的，不是按普通业务字段工作的。</li>
+<li>Milvus 的核心架构是 Proxy + Coordinator + Worker Nodes + Storage。</li>
+<li>etcd 管元数据，MinIO/S3 管对象和索引，WAL 保证写入顺序与恢复。</li>
+</ol>
+<hr>
+<h2 id="34-如果你正在做导入或检索项目，最后给你-4-条真正有用的建议"><a href="#34-如果你正在做导入或检索项目，最后给你-4-条真正有用的建议" class="headerlink" title="34. 如果你正在做导入或检索项目，最后给你 4 条真正有用的建议"></a>34. 如果你正在做导入或检索项目，最后给你 4 条真正有用的建议</h2><p>无论你做的是专利检索、RAG 知识库、图片相似搜索，最重要的都不是“看见 Milvus 就立刻想着上什么索引”，而是先问下面几个更根本的问题：</p>
+<ul>
+<li>你的业务唯一键到底是什么？</li>
+<li>这个唯一键是不是 Milvus 主键？</li>
+<li>去重发生在云端 embedding 之前还是之后？</li>
+<li>你是不是在频繁 flush，把 segment 打碎了？</li>
+</ul>
+<p>大多数项目里，优先级通常是：</p>
+<ol>
+<li>embedding 前做去重</li>
+<li>避免多线程重复处理同一个业务 ID</li>
+<li>不要频繁 flush</li>
+<li>如果未来真要 upsert，就把业务唯一键设计成 Milvus 主键，或引入独立幂等层</li>
+</ol>
+<hr>
+<h2 id="35-官方参考资料"><a href="#35-官方参考资料" class="headerlink" title="35. 官方参考资料"></a>35. 官方参考资料</h2><p>以下资料是本文的主要依据，建议你后续按顺序继续看：</p>
+<ol>
+<li><p>Milvus 架构概览<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/zh/architecture_overview.md">https://milvus.io/docs/zh/architecture_overview.md</a></p>
+</li>
+<li><p>Data Processing<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/data_processing.md">https://milvus.io/docs/data_processing.md</a></p>
+</li>
+<li><p>Collection Explained<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/ar/manage-collections.md">https://milvus.io/docs/ar/manage-collections.md</a></p>
+</li>
+<li><p>Load &amp; Release<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/load-and-release.md">https://milvus.io/docs/load-and-release.md</a></p>
+</li>
+<li><p>flush() API<br><a target="_blank" rel="noopener" href="https://milvus.io/api-reference/pymilvus/v2.3.x/ORM/Collection/flush.md">https://milvus.io/api-reference/pymilvus/v2.3.x/ORM/Collection/flush.md</a></p>
+</li>
+<li><p>Index Explained<br><a target="_blank" rel="noopener" href="https://blog.milvus.io/docs/index-explained.md">https://blog.milvus.io/docs/index-explained.md</a></p>
+</li>
+<li><p>Consistency Level<br><a target="_blank" rel="noopener" href="https://blog.milvus.io/docs/consistency.md">https://blog.milvus.io/docs/consistency.md</a></p>
+</li>
+<li><p>Primary Field &amp; AutoID<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/primary-field.md">https://milvus.io/docs/primary-field.md</a></p>
+</li>
+<li><p>Upsert Entities<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/upsert-entities.md">https://milvus.io/docs/upsert-entities.md</a></p>
+</li>
+<li><p>In-Memory Replica<br><a target="_blank" rel="noopener" href="https://blog.milvus.io/docs/replica.md">https://blog.milvus.io/docs/replica.md</a></p>
+</li>
+<li><p>Clustering Compaction<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/clustering-compaction.md">https://milvus.io/docs/clustering-compaction.md</a></p>
+</li>
+<li><p>Manage Milvus Connections<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/v2.3.x/manage_connection.md">https://milvus.io/docs/v2.3.x/manage_connection.md</a></p>
+</li>
+<li><p>Scale Dependencies<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/scale-dependencies.md">https://milvus.io/docs/scale-dependencies.md</a></p>
+</li>
+<li><p>gRPC 官方站<br><a target="_blank" rel="noopener" href="https://grpc.io/">https://grpc.io/</a></p>
+</li>
+<li><p>Milvus What is Milvus<br><a target="_blank" rel="noopener" href="https://milvus.io/docs/id/overview.md">https://milvus.io/docs/id/overview.md</a></p>
+</li>
+</ol>
+<hr>
+<h2 id="36-你下一步最值得继续学的顺序"><a href="#36-你下一步最值得继续学的顺序" class="headerlink" title="36. 你下一步最值得继续学的顺序"></a>36. 你下一步最值得继续学的顺序</h2><p>如果你打算真把 Milvus 学扎实，我建议按这个顺序继续：</p>
+<ol>
+<li><p>先把本文第 4 到第 8 节吃透<br>这是你眼下最缺的“segment / flush / load / index”主线。</p>
+</li>
+<li><p>再看你自己项目里的 schema 和导入脚本<br>重点看主键设计、索引类型、flush 策略、去重时机。</p>
+</li>
+<li><p>然后补 Milvus 的一致性、Time Travel、Compaction<br>这样你就不仅会用，还会理解系统为什么这么设计。</p>
+</li>
+<li><p>最后再上集群和 K8s<br>因为如果基础对象没搞清楚，直接看集群很容易只剩名词。</p>
+</li>
+</ol>
+<p>如果你后面还想继续深入，最值得往下挖的方向一般有三个：</p>
+<ul>
+<li><strong>项目实战线</strong>：结合你自己的导入脚本、Schema、索引参数逐段复盘</li>
+<li><strong>性能调优线</strong>：批量导入、段管理、索引参数、查询延迟和召回率权衡</li>
+<li><strong>分布式架构线</strong>：Milvus 集群、对象存储、消息流、Kubernetes 部署与扩展</li>
+</ul>
+<hr>
+<h2 id="37-用一张图把-Milvus-集群架构看懂"><a href="#37-用一张图把-Milvus-集群架构看懂" class="headerlink" title="37. 用一张图把 Milvus 集群架构看懂"></a>37. 用一张图把 Milvus 集群架构看懂</h2><p>如果你已经读到这里，差不多应该把零散名词拼起来了。下面这张图适合你在脑子里形成 Milvus 的整体结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">flowchart TB</span><br><span class="line">    Client[应用 / SDK / LangChain / 自研服务] --&gt; Proxy[Proxy]</span><br><span class="line"></span><br><span class="line">    Proxy --&gt; RootCoord[RootCoord]</span><br><span class="line">    Proxy --&gt; QueryCoord[QueryCoord]</span><br><span class="line">    Proxy --&gt; DataCoord[DataCoord]</span><br><span class="line">    Proxy --&gt; QueryNode[QueryNode]</span><br><span class="line"></span><br><span class="line">    RootCoord --&gt; ETCD[(etcd)]</span><br><span class="line">    DataCoord --&gt; WAL[消息流/WAL]</span><br><span class="line">    DataCoord --&gt; ObjectStore[(MinIO / S3)]</span><br><span class="line">    QueryNode --&gt; ObjectStore</span><br><span class="line">    IndexNode[IndexNode] --&gt; ObjectStore</span><br><span class="line">    DataNode[DataNode / StreamingNode] --&gt; WAL</span><br><span class="line">    DataNode --&gt; ObjectStore</span><br><span class="line">    QueryCoord --&gt; QueryNode</span><br><span class="line">    DataCoord --&gt; DataNode</span><br></pre></td></tr></table></figure>
+<p>这张图背后的核心思想其实不复杂：</p>
+<ul>
+<li><strong>Proxy</strong> 是统一入口</li>
+<li><strong>Coord</strong> 是控制平面，负责元数据、调度、拓扑和生命周期管理</li>
+<li><strong>Node</strong> 是执行平面，负责写入、查询、建索引</li>
+<li><strong>etcd</strong> 保存元数据</li>
+<li><strong>对象存储</strong> 保存段文件和索引文件</li>
+<li><strong>消息流 / WAL</strong> 负责写入流、顺序和恢复能力</li>
+</ul>
+<p>你把它理解成“接入层 + 控制层 + 执行层 + 外部依赖层”，基本就不会乱。</p>
+<hr>
+<h2 id="38-如果你做-RAG-或知识库，Milvus-通常处在什么位置"><a href="#38-如果你做-RAG-或知识库，Milvus-通常处在什么位置" class="headerlink" title="38. 如果你做 RAG 或知识库，Milvus 通常处在什么位置"></a>38. 如果你做 RAG 或知识库，Milvus 通常处在什么位置</h2><p>很多人第一次接触 Milvus，都是从 RAG 开始的。所以这里用最典型的知识库链路，把 Milvus 放回真实业务里看。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    Doc[原始文档 PDF/Word/网页] --&gt; Chunk[文本切分 Chunking]</span><br><span class="line">    Chunk --&gt; Embed[Embedding 模型]</span><br><span class="line">    Embed --&gt; Milvus[Milvus 向量库]</span><br><span class="line"></span><br><span class="line">    UserQ[用户问题] --&gt; QEmbed[Query Embedding]</span><br><span class="line">    QEmbed --&gt; Milvus</span><br><span class="line">    Milvus --&gt; TopK[召回 TopK 文档块]</span><br><span class="line">    TopK --&gt; Rerank[可选 Rerank]</span><br><span class="line">    Rerank --&gt; LLM[大模型生成答案]</span><br></pre></td></tr></table></figure>
+<p>这个链路里，Milvus 不负责：</p>
+<ul>
+<li>训练大模型</li>
+<li>理解文档语义本身</li>
+<li>生成最终答案</li>
+</ul>
+<p>Milvus 负责的是：</p>
+<ul>
+<li>存储 chunk 的向量</li>
+<li>建索引</li>
+<li>根据 query 向量做近邻召回</li>
+<li>结合标量字段做过滤</li>
+</ul>
+<p>所以如果你做 RAG，真正需要分清楚的是三层职责：</p>
+<ol>
+<li><strong>Embedding 层</strong>：负责把内容变成向量</li>
+<li><strong>Milvus 层</strong>：负责海量向量的组织、索引和召回</li>
+<li><strong>LLM 层</strong>：负责把召回结果组织成最终答案</li>
+</ol>
+<p>这也是很多团队容易犯错的地方：</p>
+<ul>
+<li>召回效果不好，就怀疑 Milvus</li>
+<li>实际根因可能是 chunk 切分策略错了</li>
+<li>或 embedding 模型不适合当前领域</li>
+<li>或 rerank 没做好</li>
+</ul>
+<p>也就是说，Milvus 很重要，但它不是整条 RAG 链路的唯一变量。</p>
+<hr>
+<h2 id="39-Schema-和主键到底该怎么设计，才不容易后面返工"><a href="#39-Schema-和主键到底该怎么设计，才不容易后面返工" class="headerlink" title="39. Schema 和主键到底该怎么设计，才不容易后面返工"></a>39. Schema 和主键到底该怎么设计，才不容易后面返工</h2><p>这一节非常工程化，但也非常值钱。</p>
+<p>很多人建表时只想“先跑起来”，后面就会在这里反复返工。</p>
+<h3 id="39-1-先决定你的主键是“系统主键”还是“业务主键”"><a href="#39-1-先决定你的主键是“系统主键”还是“业务主键”" class="headerlink" title="39.1 先决定你的主键是“系统主键”还是“业务主键”"></a>39.1 先决定你的主键是“系统主键”还是“业务主键”</h3><p>这一步决定了你后面能不能优雅地做：</p>
+<ul>
+<li>幂等写入</li>
+<li>精准删除</li>
+<li>upsert</li>
+<li>去重</li>
+</ul>
+<p>如果你用 <code>auto_id=True</code>：</p>
+<ul>
+<li>好处是省事，Milvus 自动给你发 ID</li>
+<li>代价是你没法天然拿业务字段做 upsert 和幂等覆盖</li>
+</ul>
+<p>如果你把业务唯一键设计成主键：</p>
+<ul>
+<li>更适合按业务维度去重和重写</li>
+<li>更适合增量同步</li>
+<li>但你要保证这个键真的稳定、唯一、长期可用</li>
+</ul>
+<h3 id="39-2-不要把-Partition-当成“高性能万能药”"><a href="#39-2-不要把-Partition-当成“高性能万能药”" class="headerlink" title="39.2 不要把 Partition 当成“高性能万能药”"></a>39.2 不要把 Partition 当成“高性能万能药”</h3><p>很多人一看 Partition，就本能地想：</p>
+<ul>
+<li>那我按用户分区</li>
+<li>按日期分区</li>
+<li>按业务类型分区</li>
+<li>分得越细是不是越快</li>
+</ul>
+<p>这往往是误区。</p>
+<p>Partition 的主要价值是：</p>
+<ul>
+<li>逻辑隔离</li>
+<li>限定搜索范围</li>
+<li>某些特定业务维度下缩小检索域</li>
+</ul>
+<p>如果你分得过细，反而会带来：</p>
+<ul>
+<li>管理复杂</li>
+<li>元数据更多</li>
+<li>加载和维护成本更高</li>
+</ul>
+<p>所以通常建议是：</p>
+<ul>
+<li>没有强业务隔离需求时，不要一上来就大量分区</li>
+<li>优先把过滤交给标量字段和表达式</li>
+<li>只有当检索域天然可分、而且访问模式稳定时，再考虑 Partition</li>
+</ul>
+<h3 id="39-3-标量字段不是陪衬，它决定你后续过滤能力"><a href="#39-3-标量字段不是陪衬，它决定你后续过滤能力" class="headerlink" title="39.3 标量字段不是陪衬，它决定你后续过滤能力"></a>39.3 标量字段不是陪衬，它决定你后续过滤能力</h3><p>向量检索不是只有向量字段。</p>
+<p>一个可用的业务 Schema，通常除了向量，还应该至少考虑：</p>
+<ul>
+<li>业务主键</li>
+<li>文档 ID / 图片 ID</li>
+<li>类别或租户 ID</li>
+<li>更新时间</li>
+<li>状态位</li>
+<li>原始文本摘要或外部存储引用</li>
+</ul>
+<p>这些字段会直接影响：</p>
+<ul>
+<li>过滤表达式怎么写</li>
+<li>更新删除怎么做</li>
+<li>召回结果如何映射回原始业务对象</li>
+</ul>
+<p>一句很工程的话：</p>
+<p><strong>向量字段决定你能不能“找到相似”，标量字段决定你能不能“把相似结果用起来”。</strong></p>
+<hr>
+<h2 id="40-性能调优到底先抓什么，不要一上来只会调索引参数"><a href="#40-性能调优到底先抓什么，不要一上来只会调索引参数" class="headerlink" title="40. 性能调优到底先抓什么，不要一上来只会调索引参数"></a>40. 性能调优到底先抓什么，不要一上来只会调索引参数</h2><p>很多人一说 Milvus 调优，就盯着 <code>nprobe</code>、<code>ef</code>、<code>M</code>、<code>nlist</code>。这些当然重要，但不是唯一抓手。</p>
+<p>更靠谱的调优顺序通常是下面这样。</p>
+<h3 id="40-1-先确认问题到底是写入瓶颈、查询瓶颈，还是召回质量问题"><a href="#40-1-先确认问题到底是写入瓶颈、查询瓶颈，还是召回质量问题" class="headerlink" title="40.1 先确认问题到底是写入瓶颈、查询瓶颈，还是召回质量问题"></a>40.1 先确认问题到底是写入瓶颈、查询瓶颈，还是召回质量问题</h3><p>这三类问题不要混着看：</p>
+<ul>
+<li>写得慢：可能是 batch 太小、flush 太频繁、对象存储慢、建索引策略不合适</li>
+<li>查得慢：可能是 load 策略、索引类型、查询并发、过滤条件太重</li>
+<li>查得不准：可能是 embedding 模型、索引参数、chunk 粒度、业务特征表达不够</li>
+</ul>
+<h3 id="40-2-写入优化，优先看这-4-件事"><a href="#40-2-写入优化，优先看这-4-件事" class="headerlink" title="40.2 写入优化，优先看这 4 件事"></a>40.2 写入优化，优先看这 4 件事</h3><ol>
+<li><strong>批量大小</strong>：太小会让 RPC、WAL、段管理开销被放大</li>
+<li><strong>flush 频率</strong>：过于频繁会制造很多小 segment</li>
+<li><strong>索引构建时机</strong>：不要让导入、建索引、查询全都在最差时机挤在一起</li>
+<li><strong>对象存储与消息流性能</strong>：底层依赖慢，上层再怎么调也有限</li>
+</ol>
+<h3 id="40-3-查询优化，优先看这-5-件事"><a href="#40-3-查询优化，优先看这-5-件事" class="headerlink" title="40.3 查询优化，优先看这 5 件事"></a>40.3 查询优化，优先看这 5 件事</h3><ol>
+<li><strong>索引类型是否合适</strong></li>
+<li><strong>数据是否已经 load 到查询节点</strong></li>
+<li><strong>过滤条件是否过重</strong></li>
+<li><strong>TopK 是否设置过大</strong></li>
+<li><strong>副本数和查询节点是否够用</strong></li>
+</ol>
+<h3 id="40-4-不要忽略“工程上的假瓶颈”"><a href="#40-4-不要忽略“工程上的假瓶颈”" class="headerlink" title="40.4 不要忽略“工程上的假瓶颈”"></a>40.4 不要忽略“工程上的假瓶颈”</h3><p>很多所谓 Milvus 慢，最后排查出来其实是：</p>
+<ul>
+<li>Python 客户端单线程瓶颈</li>
+<li>上游 embedding 接口慢</li>
+<li>文本切分太碎，导致检索数量暴涨</li>
+<li>下游 rerank 太慢</li>
+<li>应用层把本可缓存的查询每次都重新发</li>
+</ul>
+<p>所以真正成熟的调优，不是只盯向量库，而是把整条链路一起看。</p>
+<hr>
+<h2 id="41-生产上最容易踩的坑，我直接替你先踩一遍"><a href="#41-生产上最容易踩的坑，我直接替你先踩一遍" class="headerlink" title="41. 生产上最容易踩的坑，我直接替你先踩一遍"></a>41. 生产上最容易踩的坑，我直接替你先踩一遍</h2><p>最后这一节，我尽量写得更“像过来人”，因为这部分最适合博客读者收藏。</p>
+<h3 id="坑-1：把-Milvus-当成“扔进去就自动变智能”的黑盒"><a href="#坑-1：把-Milvus-当成“扔进去就自动变智能”的黑盒" class="headerlink" title="坑 1：把 Milvus 当成“扔进去就自动变智能”的黑盒"></a>坑 1：把 Milvus 当成“扔进去就自动变智能”的黑盒</h3><p>Milvus 很强，但它不替你解决：</p>
+<ul>
+<li>embedding 模型选型</li>
+<li>文本切分策略</li>
+<li>业务主键设计</li>
+<li>数据清洗和去重</li>
+</ul>
+<p>如果前处理错了，后面再怎么调索引参数都只是补救。</p>
+<h3 id="坑-2：还没理解主键，就急着上-upsert"><a href="#坑-2：还没理解主键，就急着上-upsert" class="headerlink" title="坑 2：还没理解主键，就急着上 upsert"></a>坑 2：还没理解主键，就急着上 upsert</h3><p>只要你没有把“Milvus 主键”和“业务唯一键”的关系想清楚，<code>upsert</code> 就很容易变成误用。</p>
+<h3 id="坑-3：每导入一小批就手动-flush"><a href="#坑-3：每导入一小批就手动-flush" class="headerlink" title="坑 3：每导入一小批就手动 flush"></a>坑 3：每导入一小批就手动 flush</h3><p>这几乎是最典型的新手误区之一。</p>
+<p>这样做短期看起来像“更稳”，长期看往往是：</p>
+<ul>
+<li>小 segment 变多</li>
+<li>后台 compaction 压力变大</li>
+<li>查询性能变差</li>
+</ul>
+<h3 id="坑-4：业务刚有一点量，就过早做过度分区"><a href="#坑-4：业务刚有一点量，就过早做过度分区" class="headerlink" title="坑 4：业务刚有一点量，就过早做过度分区"></a>坑 4：业务刚有一点量，就过早做过度分区</h3><p>Partition 不是越多越好，很多系统最后不是被数据量拖垮，而是先被管理复杂度拖垮。</p>
+<h3 id="坑-5：只关注向量，不关注过滤字段和回表字段"><a href="#坑-5：只关注向量，不关注过滤字段和回表字段" class="headerlink" title="坑 5：只关注向量，不关注过滤字段和回表字段"></a>坑 5：只关注向量，不关注过滤字段和回表字段</h3><p>最后搜索到了结果，却没法高效拿到：</p>
+<ul>
+<li>原始文本</li>
+<li>图片地址</li>
+<li>业务状态</li>
+<li>租户信息</li>
+</ul>
+<p>这就会导致应用层还要再查一轮，链路又长又乱。</p>
+<h3 id="坑-6：只会“插入和查询”，不会看系统状态"><a href="#坑-6：只会“插入和查询”，不会看系统状态" class="headerlink" title="坑 6：只会“插入和查询”，不会看系统状态"></a>坑 6：只会“插入和查询”，不会看系统状态</h3><p>真正工程上要养成的习惯是：</p>
+<ul>
+<li>看 segment 状态</li>
+<li>看 collection load 状态</li>
+<li>看索引构建状态</li>
+<li>看对象存储和消息流健康状况</li>
+<li>看查询延迟分布，而不是只看平均值</li>
+</ul>
+<h3 id="最后一句压轴建议"><a href="#最后一句压轴建议" class="headerlink" title="最后一句压轴建议"></a>最后一句压轴建议</h3><p>如果你真的想把 Milvus 学到工程可用，不要把它只当成一个 SDK，也不要把它神化成一个万能 AI 黑盒。最好的方式是：</p>
+<ul>
+<li>既理解它的数据模型</li>
+<li>也理解它的后台链路</li>
+<li>既知道它能做什么</li>
+<li>也知道它不能替你做什么</li>
+</ul>
+<p>到这里，你对 Milvus 的理解，才算真的从“会用”慢慢走向“会设计、会排查、会解释”。</p>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>Milvus从入门到入土</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://yjyrichard.github.io/posts/4351da6a.html">https://yjyrichard.github.io/posts/4351da6a.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Yangjiayu</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2026-03-22</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2026-03-22</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/milvus/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>milvus</a></div></div><link rel="stylesheet" href="/css/coin.css" media="defer" onload="this.media='all'"/><div class="post-reward"><button class="tip-button reward-button"><span class="tip-button__text">投喂作者</span><div class="coin-wrapper"><div class="coin"><div class="coin__middle"></div><div class="coin__back"></div><div class="coin__front"></div></div></div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98.jpg" target="_blank"><img class="post-qr-code-img" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E6%94%AF%E4%BB%98%E5%AE%9D.jpg" target="_blank"><img class="post-qr-code-img" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E6%94%AF%E4%BB%98%E5%AE%9D.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></button></div><audio id="coinAudio" src="https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a"></audio><script defer="defer" src="/js/coin.js"></script><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/8f786e7b.html"><img class="prev-cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/9.png" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Go 从 0 到精通 · 第 01 课：Go 语言入门与环境搭建</div></div></a></div><div class="next-post pull-right"><a href="/posts/f8e59a95.html"><img class="next-cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/9.png" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">两个人的 September，一个人的舞步...</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/3d21c34a.html" title="ANN,IVF,HNSW"><img class="cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/13.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2026-03-01</div><div class="title">ANN,IVF,HNSW</div></div></a></div><div><a href="/posts/eb693b7.html" title="LSH,PQ,IVF-PQ"><img class="cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/7.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2026-03-01</div><div class="title">LSH,PQ,IVF-PQ</div></div></a></div><div><a href="/posts/a7a5fe41.html" title="相似搜索算法概述"><img class="cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/2.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2026-03-01</div><div class="title">相似搜索算法概述</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><svg class="meta_icon" style="width:22px;height:22px;position:relative;top:5px"><use xlink:href="#icon-mulu1"></use></svg><span style="font-weight:bold">目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Milvus-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%9A%E6%8A%8A%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E3%80%81%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%92%8C%E5%B7%A5%E7%A8%8B%E5%AE%9E%E6%88%98%E4%B8%80%E6%AC%A1%E8%AE%B2%E9%80%8F"><span class="toc-text">Milvus 从入门到入土：把向量数据库、底层原理和工程实战一次讲透</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Milvus-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">1. Milvus 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Milvus-%E8%A7%A3%E5%86%B3%E7%9A%84%E6%A0%B9%E9%97%AE%E9%A2%98%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">2. Milvus 解决的根问题是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Milvus-%E7%9A%84%E5%9F%BA%E7%A1%80%E5%AF%B9%E8%B1%A1"><span class="toc-text">3. Milvus 的基础对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Collection"><span class="toc-text">3.1 Collection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Field"><span class="toc-text">3.2 Field</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Entity"><span class="toc-text">3.3 Entity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Primary-Field"><span class="toc-text">3.4 Primary Field</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-AutoID"><span class="toc-text">3.5 AutoID</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Partition%E3%80%81Shard%E3%80%81Segment-%E5%88%B0%E5%BA%95%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">4. Partition、Shard、Segment 到底分别是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Partition"><span class="toc-text">4.1 Partition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Shard"><span class="toc-text">4.2 Shard</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-Segment"><span class="toc-text">4.3 Segment</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Growing-Segment-%E5%92%8C-Sealed-Segment"><span class="toc-text">5. Growing Segment 和 Sealed Segment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Growing-Segment"><span class="toc-text">5.1 Growing Segment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Sealed-Segment"><span class="toc-text">5.2 Sealed Segment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%8C%BA%E5%88%86-Growing-%E5%92%8C-Sealed"><span class="toc-text">5.3 为什么要区分 Growing 和 Sealed</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Seal-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8CFlush-%E5%8F%88%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">6. Seal 是什么，Flush 又是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-Seal"><span class="toc-text">6.1 Seal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Flush"><span class="toc-text">6.2 Flush</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E8%87%AA%E5%8A%A8-flush-%E4%B8%8E%E6%89%8B%E5%8A%A8-flush"><span class="toc-text">6.3 自动 flush 与手动 flush</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-%E4%BD%A0%E5%8F%AF%E4%BB%A5%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3"><span class="toc-text">6.4 你可以怎么理解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%A2%91%E7%B9%81-flush-%E4%BC%9A%E6%8B%96%E6%85%A2%E6%80%A7%E8%83%BD"><span class="toc-text">7. 为什么频繁 flush 会拖慢性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Load-%E5%92%8C-Release-%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">8. Load 和 Release 到底是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-Load"><span class="toc-text">8.1 Load</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-Release"><span class="toc-text">8.2 Release</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-%E6%8F%92%E5%85%A5%E5%90%8E%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E8%83%BD%E6%9F%A5%E5%88%B0"><span class="toc-text">8.3 插入后为什么还能查到</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Index-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">9. Index 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%B8%B8%E8%A7%81%E7%B4%A2%E5%BC%95%E6%80%8E%E4%B9%88%E9%80%89"><span class="toc-text">10. 常见索引怎么选</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-FLAT"><span class="toc-text">10.1 FLAT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-2-IVF-FLAT-IVF-SQ8-IVF-PQ"><span class="toc-text">10.2 IVF_FLAT &#x2F; IVF_SQ8 &#x2F; IVF_PQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-HNSW"><span class="toc-text">10.3 HNSW</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-4-DISKANN"><span class="toc-text">10.4 DISKANN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-5-SPARSE-INVERTED-INDEX"><span class="toc-text">10.5 SPARSE_INVERTED_INDEX</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-Search%E3%80%81Query%E3%80%81Get-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">11. Search、Query、Get 的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-1-Search"><span class="toc-text">11.1 Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-Query"><span class="toc-text">11.2 Query</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-3-Get"><span class="toc-text">11.3 Get</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E5%86%99%E5%85%A5%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%E6%97%B6%EF%BC%8CMilvus-%E5%90%8E%E5%8F%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-text">12. 写入一条数据时，Milvus 后台发生了什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E6%9F%A5%E8%AF%A2%E4%B8%80%E6%9D%A1%E5%90%91%E9%87%8F%E6%97%B6%EF%BC%8CMilvus-%E5%90%8E%E5%8F%B0%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-text">13. 查询一条向量时，Milvus 后台发生了什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-Compaction-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">14. Compaction 是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#14-1-%E6%99%AE%E9%80%9A-compaction"><span class="toc-text">14.1 普通 compaction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-2-Clustering-Compaction"><span class="toc-text">14.2 Clustering Compaction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-Delete-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%98%AF%E7%AB%8B%E5%88%BB%E2%80%9C%E7%89%A9%E7%90%86%E5%88%A0%E9%99%A4%E2%80%9D"><span class="toc-text">15. Delete 为什么不是立刻“物理删除”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-Time-Travel-%E5%92%8C-retentionDuration"><span class="toc-text">16. Time Travel 和 retentionDuration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-%E4%B8%80%E8%87%B4%E6%80%A7%E7%AD%89%E7%BA%A7%EF%BC%9AStrong%E3%80%81Bounded%E3%80%81Session%E3%80%81Eventually"><span class="toc-text">17. 一致性等级：Strong、Bounded、Session、Eventually</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#17-1-Strong"><span class="toc-text">17.1 Strong</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-2-Eventually"><span class="toc-text">17.2 Eventually</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-3-Session"><span class="toc-text">17.3 Session</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-4-Bounded"><span class="toc-text">17.4 Bounded</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-Upsert-%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BE%88%E5%A4%9A%E4%BA%BA%E4%BC%9A%E8%AF%AF%E7%94%A8"><span class="toc-text">18. Upsert 到底是什么，为什么很多人会误用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#18-1-%E5%A6%82%E6%9E%9C%E4%B8%BB%E9%94%AE%E6%98%AF-AutoID-%E4%BC%9A%E6%80%8E%E6%A0%B7"><span class="toc-text">18.1 如果主键是 AutoID 会怎样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18-2-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%80%82%E5%90%88%E7%94%A8-upsert"><span class="toc-text">18.2 什么时候适合用 upsert</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-%E4%BD%A0%E8%BF%99%E7%B1%BB%E5%AF%BC%E5%85%A5%E4%BB%BB%E5%8A%A1%E9%87%8C%EF%BC%8C%E7%9C%9F%E6%AD%A3%E8%AF%A5%E4%BC%98%E5%85%88%E7%90%86%E8%A7%A3%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="toc-text">19. 你这类导入任务里，真正该优先理解的顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-gRPC-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8CMilvus-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8%E5%AE%83"><span class="toc-text">20. gRPC 是什么，Milvus 为什么用它</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#20-1-%E5%85%88%E8%AE%B2-RPC"><span class="toc-text">20.1 先讲 RPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#20-2-gRPC-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">20.2 gRPC 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#20-3-Milvus-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%82%E5%90%88%E7%94%A8-gRPC"><span class="toc-text">20.3 Milvus 为什么适合用 gRPC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#20-4-Milvus-%E7%9A%84%E7%AB%AF%E5%8F%A3"><span class="toc-text">20.4 Milvus 的端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#21-Milvus-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%AD%98%E5%82%A8%E5%88%86%E7%A6%BB%E2%80%9D"><span class="toc-text">21. Milvus 为什么是“计算与存储分离”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-1-%E4%BC%A0%E7%BB%9F%E4%B8%80%E4%BD%93%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-text">21.1 传统一体化数据库的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#21-2-Milvus-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-text">21.2 Milvus 的特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22-Milvus-%E9%9B%86%E7%BE%A4%E9%87%8C%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%BB%84%E4%BB%B6"><span class="toc-text">22. Milvus 集群里都有哪些组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#22-1-v2-6-%E4%B8%BB%E7%BA%BF%E7%90%86%E8%A7%A3"><span class="toc-text">22.1 v2.6 主线理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-2-%E8%80%81%E7%89%88%E6%9C%AC-%E4%BC%A0%E7%BB%9F%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E5%90%8D%E8%AF%8D"><span class="toc-text">22.2 老版本 &#x2F; 传统面试常见名词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-3-%E8%BF%99%E4%B8%A4%E5%A5%97%E8%AF%B4%E6%B3%95%E5%86%B2%E7%AA%81%E5%90%97"><span class="toc-text">22.3 这两套说法冲突吗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#23-%E5%90%84%E7%BB%84%E4%BB%B6%E5%88%86%E5%88%AB%E5%B9%B2%E4%BB%80%E4%B9%88"><span class="toc-text">23. 各组件分别干什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#23-1-Proxy"><span class="toc-text">23.1 Proxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-2-RootCoord"><span class="toc-text">23.2 RootCoord</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-3-DataCoord"><span class="toc-text">23.3 DataCoord</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-4-QueryCoord"><span class="toc-text">23.4 QueryCoord</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-5-IndexCoord-IndexNode"><span class="toc-text">23.5 IndexCoord &#x2F; IndexNode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-6-StreamingNode-DataNode-QueryNode"><span class="toc-text">23.6 StreamingNode &#x2F; DataNode &#x2F; QueryNode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24-Milvus-%E4%BE%9D%E8%B5%96%E7%9A%84%E5%A4%96%E9%83%A8%E7%BB%84%E4%BB%B6%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">24. Milvus 依赖的外部组件分别是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#24-1-etcd"><span class="toc-text">24.1 etcd</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#24-2-MinIO-S3"><span class="toc-text">24.2 MinIO &#x2F; S3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#24-3-Pulsar-Kafka-Woodpecker"><span class="toc-text">24.3 Pulsar &#x2F; Kafka &#x2F; Woodpecker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#24-4-RocksMQ-RocksDB"><span class="toc-text">24.4 RocksMQ &#x2F; RocksDB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#25-Replica-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">25. Replica 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#26-%E4%B8%BA%E4%BB%80%E4%B9%88-Milvus-%E9%80%82%E5%90%88-Kubernetes-%E5%92%8C%E9%9B%86%E7%BE%A4%E6%89%A9%E5%B1%95"><span class="toc-text">26. 为什么 Milvus 适合 Kubernetes 和集群扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#26-1-%E8%AF%BB%E5%86%99%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%8F%AF%E4%BB%A5%E5%88%86%E5%BC%80%E6%89%A9"><span class="toc-text">26.1 读写建索引可以分开扩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#26-2-%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D%E6%9B%B4%E7%AE%80%E5%8D%95"><span class="toc-text">26.2 故障恢复更简单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#26-3-%E6%9B%B4%E9%80%82%E5%90%88%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9"><span class="toc-text">26.3 更适合弹性伸缩</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#27-Milvus-%E7%9A%84%E4%B8%89%E7%A7%8D%E9%83%A8%E7%BD%B2%E6%A8%A1%E5%BC%8F"><span class="toc-text">27. Milvus 的三种部署模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#27-1-Milvus-Lite"><span class="toc-text">27.1 Milvus Lite</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#27-2-Milvus-Standalone"><span class="toc-text">27.2 Milvus Standalone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#27-3-Milvus-Distributed"><span class="toc-text">27.3 Milvus Distributed</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#28-%E7%94%A8%E4%B8%80%E4%B8%AA%E7%9C%9F%E5%AE%9E%E5%AF%BC%E5%85%A5%E6%A1%88%E4%BE%8B%EF%BC%8C%E6%8A%8A%E5%89%8D%E9%9D%A2%E7%9A%84%E6%A6%82%E5%BF%B5%E7%9C%9F%E6%AD%A3%E4%B8%B2%E8%B5%B7%E6%9D%A5"><span class="toc-text">28. 用一个真实导入案例，把前面的概念真正串起来</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#28-1-load-%E6%98%AF%E4%B8%BA%E4%BA%86%E5%8F%AF%E6%9F%A5%E8%AF%A2%EF%BC%8C%E4%B8%8D%E6%98%AF%E4%B8%BA%E4%BA%86%E9%87%8D%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="toc-text">28.1 load() 是为了可查询，不是为了重建索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#28-2-%E9%A2%91%E7%B9%81-flush-%E5%8F%AF%E8%83%BD%E6%8A%8A-segment-%E6%89%93%E7%A2%8E"><span class="toc-text">28.2 频繁 flush() 可能把 segment 打碎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#28-3-%E4%BD%A0%E7%8E%B0%E5%9C%A8%E7%9A%84-schema-%E4%B8%BB%E9%94%AE%E6%98%AF-AutoID"><span class="toc-text">28.3 你现在的 schema 主键是 AutoID</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#28-4-%E7%9C%9F%E6%AD%A3%E7%9C%81%E9%92%B1%E7%9A%84%E5%85%B3%E9%94%AE%E6%98%AF-embedding-%E5%89%8D%E5%8E%BB%E9%87%8D"><span class="toc-text">28.4 真正省钱的关键是 embedding 前去重</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#29-%E9%9D%A2%E8%AF%95%E6%97%B6%E5%8F%AF%E4%BB%A5%E6%80%8E%E4%B9%88%E8%AE%B2-Segment-Seal-Flush"><span class="toc-text">29. 面试时可以怎么讲 Segment &#x2F; Seal &#x2F; Flush</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#30-%E9%9D%A2%E8%AF%95%E6%97%B6%E5%8F%AF%E4%BB%A5%E6%80%8E%E4%B9%88%E8%AE%B2-Milvus-%E6%9E%B6%E6%9E%84"><span class="toc-text">30. 面试时可以怎么讲 Milvus 架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#31-%E9%9D%A2%E8%AF%95%E6%97%B6%E5%8F%AF%E4%BB%A5%E6%80%8E%E4%B9%88%E8%AE%B2-gRPC"><span class="toc-text">31. 面试时可以怎么讲 gRPC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32-%E6%9C%80%E5%AE%B9%E6%98%93%E7%8A%AF%E7%9A%84%E7%90%86%E8%A7%A3%E9%94%99%E8%AF%AF"><span class="toc-text">32. 最容易犯的理解错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF-1%EF%BC%9AMilvus-%E5%B0%B1%E6%98%AF-Faiss"><span class="toc-text">错误 1：Milvus 就是 Faiss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF-2%EF%BC%9Aload-%E9%87%8D%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="toc-text">错误 2：load() &#x3D; 重建索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF-3%EF%BC%9Aflush-%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="toc-text">错误 3：flush() &#x3D; 建索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF-4%EF%BC%9Aupsert-%E5%8F%AF%E4%BB%A5%E6%8C%89%E4%BB%BB%E6%84%8F%E5%AD%97%E6%AE%B5%E5%8E%BB%E9%87%8D"><span class="toc-text">错误 4：upsert 可以按任意字段去重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF-5%EF%BC%9A%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8D%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">错误 5：向量数据库不需要考虑一致性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#33-%E5%A6%82%E6%9E%9C%E4%BD%A0%E5%8F%AA%E8%AE%B0-10-%E5%8F%A5%E8%AF%9D%EF%BC%8C%E8%AE%B0%E8%BF%99-10-%E5%8F%A5"><span class="toc-text">33. 如果你只记 10 句话，记这 10 句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#34-%E5%A6%82%E6%9E%9C%E4%BD%A0%E6%AD%A3%E5%9C%A8%E5%81%9A%E5%AF%BC%E5%85%A5%E6%88%96%E6%A3%80%E7%B4%A2%E9%A1%B9%E7%9B%AE%EF%BC%8C%E6%9C%80%E5%90%8E%E7%BB%99%E4%BD%A0-4-%E6%9D%A1%E7%9C%9F%E6%AD%A3%E6%9C%89%E7%94%A8%E7%9A%84%E5%BB%BA%E8%AE%AE"><span class="toc-text">34. 如果你正在做导入或检索项目，最后给你 4 条真正有用的建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#35-%E5%AE%98%E6%96%B9%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">35. 官方参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#36-%E4%BD%A0%E4%B8%8B%E4%B8%80%E6%AD%A5%E6%9C%80%E5%80%BC%E5%BE%97%E7%BB%A7%E7%BB%AD%E5%AD%A6%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="toc-text">36. 你下一步最值得继续学的顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#37-%E7%94%A8%E4%B8%80%E5%BC%A0%E5%9B%BE%E6%8A%8A-Milvus-%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E7%9C%8B%E6%87%82"><span class="toc-text">37. 用一张图把 Milvus 集群架构看懂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#38-%E5%A6%82%E6%9E%9C%E4%BD%A0%E5%81%9A-RAG-%E6%88%96%E7%9F%A5%E8%AF%86%E5%BA%93%EF%BC%8CMilvus-%E9%80%9A%E5%B8%B8%E5%A4%84%E5%9C%A8%E4%BB%80%E4%B9%88%E4%BD%8D%E7%BD%AE"><span class="toc-text">38. 如果你做 RAG 或知识库，Milvus 通常处在什么位置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#39-Schema-%E5%92%8C%E4%B8%BB%E9%94%AE%E5%88%B0%E5%BA%95%E8%AF%A5%E6%80%8E%E4%B9%88%E8%AE%BE%E8%AE%A1%EF%BC%8C%E6%89%8D%E4%B8%8D%E5%AE%B9%E6%98%93%E5%90%8E%E9%9D%A2%E8%BF%94%E5%B7%A5"><span class="toc-text">39. Schema 和主键到底该怎么设计，才不容易后面返工</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#39-1-%E5%85%88%E5%86%B3%E5%AE%9A%E4%BD%A0%E7%9A%84%E4%B8%BB%E9%94%AE%E6%98%AF%E2%80%9C%E7%B3%BB%E7%BB%9F%E4%B8%BB%E9%94%AE%E2%80%9D%E8%BF%98%E6%98%AF%E2%80%9C%E4%B8%9A%E5%8A%A1%E4%B8%BB%E9%94%AE%E2%80%9D"><span class="toc-text">39.1 先决定你的主键是“系统主键”还是“业务主键”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#39-2-%E4%B8%8D%E8%A6%81%E6%8A%8A-Partition-%E5%BD%93%E6%88%90%E2%80%9C%E9%AB%98%E6%80%A7%E8%83%BD%E4%B8%87%E8%83%BD%E8%8D%AF%E2%80%9D"><span class="toc-text">39.2 不要把 Partition 当成“高性能万能药”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#39-3-%E6%A0%87%E9%87%8F%E5%AD%97%E6%AE%B5%E4%B8%8D%E6%98%AF%E9%99%AA%E8%A1%AC%EF%BC%8C%E5%AE%83%E5%86%B3%E5%AE%9A%E4%BD%A0%E5%90%8E%E7%BB%AD%E8%BF%87%E6%BB%A4%E8%83%BD%E5%8A%9B"><span class="toc-text">39.3 标量字段不是陪衬，它决定你后续过滤能力</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#40-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E5%88%B0%E5%BA%95%E5%85%88%E6%8A%93%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%8D%E8%A6%81%E4%B8%80%E4%B8%8A%E6%9D%A5%E5%8F%AA%E4%BC%9A%E8%B0%83%E7%B4%A2%E5%BC%95%E5%8F%82%E6%95%B0"><span class="toc-text">40. 性能调优到底先抓什么，不要一上来只会调索引参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#40-1-%E5%85%88%E7%A1%AE%E8%AE%A4%E9%97%AE%E9%A2%98%E5%88%B0%E5%BA%95%E6%98%AF%E5%86%99%E5%85%A5%E7%93%B6%E9%A2%88%E3%80%81%E6%9F%A5%E8%AF%A2%E7%93%B6%E9%A2%88%EF%BC%8C%E8%BF%98%E6%98%AF%E5%8F%AC%E5%9B%9E%E8%B4%A8%E9%87%8F%E9%97%AE%E9%A2%98"><span class="toc-text">40.1 先确认问题到底是写入瓶颈、查询瓶颈，还是召回质量问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#40-2-%E5%86%99%E5%85%A5%E4%BC%98%E5%8C%96%EF%BC%8C%E4%BC%98%E5%85%88%E7%9C%8B%E8%BF%99-4-%E4%BB%B6%E4%BA%8B"><span class="toc-text">40.2 写入优化，优先看这 4 件事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#40-3-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%EF%BC%8C%E4%BC%98%E5%85%88%E7%9C%8B%E8%BF%99-5-%E4%BB%B6%E4%BA%8B"><span class="toc-text">40.3 查询优化，优先看这 5 件事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#40-4-%E4%B8%8D%E8%A6%81%E5%BF%BD%E7%95%A5%E2%80%9C%E5%B7%A5%E7%A8%8B%E4%B8%8A%E7%9A%84%E5%81%87%E7%93%B6%E9%A2%88%E2%80%9D"><span class="toc-text">40.4 不要忽略“工程上的假瓶颈”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#41-%E7%94%9F%E4%BA%A7%E4%B8%8A%E6%9C%80%E5%AE%B9%E6%98%93%E8%B8%A9%E7%9A%84%E5%9D%91%EF%BC%8C%E6%88%91%E7%9B%B4%E6%8E%A5%E6%9B%BF%E4%BD%A0%E5%85%88%E8%B8%A9%E4%B8%80%E9%81%8D"><span class="toc-text">41. 生产上最容易踩的坑，我直接替你先踩一遍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91-1%EF%BC%9A%E6%8A%8A-Milvus-%E5%BD%93%E6%88%90%E2%80%9C%E6%89%94%E8%BF%9B%E5%8E%BB%E5%B0%B1%E8%87%AA%E5%8A%A8%E5%8F%98%E6%99%BA%E8%83%BD%E2%80%9D%E7%9A%84%E9%BB%91%E7%9B%92"><span class="toc-text">坑 1：把 Milvus 当成“扔进去就自动变智能”的黑盒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91-2%EF%BC%9A%E8%BF%98%E6%B2%A1%E7%90%86%E8%A7%A3%E4%B8%BB%E9%94%AE%EF%BC%8C%E5%B0%B1%E6%80%A5%E7%9D%80%E4%B8%8A-upsert"><span class="toc-text">坑 2：还没理解主键，就急着上 upsert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91-3%EF%BC%9A%E6%AF%8F%E5%AF%BC%E5%85%A5%E4%B8%80%E5%B0%8F%E6%89%B9%E5%B0%B1%E6%89%8B%E5%8A%A8-flush"><span class="toc-text">坑 3：每导入一小批就手动 flush</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91-4%EF%BC%9A%E4%B8%9A%E5%8A%A1%E5%88%9A%E6%9C%89%E4%B8%80%E7%82%B9%E9%87%8F%EF%BC%8C%E5%B0%B1%E8%BF%87%E6%97%A9%E5%81%9A%E8%BF%87%E5%BA%A6%E5%88%86%E5%8C%BA"><span class="toc-text">坑 4：业务刚有一点量，就过早做过度分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91-5%EF%BC%9A%E5%8F%AA%E5%85%B3%E6%B3%A8%E5%90%91%E9%87%8F%EF%BC%8C%E4%B8%8D%E5%85%B3%E6%B3%A8%E8%BF%87%E6%BB%A4%E5%AD%97%E6%AE%B5%E5%92%8C%E5%9B%9E%E8%A1%A8%E5%AD%97%E6%AE%B5"><span class="toc-text">坑 5：只关注向量，不关注过滤字段和回表字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91-6%EF%BC%9A%E5%8F%AA%E4%BC%9A%E2%80%9C%E6%8F%92%E5%85%A5%E5%92%8C%E6%9F%A5%E8%AF%A2%E2%80%9D%EF%BC%8C%E4%B8%8D%E4%BC%9A%E7%9C%8B%E7%B3%BB%E7%BB%9F%E7%8A%B6%E6%80%81"><span class="toc-text">坑 6：只会“插入和查询”，不会看系统状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E5%8F%A5%E5%8E%8B%E8%BD%B4%E5%BB%BA%E8%AE%AE"><span class="toc-text">最后一句压轴建议</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">格言🧬</p><div class="bg-ad"><div>再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨</div><div class="btn-xz-box"><a class="btn-xz" href="#">点击开启星辰之旅</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">猜你想看💡</p><ul class="ft-links"><li><a href="/social/link/">我的朋友</a><a href="/comments/">留点什么</a></li><li><a href="/personal/about/">关于作者</a><a href="/archives/">文章归档</a></li><li><a href="/categories/">文章分类</a><a href="/tags/">文章标签</a></li><li><a href="/box/Gallery/">我的画廊</a><a href="/personal/bb/">我的唠叨</a></li><li><a href="/site/time/">建设进程</a><a href="/site/census/">网站统计</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链⌛</p><div class="ft-img-group"></div></div></div><div class="copyright"><span><b>&copy;2025-2026</b></span><span><b>&nbsp;&nbsp;By Yangjiayu</b></span></div><div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v6.3.0"><img src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.3.1"><img src="https://sourcebucket.s3.ladydaily.com/badge/Theme-Butterfly-6513df.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" title="本站采用多线部署，主线路托管于Vercel"><img src="https://sourcebucket.s3.ladydaily.com/badge/Hosted-Vercel-brightgreen.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://user.51.la/" style="margin-inline:5px" title="本站数据分析得益于51la技术支持"><img src="https://sourcebucket.s3.ladydaily.com/badge/Analytics-51la-3db1eb.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://icp.gov.moe/?keyword=20226665" style="margin-inline:5px" title="本站已加入萌ICP豪华套餐，萌ICP备20226665号"><img src="https://sourcebucket.s3.ladydaily.com/badge/萌ICP备-20226665-fe1384.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://bitiful.dogecast.com/buckets" style="margin-inline:5px" title="本网站经Service Worker分流至缤纷云对象存储"><img src=" https://sourcebucket.s3.ladydaily.com/badge/Bucket-缤纷云-9c62da.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://www.netdun.net/" style="margin-inline:5px" title="本站使用网盾星球提供CDN加速与防护"><img src="https://sourcebucket.s3.ladydaily.com/badge/CDN-网盾星球-fff2cc.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本网站源码由Github提供存储仓库"><img src=" https://sourcebucket.s3.ladydaily.com/badge/Source-Github-d021d6.svg" alt=""/></a></p></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button class="share" type="button" title="右键模式" onclick="changeMouseMode()"><i class="fas fa-mouse"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog right_side"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button class="share" type="button" title="分享链接" onclick="share()"><i class="fas fa-share-nodes"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><span id="percent">0<span>%</span></span></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div class="js-pjax" id="rightMenu"><div class="rightMenu-group rightMenu-small"><a class="rightMenu-item" href="javascript:window.history.back();"><i class="fa fa-arrow-left"></i></a><a class="rightMenu-item" href="javascript:window.history.forward();"><i class="fa fa-arrow-right"></i></a><a class="rightMenu-item" href="javascript:window.location.reload();"><i class="fa fa-refresh"></i></a><a class="rightMenu-item" href="javascript:rmf.scrollToTop();"><i class="fa fa-arrow-up"></i></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-text"><a class="rightMenu-item" href="javascript:rmf.copySelect();"><i class="fa fa-copy"></i><span>复制</span></a><a class="rightMenu-item" href="javascript:window.open(&quot;https://www.baidu.com/s?wd=&quot;+window.getSelection().toString());window.location.reload();"><i class="fa fa-search"></i><span>百度搜索</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-too"><a class="rightMenu-item" href="javascript:window.open(window.getSelection().toString());window.location.reload();"><i class="fa fa-link"></i><span>转到链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-paste"><a class="rightMenu-item" href="javascript:rmf.paste()"><i class="fa fa-copy"></i><span>粘贴</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-post"><a class="rightMenu-item" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item" href="javascript:rmf.copyWordsLink()"><i class="fa fa-link"></i><span>复制本文地址</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-to"><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>新窗口打开</span></a><a class="rightMenu-item" id="menu-too" href="javascript:rmf.open()"><i class="fa fa-link"></i><span>转到链接</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-img"><a class="rightMenu-item" href="javascript:rmf.saveAs()"><i class="fa fa-download"></i><span>保存图片</span></a><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>在新窗口打开</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制图片链接</span></a></div><div class="rightMenu-group rightMenu-line"><a class="rightMenu-item" href="javascript:randomPost()"><i class="fa fa-paper-plane"></i><span>随便逛逛</span></a><a class="rightMenu-item" href="javascript:switchNightMode();"><i class="fa fa-moon"></i><span>昼夜切换</span></a><a class="rightMenu-item" href="/personal/about/"><i class="fa fa-info-circle"></i><span>关于博客</span></a><a class="rightMenu-item" href="javascript:toggleWinbox();"><i class="fas fa-cog"></i><span>美化设置</span></a><a class="rightMenu-item" href="javascript:rmf.fullScreen();"><i class="fas fa-expand"></i><span>切换全屏</span></a><a class="rightMenu-item" href="javascript:window.print();"><i class="fa-solid fa-print"></i><span>打印页面</span></a></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.2/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://www.312782.xyz/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://www.312782.xyz/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script><script async src="https://cdn1.tianli0.top/npm/vue@2.6.14/dist/vue.min.js"></script><script async src="https://cdn1.tianli0.top/npm/element-ui@2.15.6/lib/index.js"></script><script async src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script><script defer type="text/javascript" src="https://cdn1.tianli0.top/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script><script async src="//npm.elemecdn.com/pace-js@1.2.4/pace.min.js"></script><script defer src="https://cdn1.tianli0.top/gh/nextapps-de/winbox/dist/winbox.bundle.min.js"></script><script async src="//at.alicdn.com/t/c/font_3586335_hsivh70x0fm.js"></script><script async src="//at.alicdn.com/t/c/font_3636804_gr02jmjr3y9.js"></script><script async src="//at.alicdn.com/t/c/font_3612150_kfv55xn3u2g.js"></script><script async src="https://cdn.wpon.cn/2022-sucai/Gold-ingot.js"></script><canvas id="universe"></canvas><canvas id="snow"></canvas><script defer src="/js/fomal.js"></script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="https://yjyrichard.github.io/categories/算法/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍡 算法学习笔记 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item" style="visibility: hidden"></div><div class="magnet_item" style="visibility: hidden"></div><a class="magnet_link_more"  href="https://yjyrichard.github.io/categories/" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(33.333333333333336% - 5px);background: #e9e9e9;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: var(--text-bg-hover)}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/d522d575.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/15.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/d522d575.html" alt="">小程序起步</a><div class="blog-slider__text">初识小程序</div><a class="blog-slider__button" href="posts/d522d575.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/8610680.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/6.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/8610680.html" alt="">大模型的token究竟是啥?</a><div class="blog-slider__text">大模型的token究竟是啥?</div><a class="blog-slider__button" href="posts/8610680.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/5c2f4951.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/14.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/5c2f4951.html" alt="">基础数据结构(3)</a><div class="blog-slider__text">栈，队列，堆，二叉树</div><a class="blog-slider__button" href="posts/5c2f4951.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/45347810.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/8.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/45347810.html" alt="">基础数据结构(2)</a><div class="blog-slider__text">递归</div><a class="blog-slider__button" href="posts/45347810.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/6e192bd3.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/9.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/6e192bd3.html" alt="">基础数据结构(1)</a><div class="blog-slider__text">数组与链表</div><a class="blog-slider__button" href="posts/6e192bd3.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/3ec27523.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/16.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-21</span><a class="blog-slider__title" href="posts/3ec27523.html" alt="">微信支付</a><div class="blog-slider__text">java整合微信的网页支付包含原理</div><a class="blog-slider__button" href="posts/3ec27523.html" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('blog-slider swiper-container-fade swiper-container-horizontal');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('catalog_magnet');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s·');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__jackInTheBox');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><script data-pjax src="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('gitZone');
+      var item_html = '<div class="recent-post-item" id="gitcalendarBar" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 320px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('gitZone') && (location.pathname ==='/site/census/'|| '/site/census/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("/api?null",['#d9e0df', '#c6e0dc', '#a8dcd4', '#9adcd2', '#89ded1', '#77e0d0', '#5fdecb', '#47dcc6', '#39dcc3', '#1fdabe', '#00dab9'],'null')
+    }
+  </script><!-- hexo injector body_end end --></body></html>
