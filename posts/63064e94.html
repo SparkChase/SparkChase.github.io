@@ -1,0 +1,1908 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><div id="myscoll"></div><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>从零讲明白：语言学与自然语言处理 | Yangjiayu</title><meta name="keywords" content="NLP"><meta name="author" content="Yangjiayu"><meta name="copyright" content="Yangjiayu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="语言学与自然语言处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零讲明白：语言学与自然语言处理">
+<meta property="og:url" content="https://yjyrichard.github.io/posts/63064e94.html">
+<meta property="og:site_name" content="Yangjiayu">
+<meta property="og:description" content="语言学与自然语言处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/6.png">
+<meta property="article:published_time" content="2026-04-09T15:06:11.316Z">
+<meta property="article:modified_time" content="2026-04-09T15:15:06.478Z">
+<meta property="article:author" content="Yangjiayu">
+<meta property="article:tag" content="NLP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/6.png"><link rel="shortcut icon" href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/your_image_path_here.jpg"><link rel="canonical" href="https://yjyrichard.github.io/posts/63064e94"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"var(--theme-color)","bgDark":"#191919","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从零讲明白：语言学与自然语言处理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-04-09 23:15:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.5.0/css/all.min.css"><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/element-ui@2.15.6/packages/theme-chalk/lib/index.css"><style id="themeColor"></style><style id="rightSide"></style><style id="transPercent"></style><style id="blurNum"></style><style id="settingStyle"></style><span id="fps"></span><style id="defineBg"></style><style id="menu_shadow"></style><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Yangjiayu" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/your_image_path_here.jpg" onerror="onerror=null;src='/assets/r1.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">149</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">31</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon--article"></use></svg><span class="menu_word" style="font-size:17px"> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1">                   </use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-sekuaibiaoqian">                   </use></svg><span class="menu_word" style="font-size:17px"> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-fenlei">                   </use></svg><span class="menu_word" style="font-size:17px"> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pinweishenghuo"></use></svg><span class="menu_word" style="font-size:17px"> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/life/music/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-yinle">                   </use></svg><span class="menu_word" style="font-size:17px"> 八音盒</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/movies/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-dianying1">                   </use></svg><span class="menu_word" style="font-size:17px"> 影院</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/games/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-youxishoubing">                   </use></svg><span class="menu_word" style="font-size:17px"> 健身</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/books/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-lianjie">                   </use></svg><span class="menu_word" style="font-size:17px"> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-shejiaoxinxi"></use></svg><span class="menu_word" style="font-size:17px"> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/social/fcircle/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pengyouquan">                   </use></svg><span class="menu_word" style="font-size:17px"> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-liuyan">                   </use></svg><span class="menu_word" style="font-size:17px"> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-maoliang"></use></svg><span class="menu_word" style="font-size:17px"> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/personal/bb/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-qunliaotian">                   </use></svg><span class="menu_word" style="font-size:17px"> 时间管理</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/love/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-love-sign">                   </use></svg><span class="menu_word" style="font-size:17px"> 恋爱小屋</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/about/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-paperplane">                   </use></svg><span class="menu_word" style="font-size:17px"> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Yangjiayu</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon--article"></use></svg><span class="menu_word" style="font-size:17px"> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1">                   </use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-sekuaibiaoqian">                   </use></svg><span class="menu_word" style="font-size:17px"> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-fenlei">                   </use></svg><span class="menu_word" style="font-size:17px"> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pinweishenghuo"></use></svg><span class="menu_word" style="font-size:17px"> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/life/music/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-yinle">                   </use></svg><span class="menu_word" style="font-size:17px"> 八音盒</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/movies/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-dianying1">                   </use></svg><span class="menu_word" style="font-size:17px"> 影院</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/games/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-youxishoubing">                   </use></svg><span class="menu_word" style="font-size:17px"> 健身</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/books/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-lianjie">                   </use></svg><span class="menu_word" style="font-size:17px"> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-shejiaoxinxi"></use></svg><span class="menu_word" style="font-size:17px"> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/social/fcircle/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pengyouquan">                   </use></svg><span class="menu_word" style="font-size:17px"> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-liuyan">                   </use></svg><span class="menu_word" style="font-size:17px"> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-maoliang"></use></svg><span class="menu_word" style="font-size:17px"> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/personal/bb/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-qunliaotian">                   </use></svg><span class="menu_word" style="font-size:17px"> 时间管理</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/love/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-love-sign">                   </use></svg><span class="menu_word" style="font-size:17px"> 恋爱小屋</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/about/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-paperplane">                   </use></svg><span class="menu_word" style="font-size:17px"> 关于</span></a></li></ul></div></div><center id="name-container"><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></center><div id="nav-right"><div id="search-button"><a class="search faa-parent animated-hover" title="检索站内任何你想要的信息"><svg class="faa-tada icon" style="height:24px;width:24px;fill:currentColor;position:relative;top:6px" aria-hidden="true"><use xlink:href="#icon-valentine_-search-love-find-heart"></use></svg><span> 搜索</span></a></div><a class="meihua faa-parent animated-hover" onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button"><svg class="faa-tada icon" style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true"><use xlink:href="#icon-tupian1"></use></svg></a><a class="sun_moon faa-parent animated-hover" onclick="switchNightMode()" title="浅色和深色模式转换" id="nightmode-button"><svg class="faa-tada" style="height:25px;width:25px;fill:currentColor;position:relative;top:7px" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon">       </use></svg></a><div id="toggle-menu"><a><i class="fas fa-bars fa-fw"></i></a></div></div></div></nav><div id="post-info"><h1 class="post-title">从零讲明白：语言学与自然语言处理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><svg class="meta_icon post-meta-icon" style="width:30px;height:30px;position:relative;top:10px"><use xlink:href="#icon-rili"></use></svg><span class="post-meta-label">发表于 </span><time class="post-meta-date-created" datetime="2026-04-09T15:06:11.316Z" title="发表于 2026-04-09 23:06:11">2026-04-09</time><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-gengxin1"></use></svg><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-09T15:15:06.478Z" title="更新于 2026-04-09 23:15:06">2026-04-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-biaoqian"></use></svg><a class="post-meta-categories" href="/categories/NLP/">NLP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:8px"><use xlink:href="#icon-charuword"></use></svg><span class="post-meta-label">字数总计:</span><span class="word-count">1.1w</span><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:20px;height:20px;position:relative;top:5px"><use xlink:href="#icon-shizhong"></use></svg><span class="post-meta-label">阅读时长:</span><span>31分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从零讲明白：语言学与自然语言处理"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:5px"><use xlink:href="#icon-eye"></use></svg><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>从零讲明白：语言学与自然语言处理</h1>
+<blockquote>
+<p>一篇写给小白的入门文章。<br>
+如果你曾经觉得“自然语言处理”这六个字看起来很厉害、很学术、很像会出现在考试最后一道大题里，那么恭喜你，这篇就是专门来把它讲人话的。</p>
+</blockquote>
+<hr>
+<h2 id="壹、先别怕：这门学问到底在研究什么？">壹、先别怕：这门学问到底在研究什么？</h2>
+<p>我们先不急着谈“模型”“算法”“大语言模型”这些听起来很像要熬夜的词。</p>
+<p>先看一个最朴素的问题：</p>
+<p><strong>人是怎么沟通的？机器又是怎么沟通的？为什么人和机器一交流就容易卡壳？</strong></p>
+<p>大体上，沟通可以分成三种情况：</p>
+<h3 id="1-人和人沟通">1. 人和人沟通</h3>
+<p>比如：</p>
+<ul>
+<li>“你吃饭了吗？”</li>
+<li>“今天天气不错。”</li>
+<li>“这道题我不会，救命。”</li>
+</ul>
+<p>这是最自然的一种沟通方式。我们用汉语、英语、日语这些语言交流，这些语言都属于<strong>自然语言</strong>。</p>
+<h3 id="2-机器和机器沟通">2. 机器和机器沟通</h3>
+<p>比如程序之间传数据、服务器返回 JSON、代码执行指令。</p>
+<p>机器之间也能“交流”，但它们用的不是人话，而是：</p>
+<ul>
+<li>程序语言</li>
+<li>指令</li>
+<li>协议</li>
+<li>数据格式</li>
+</ul>
+<p>这一类语言有个共同特点：<strong>规则明确、结构严格、歧义极少。</strong></p>
+<h3 id="3-人和机器沟通">3. 人和机器沟通</h3>
+<p>问题来了。</p>
+<p>人会说：</p>
+<ul>
+<li>“帮我查一下明天北京天气。”</li>
+<li>“给我推荐一部轻松一点的电影。”</li>
+<li>“我饿了，附近有啥好吃的？”</li>
+</ul>
+<p>但机器最早并不擅长理解这种自然、口语化、上下文很多的话。</p>
+<p>于是就出现一种很经典的局面：</p>
+<blockquote>
+<p><strong>无法沟通！</strong></p>
+</blockquote>
+<p>而<strong>自然语言处理（NLP）</strong>，本质上就是来解决第三种情况的。</p>
+<p>说得再直白一点：</p>
+<blockquote>
+<p><strong>自然语言处理，就是研究怎样让机器听懂人话、看懂人话、甚至说出人话。</strong></p>
+</blockquote>
+<hr>
+<h2 id="貳、什么是“语言学”？">貳、什么是“语言学”？</h2>
+<p>很多人一看到“语言学”三个字，会下意识想到：</p>
+<ul>
+<li>语文课</li>
+<li>语法书</li>
+<li>病句修改</li>
+<li>修辞手法</li>
+<li>背单词</li>
+</ul>
+<p>这些当然和语言有关，但<strong>语言学</strong>并不只是这些。</p>
+<h3 id="1-语言学的定义">1. 语言学的定义</h3>
+<p>语言学，是<strong>研究人类语言本身的科学</strong>。</p>
+<p>它关心的问题包括：</p>
+<ul>
+<li>语言的声音是怎么产生的？</li>
+<li>词是怎么构成的？</li>
+<li>句子为什么能这样组织？</li>
+<li>一句话的意义是怎么产生的？</li>
+<li>为什么同一句话，换个场景意思就不一样了？</li>
+</ul>
+<p>简单说，语言学要回答的是：</p>
+<blockquote>
+<p><strong>语言到底是怎样运作的？</strong></p>
+</blockquote>
+<h3 id="2-语言学不是背规则，而是研究规律">2. 语言学不是背规则，而是研究规律</h3>
+<p>比如我们说：</p>
+<ul>
+<li>“我喜欢你。”</li>
+<li>“你喜欢我。”</li>
+</ul>
+<p>字都一样，只是顺序变了，意思就完全不同。</p>
+<p>再比如：</p>
+<ul>
+<li>“苹果很好。”</li>
+</ul>
+<p>这里的“苹果”到底是水果，还是苹果公司，还是 iPhone？</p>
+<p>人脑通常很快就能判断，但机器不一定行。</p>
+<p>语言学就是研究这种“看起来很自然，其实背后全是规律和坑”的东西。</p>
+<hr>
+<h2 id="參、什么是“自然语言”？">參、什么是“自然语言”？</h2>
+<h3 id="1-自然语言的定义">1. 自然语言的定义</h3>
+<p><strong>自然语言</strong>，就是人类在长期社会生活中自然形成并使用的语言。</p>
+<p>比如：</p>
+<ul>
+<li>汉语</li>
+<li>英语</li>
+<li>日语</li>
+<li>法语</li>
+<li>阿拉伯语</li>
+</ul>
+<p>这些都属于自然语言。</p>
+<p>这里的“自然”，不是“天然无添加”的意思，而是说：</p>
+<blockquote>
+<p>它不是专门为了机器设计出来的，而是人类自己慢慢发展出来的。</p>
+</blockquote>
+<h3 id="2-自然语言和程序语言有什么不同？">2. 自然语言和程序语言有什么不同？</h3>
+<p>这个区别特别重要。</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>自然语言</th>
+<th>程序语言/形式语言</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用者</td>
+<td>人类</td>
+<td>机器、人类程序员</td>
+</tr>
+<tr>
+<td>形成方式</td>
+<td>长期自然演化</td>
+<td>人工设计</td>
+</tr>
+<tr>
+<td>规则</td>
+<td>有规则，但很灵活</td>
+<td>规则严格</td>
+</tr>
+<tr>
+<td>歧义</td>
+<td>很多</td>
+<td>尽量没有</td>
+</tr>
+<tr>
+<td>是否依赖语境</td>
+<td>非常依赖</td>
+<td>尽量不依赖</td>
+</tr>
+</tbody>
+</table>
+<p>比如这句：</p>
+<p><strong>“苹果很好。”</strong></p>
+<p>在自然语言里，它可能有多种意思；<br>
+但如果放在程序语言里，变量、函数、语法都要定义清楚，否则程序直接报错，不跟你讲感情。</p>
+<h3 id="3-为什么自然语言难处理？">3. 为什么自然语言难处理？</h3>
+<p>因为它不是为机器准备的。</p>
+<p>人类说话时会：</p>
+<ul>
+<li>省略</li>
+<li>暗示</li>
+<li>反讽</li>
+<li>模糊表达</li>
+<li>依赖背景知识</li>
+<li>一词多义</li>
+<li>一句多解</li>
+</ul>
+<p>人听人话没问题，是因为人脑自动补了很多“隐藏信息”。</p>
+<p>机器：</p>
+<blockquote>
+<p>“你们人类讲话能不能稍微像写代码一样规范一点？”</p>
+</blockquote>
+<p>显然不能。所以 NLP 才难。</p>
+<hr>
+<h2 id="肆、为什么机器听不懂人话？">肆、为什么机器听不懂人话？</h2>
+<p>这个问题，是整门课的核心。</p>
+<p>很多人会想：</p>
+<blockquote>
+<p>“一句话而已，人一眼就懂，机器怎么会不懂？”</p>
+</blockquote>
+<p>原因在于，人类所谓的“懂”，并不是只看字面，而是综合了：</p>
+<ul>
+<li>语境</li>
+<li>常识</li>
+<li>情景</li>
+<li>经验</li>
+<li>说话人的意图</li>
+<li>文化背景</li>
+</ul>
+<p>而机器一开始并没有这些能力。</p>
+<p>下面看几个最典型的难点。</p>
+<h3 id="1-语言有歧义">1. 语言有歧义</h3>
+<h4 id="词义歧义">词义歧义</h4>
+<p>比如：</p>
+<p><strong>“苹果很好。”</strong></p>
+<p>这里的“苹果”可能是：</p>
+<ul>
+<li>水果</li>
+<li>苹果公司</li>
+<li>苹果手机</li>
+</ul>
+<h4 id="句法歧义">句法歧义</h4>
+<p>比如：</p>
+<p><strong>“我看见拿望远镜的人。”</strong></p>
+<p>到底是：</p>
+<ul>
+<li>我拿着望远镜，看见了那个人；<br>
+还是</li>
+<li>我看见了那个拿望远镜的人。</li>
+</ul>
+<h4 id="指代歧义">指代歧义</h4>
+<p>比如：</p>
+<p><strong>“小王告诉小李，他通过了考试。”</strong></p>
+<p>“他”是谁？</p>
+<ul>
+<li>小王？</li>
+<li>小李？</li>
+</ul>
+<p>机器会非常头大。</p>
+<h3 id="2-语言依赖上下文">2. 语言依赖上下文</h3>
+<p>比如一句：</p>
+<p><strong>“可以。”</strong></p>
+<p>这句话单拿出来几乎什么都说明不了。</p>
+<p>它可能是：</p>
+<ul>
+<li>同意</li>
+<li>敷衍</li>
+<li>允许</li>
+<li>勉强接受</li>
+<li>不想继续争论</li>
+</ul>
+<p>再比如：</p>
+<p><strong>“你真行。”</strong></p>
+<p>有时候是夸奖，<br>
+有时候其实是：“你可真会给我整活。”</p>
+<h3 id="3-语言依赖常识">3. 语言依赖常识</h3>
+<p>比如：</p>
+<p><strong>“杯子倒了，水洒了。”</strong></p>
+<p>人当然知道：</p>
+<ul>
+<li>杯子一般能装水</li>
+<li>杯子倒了，水可能流出来</li>
+</ul>
+<p>但机器并不是天生就知道这些。</p>
+<h3 id="4-语言经常不规范">4. 语言经常不规范</h3>
+<p>现实中的人类说话，和课本上的句子完全不是一个画风。</p>
+<p>比如：</p>
+<ul>
+<li>“在吗”</li>
+<li>“笑死”</li>
+<li>“我真的会谢”</li>
+<li>“这也太离谱了吧”</li>
+<li>“懂的都懂”</li>
+</ul>
+<p>这些表达里，有大量：</p>
+<ul>
+<li>省略</li>
+<li>口语化</li>
+<li>情绪色彩</li>
+<li>隐含信息</li>
+</ul>
+<p>人懂，机器未必懂。</p>
+<h3 id="5-中文还有自己的额外难题">5. 中文还有自己的额外难题</h3>
+<p>英文大多数时候天然有空格：</p>
+<blockquote>
+<p>I love natural language processing.</p>
+</blockquote>
+<p>机器比较容易知道哪个是哪个词。</p>
+<p>但中文通常写成：</p>
+<blockquote>
+<p>我喜欢自然语言处理</p>
+</blockquote>
+<p>机器首先要回答一个非常基础的问题：</p>
+<blockquote>
+<p><strong>到底该怎么切词？</strong></p>
+</blockquote>
+<p>比如它可能切成：</p>
+<ul>
+<li>我 / 喜欢 / 自然语言处理</li>
+</ul>
+<p>也可能切成：</p>
+<ul>
+<li>我 / 喜欢 / 自然 / 语言 / 处理</li>
+</ul>
+<p>你看，中文连“词在哪儿”都得先判断，后面当然更难。</p>
+<hr>
+<h2 id="伍、语言学通常研究语言的哪些层次？">伍、语言学通常研究语言的哪些层次？</h2>
+<p>语言不是一个平面，它像洋葱一样，一层一层剥下去，每一层都有学问。</p>
+<p>通常可以把语言大致分成下面几个层次。</p>
+<h3 id="1-语音层：声音是怎么回事">1. 语音层：声音是怎么回事</h3>
+<p>这部分研究：</p>
+<ul>
+<li>发音</li>
+<li>音节</li>
+<li>音位</li>
+<li>声调</li>
+<li>语音差别</li>
+</ul>
+<p>比如中文里：</p>
+<ul>
+<li>妈</li>
+<li>麻</li>
+<li>马</li>
+<li>骂</li>
+</ul>
+<p>字形很像，发音的声调不同，意思就完全不同。</p>
+<p>如果一个系统要做语音识别，它就得尽量区分这种差别。</p>
+<p>所以，语音层更接近“机器怎么听懂你说的话”。</p>
+<hr>
+<h3 id="2-词法层：词是怎么长出来的">2. 词法层：词是怎么长出来的</h3>
+<p>这部分研究：</p>
+<ul>
+<li>词怎么构成</li>
+<li>词和词之间的内部关系</li>
+<li>词形变化</li>
+<li>构词方式</li>
+</ul>
+<p>比如：</p>
+<ul>
+<li>学</li>
+<li>学习</li>
+<li>学习者</li>
+<li>可学习性</li>
+</ul>
+<p>这些词之间并不是完全独立的，它们有构成关系。</p>
+<p>在英文里会更明显：</p>
+<ul>
+<li>teach</li>
+<li>teacher</li>
+<li>teaching</li>
+<li>taught</li>
+</ul>
+<p>NLP 在这一层常见的事情有：</p>
+<ul>
+<li>分词</li>
+<li>词形还原</li>
+<li>词干提取</li>
+<li>词法分析</li>
+</ul>
+<hr>
+<h3 id="3-句法层：词怎么拼成句子">3. 句法层：词怎么拼成句子</h3>
+<p>这部分研究的是：</p>
+<blockquote>
+<p><strong>词和词之间，究竟是按照什么关系组织成句子的。</strong></p>
+</blockquote>
+<p>比如：</p>
+<ul>
+<li>“猫追老鼠。”</li>
+<li>“老鼠追猫。”</li>
+</ul>
+<p>字都认识，词也没变，顺序一换，意义立刻反过来。</p>
+<p>再比如：</p>
+<p><strong>“小明喜欢打篮球。”</strong></p>
+<p>你会自然理解：</p>
+<ul>
+<li>“小明”是主语</li>
+<li>“喜欢”是动作或状态</li>
+<li>“打篮球”是喜欢的内容</li>
+</ul>
+<p>NLP 在句法层会做：</p>
+<ul>
+<li>词性标注</li>
+<li>句法分析</li>
+<li>成分分析</li>
+<li>依存分析</li>
+</ul>
+<p>简单理解就是：</p>
+<blockquote>
+<p>让机器知道，谁和谁关系最近，谁修饰谁，谁是动作发出者，谁是承受者。</p>
+</blockquote>
+<hr>
+<h3 id="4-语义层：这句话到底是什么意思">4. 语义层：这句话到底是什么意思</h3>
+<p>语义研究的是意义。</p>
+<p>比如：</p>
+<p><strong>“苹果很好吃。”</strong></p>
+<p>这里的“苹果”大概率是水果。</p>
+<p>但：</p>
+<p><strong>“苹果发布了新手机。”</strong></p>
+<p>这里的“苹果”就不可能是水果，而是公司。</p>
+<p>同一个词，放在不同句子里，意义会变。</p>
+<p>再比如：</p>
+<ul>
+<li>“老师批评了学生。”</li>
+<li>“学生被老师批评了。”</li>
+</ul>
+<p>表达形式不一样，但核心事件其实差不多。</p>
+<p>语义层想抓住的，就是这种更深层的“意思”。</p>
+<hr>
+<h3 id="5-语用层：人说的话，不一定只等于字面">5. 语用层：人说的话，不一定只等于字面</h3>
+<p>语用层研究的是：</p>
+<blockquote>
+<p><strong>一句话在真实场景中，到底是在干什么。</strong></p>
+</blockquote>
+<p>比如冬天你走进屋里说：</p>
+<p><strong>“有点冷啊。”</strong></p>
+<p>字面上是在描述温度，<br>
+但很多时候真正的意思可能是：</p>
+<ul>
+<li>把窗关一下</li>
+<li>开空调</li>
+<li>谁来救救我的手</li>
+</ul>
+<p>再比如：</p>
+<p><strong>“你能把门关上吗？”</strong></p>
+<p>字面上像是在问能力，<br>
+实际上大多数时候是在提出请求。</p>
+<p>所以语言理解到最后，经常不只是“识字”和“懂语法”，而是要明白：</p>
+<blockquote>
+<p><strong>说话人真正想表达什么。</strong></p>
+</blockquote>
+<hr>
+<h2 id="陸、什么是自然语言处理（NLP）？">陸、什么是自然语言处理（NLP）？</h2>
+<p>讲到这里，自然语言处理就好理解了。</p>
+<h3 id="1-NLP-的定义">1. NLP 的定义</h3>
+<p><strong>自然语言处理（Natural Language Processing，简称 NLP）</strong>，就是研究如何让计算机对自然语言进行：</p>
+<ul>
+<li>处理</li>
+<li>理解</li>
+<li>分析</li>
+<li>生成</li>
+<li>应用</li>
+</ul>
+<p>的一门交叉学科。</p>
+<p>它站在几个学科的交叉口上：</p>
+<ul>
+<li><strong>语言学</strong>：研究语言本身</li>
+<li><strong>计算机科学</strong>：让机器能处理这些语言</li>
+<li><strong>数学/统计学</strong>：让机器从数据中学习规律</li>
+<li><strong>人工智能</strong>：让系统表现出更强的理解和生成能力</li>
+</ul>
+<h3 id="2-NLP-的目标，用一句大白话来说">2. NLP 的目标，用一句大白话来说</h3>
+<blockquote>
+<p><strong>让机器尽可能像一个“能听、能读、能理解、能表达”的交流对象。</strong></p>
+</blockquote>
+<p>当然，现实里“尽可能”这三个字很重要。因为真正让机器像人一样理解语言，依然是一件非常难的事。</p>
+<h3 id="3-NLP-不是只有聊天机器人">3. NLP 不是只有聊天机器人</h3>
+<p>很多人一提 NLP，就想到聊天、问答、AI 助手。</p>
+<p>这些当然算，但它远不止这些。</p>
+<p>NLP 的范围很广，从最基础的分词，到高级的对话生成，都算。</p>
+<hr>
+<h2 id="柒、自然语言处理具体在做哪些事？">柒、自然语言处理具体在做哪些事？</h2>
+<p>下面这些，就是 NLP 里非常经典的任务。</p>
+<h3 id="1-分词">1. 分词</h3>
+<p>这是中文里特别重要的一步。</p>
+<p>比如：</p>
+<p><strong>“我喜欢自然语言处理”</strong></p>
+<p>分词后可能变成：</p>
+<ul>
+<li>我 / 喜欢 / 自然语言处理</li>
+</ul>
+<p>如果连词都切不准，后面很多分析都会跟着歪。</p>
+<hr>
+<h3 id="2-词性标注">2. 词性标注</h3>
+<p>就是判断每个词是什么词类。</p>
+<p>比如：</p>
+<p><strong>“小明喜欢篮球。”</strong></p>
+<p>可能标注成：</p>
+<ul>
+<li>小明（名词）</li>
+<li>喜欢（动词）</li>
+<li>篮球（名词）</li>
+</ul>
+<p>这能帮助机器理解句子结构。</p>
+<hr>
+<h3 id="3-命名实体识别">3. 命名实体识别</h3>
+<p>识别文本中的特定名称，比如：</p>
+<ul>
+<li>人名</li>
+<li>地名</li>
+<li>机构名</li>
+<li>时间</li>
+<li>金额</li>
+</ul>
+<p>比如：</p>
+<p><strong>“马云在杭州创办了阿里巴巴。”</strong></p>
+<p>系统要尽量识别出：</p>
+<ul>
+<li>马云 → 人名</li>
+<li>杭州 → 地名</li>
+<li>阿里巴巴 → 机构名</li>
+</ul>
+<hr>
+<h3 id="4-句法分析">4. 句法分析</h3>
+<p>这一步想解决的是：</p>
+<ul>
+<li>谁干了什么</li>
+<li>谁修饰谁</li>
+<li>词和词之间是什么关系</li>
+</ul>
+<p>比如：</p>
+<p><strong>“小张昨天在图书馆借了一本书。”</strong></p>
+<p>系统希望能分析出：</p>
+<ul>
+<li>谁借的 → 小张</li>
+<li>什么时候 → 昨天</li>
+<li>在哪里 → 图书馆</li>
+<li>借了什么 → 一本书</li>
+</ul>
+<hr>
+<h3 id="5-语义分析">5. 语义分析</h3>
+<p>语义分析关注的是：</p>
+<blockquote>
+<p><strong>这句话究竟表达了什么含义。</strong></p>
+</blockquote>
+<p>比如：</p>
+<p><strong>“我想订一张明天去上海的高铁票。”</strong></p>
+<p>系统不仅要看懂字面，还要理解：</p>
+<ul>
+<li>意图：订票</li>
+<li>时间：明天</li>
+<li>目的地：上海</li>
+<li>对象：高铁票</li>
+</ul>
+<hr>
+<h3 id="6-情感分析">6. 情感分析</h3>
+<p>判断一句话表达的是正面、负面还是中性。</p>
+<p>比如：</p>
+<ul>
+<li>“这家店服务很好。” → 正面</li>
+<li>“等了两小时还没上菜。” → 负面</li>
+<li>“这家店在商场三楼。” → 中性</li>
+</ul>
+<p>这个任务常用于：</p>
+<ul>
+<li>评论分析</li>
+<li>舆情监测</li>
+<li>用户反馈整理</li>
+</ul>
+<hr>
+<h3 id="7-文本分类">7. 文本分类</h3>
+<p>把一段文本归入某个类别。</p>
+<p>比如：</p>
+<ul>
+<li>新闻分类：体育 / 财经 / 娱乐 / 科技</li>
+<li>邮件分类：垃圾邮件 / 正常邮件</li>
+<li>客服问题分类：物流 / 支付 / 售后</li>
+</ul>
+<hr>
+<h3 id="8-信息抽取">8. 信息抽取</h3>
+<p>从文本里提取结构化信息。</p>
+<p>比如：</p>
+<p><strong>“张三于 2025 年 5 月加入某公司担任算法工程师。”</strong></p>
+<p>可以抽取成：</p>
+<ul>
+<li>人物：张三</li>
+<li>时间：2025 年 5 月</li>
+<li>机构：某公司</li>
+<li>职位：算法工程师</li>
+</ul>
+<hr>
+<h3 id="9-机器翻译">9. 机器翻译</h3>
+<p>把一种自然语言转换成另一种自然语言。</p>
+<p>比如：</p>
+<ul>
+<li>中文 → 英文</li>
+<li>英文 → 日文</li>
+</ul>
+<p>翻译不是简单地一词换一词，还要考虑：</p>
+<ul>
+<li>语序</li>
+<li>搭配</li>
+<li>习惯表达</li>
+<li>语境</li>
+<li>文化差异</li>
+</ul>
+<hr>
+<h3 id="10-自动摘要">10. 自动摘要</h3>
+<p>给长文章写短总结。</p>
+<p>比如一篇几千字的新闻，系统生成三五句话的核心概述。</p>
+<p>这在信息太多、时间太少的世界里非常实用。</p>
+<hr>
+<h3 id="11-问答系统与对话系统">11. 问答系统与对话系统</h3>
+<p>比如你问：</p>
+<ul>
+<li>“北京明天会下雨吗？”</li>
+<li>“什么是卷积神经网络？”</li>
+<li>“帮我写一封请假邮件。”</li>
+</ul>
+<p>系统需要：</p>
+<ul>
+<li>理解问题</li>
+<li>找到信息</li>
+<li>组织答案</li>
+<li>用自然语言回复你</li>
+</ul>
+<p>这类能力已经广泛出现在：</p>
+<ul>
+<li>智能客服</li>
+<li>搜索引擎</li>
+<li>AI 助手</li>
+<li>教育系统</li>
+</ul>
+<hr>
+<h3 id="12-文本生成">12. 文本生成</h3>
+<p>让机器自己写出语言。</p>
+<p>比如：</p>
+<ul>
+<li>写摘要</li>
+<li>写邮件</li>
+<li>写广告语</li>
+<li>续写故事</li>
+<li>回答问题</li>
+</ul>
+<p>这也是如今大语言模型最引人关注的一部分。</p>
+<hr>
+<h2 id="捌、机器到底是怎么“理解”语言的？">捌、机器到底是怎么“理解”语言的？</h2>
+<p>这里一定要讲清楚一个关键事实：</p>
+<blockquote>
+<p><strong>机器并不是像人一样直接“看到文字就懂意思”。</strong></p>
+</blockquote>
+<p>它首先看到的，只是一串符号。</p>
+<h3 id="1-对机器来说，文字一开始只是符号">1. 对机器来说，文字一开始只是符号</h3>
+<p>人看到“猫”，脑海里会自动联想到：</p>
+<ul>
+<li>一种动物</li>
+<li>有毛</li>
+<li>会叫</li>
+<li>可能会掉毛</li>
+<li>有时候高冷得像房东</li>
+</ul>
+<p>但机器不会。</p>
+<p>机器一开始并不知道“猫”是什么。它只知道：</p>
+<ul>
+<li>这是一个字符</li>
+<li>这是某种编码</li>
+<li>它和别的符号不同</li>
+</ul>
+<p>所以 NLP 的一个核心工作就是：</p>
+<blockquote>
+<p><strong>把语言变成机器可以处理的形式。</strong></p>
+</blockquote>
+<h3 id="2-语言最终要表示成数字">2. 语言最终要表示成数字</h3>
+<p>计算机最擅长处理的是数字，不是“意义”本身。</p>
+<p>因此 NLP 里有一个很关键的问题：</p>
+<blockquote>
+<p><strong>怎样把词、句子、文章表示成数字？</strong></p>
+</blockquote>
+<p>这一步叫做<strong>文本表示</strong>。</p>
+<p>最早比较朴素的方法，是：</p>
+<ul>
+<li>给每个词一个编号</li>
+</ul>
+<p>但这样机器只知道它们不同，不知道谁和谁更像。</p>
+<p>后来更聪明的方法出现了：</p>
+<ul>
+<li>用向量表示词</li>
+<li>用上下文表示句子</li>
+<li>让模型从大量数据里学习词与词、句与句之间的关系</li>
+</ul>
+<p>于是机器开始能学到一些“相似性”和“上下文差异”。</p>
+<h3 id="3-语料库很重要">3. 语料库很重要</h3>
+<p>如果把机器学习语言这件事比作“上课”，<br>
+那么<strong>语料库</strong>就像教材、题库和练习册。</p>
+<p>语料库就是大量真实语言材料的集合，比如：</p>
+<ul>
+<li>新闻</li>
+<li>小说</li>
+<li>论文</li>
+<li>对话</li>
+<li>评论</li>
+<li>网页文本</li>
+</ul>
+<p>机器通过大量语料，慢慢学到：</p>
+<ul>
+<li>哪些词常一起出现</li>
+<li>哪种表达更常见</li>
+<li>某个词在什么语境里大概率是什么意思</li>
+</ul>
+<h3 id="4-NLP-的发展大致经历了几个阶段">4. NLP 的发展大致经历了几个阶段</h3>
+<h4 id="（1）规则方法">（1）规则方法</h4>
+<p>早期人们想：既然语言有规则，那就把规则写出来。</p>
+<p>优点：</p>
+<ul>
+<li>逻辑清楚</li>
+<li>可解释</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>规则写不完</li>
+<li>很难覆盖真实语言中的各种变化</li>
+</ul>
+<h4 id="（2）统计方法">（2）统计方法</h4>
+<p>后来大家发现，可以从大量文本中统计规律。</p>
+<p>核心想法是：</p>
+<blockquote>
+<p>语言中有大量可以通过数据观察出来的模式。</p>
+</blockquote>
+<h4 id="（3）深度学习方法">（3）深度学习方法</h4>
+<p>再后来，模型开始能自动学习更复杂的表示，不再完全依赖人工写特征。</p>
+<p>这一阶段推动了很多能力飞速提升。</p>
+<h4 id="（4）大语言模型阶段">（4）大语言模型阶段</h4>
+<p>如今的大模型能：</p>
+<ul>
+<li>对话</li>
+<li>总结</li>
+<li>翻译</li>
+<li>推理</li>
+<li>生成内容</li>
+</ul>
+<p>但即便如此，它们也不等于“像人一样完全理解语言”。</p>
+<p>这点要清醒。</p>
+<hr>
+<h2 id="玖、语言学和自然语言处理，到底是什么关系？">玖、语言学和自然语言处理，到底是什么关系？</h2>
+<p>这是很多初学者最容易混淆的地方。</p>
+<h3 id="1-语言学研究“语言是什么”">1. 语言学研究“语言是什么”</h3>
+<p>它更偏向理论层面，研究：</p>
+<ul>
+<li>语言的结构</li>
+<li>语言的规律</li>
+<li>语言的层次</li>
+<li>语言为什么会歧义</li>
+<li>人是怎么理解话语的</li>
+</ul>
+<h3 id="2-自然语言处理研究“机器怎么处理语言”">2. 自然语言处理研究“机器怎么处理语言”</h3>
+<p>它更偏向工程与应用层面，研究：</p>
+<ul>
+<li>怎么设计程序</li>
+<li>怎么表示语言</li>
+<li>怎么训练模型</li>
+<li>怎么完成分词、翻译、问答等任务</li>
+</ul>
+<h3 id="3-二者不是对立关系，而是互相支撑">3. 二者不是对立关系，而是互相支撑</h3>
+<p>可以把它们理解成：</p>
+<ul>
+<li><strong>语言学像地图</strong>：告诉你语言世界的结构长什么样</li>
+<li><strong>NLP 像施工队</strong>：负责把“让机器处理语言”这件事真的做出来</li>
+</ul>
+<p>没有语言学，NLP 容易变成“只会调包，不知道自己在解决什么问题”；<br>
+没有计算机和算法，语言学的很多想法也很难真正落地到系统里。</p>
+<p>所以它们的关系非常紧密。</p>
+<hr>
+<h2 id="拾、举一个完整例子：机器如何处理一句人话？">拾、举一个完整例子：机器如何处理一句人话？</h2>
+<p>我们来看一句日常表达：</p>
+<blockquote>
+<p><strong>“帮我订一张明天去上海的高铁票。”</strong></p>
+</blockquote>
+<p>人类一看就懂，但机器得分很多步来做。</p>
+<h3 id="第一步：分词">第一步：分词</h3>
+<p>可能先切成：</p>
+<ul>
+<li>帮我 / 订 / 一张 / 明天 / 去 / 上海 / 的 / 高铁票</li>
+</ul>
+<h3 id="第二步：识别关键信息">第二步：识别关键信息</h3>
+<p>系统可能识别出：</p>
+<ul>
+<li>动作：订</li>
+<li>时间：明天</li>
+<li>地点：上海</li>
+<li>对象：高铁票</li>
+</ul>
+<h3 id="第三步：识别用户意图">第三步：识别用户意图</h3>
+<p>机器要判断出：</p>
+<blockquote>
+<p>这不是闲聊，而是在发起一个“订票请求”。</p>
+</blockquote>
+<h3 id="第四步：判断信息是否完整">第四步：判断信息是否完整</h3>
+<p>它可能继续发现：</p>
+<ul>
+<li>从哪里出发？不知道</li>
+<li>几点出发？不知道</li>
+<li>几等座？不知道</li>
+</ul>
+<p>于是它会继续追问：</p>
+<ul>
+<li>“请问您从哪里出发？”</li>
+<li>“您想买上午还是下午的车次？”</li>
+</ul>
+<h3 id="第五步：生成回应">第五步：生成回应</h3>
+<p>最后再返回结果、确认订单或继续对话。</p>
+<p>你会发现，这里面并不是只有一个技术，而是很多能力一起工作：</p>
+<ul>
+<li>分词</li>
+<li>实体识别</li>
+<li>句法和语义分析</li>
+<li>意图识别</li>
+<li>对话管理</li>
+<li>文本生成</li>
+</ul>
+<p>这就是 NLP 在真实应用中的样子。</p>
+<hr>
+<h2 id="拾壹、初学者最容易踩的几个误区">拾壹、初学者最容易踩的几个误区</h2>
+<h3 id="误区-1：NLP-就是聊天机器人">误区 1：NLP 就是聊天机器人</h3>
+<p>不是。</p>
+<p>聊天只是 NLP 的一个应用方向。</p>
+<p>NLP 还包括：</p>
+<ul>
+<li>搜索</li>
+<li>分类</li>
+<li>翻译</li>
+<li>摘要</li>
+<li>信息抽取</li>
+<li>情感分析</li>
+<li>语音转文本后的理解</li>
+</ul>
+<h3 id="误区-2：语言处理就是字符串处理">误区 2：语言处理就是字符串处理</h3>
+<p>也不是。</p>
+<p>字符串处理只是在处理字符表面形式，<br>
+而 NLP 更关心：</p>
+<ul>
+<li>结构</li>
+<li>关系</li>
+<li>语义</li>
+<li>意图</li>
+<li>上下文</li>
+</ul>
+<p>比如“苹果”这两个字是字符串问题；<br>
+“苹果在这里指水果还是公司”是语言理解问题。</p>
+<h3 id="误区-3：机器能回答，不等于它真的像人一样理解">误区 3：机器能回答，不等于它真的像人一样理解</h3>
+<p>这一点特别重要。</p>
+<p>机器有时会表现得“像懂了”，<br>
+但它未必是以人的方式理解。</p>
+<p>它可能更多是在：</p>
+<ul>
+<li>学模式</li>
+<li>学统计规律</li>
+<li>学上下文关联</li>
+<li>学如何生成合理回复</li>
+</ul>
+<p>所以学习 NLP 时，既要看到它很强，也要知道它并不是魔法。</p>
+<h3 id="误区-4：只要会调模型，就等于懂-NLP">误区 4：只要会调模型，就等于懂 NLP</h3>
+<p>不完全对。</p>
+<p>如果你只会调用现成模型，却不理解：</p>
+<ul>
+<li>为什么会歧义</li>
+<li>什么是句法问题</li>
+<li>什么是语义问题</li>
+<li>为什么中文分词困难</li>
+</ul>
+<p>那你在遇到真实问题时，往往很难定位错误。</p>
+<p>懂一点语言学，会让你更知道自己到底在处理什么。</p>
+<hr>
+<h2 id="拾貳、如果你是零基础，应该怎样理解这门课？">拾貳、如果你是零基础，应该怎样理解这门课？</h2>
+<p>你可以先死死记住三句话：</p>
+<h3 id="第一句">第一句</h3>
+<blockquote>
+<p><strong>语言学研究“语言是什么”。</strong></p>
+</blockquote>
+<h3 id="第二句">第二句</h3>
+<blockquote>
+<p><strong>自然语言处理研究“机器怎么处理语言”。</strong></p>
+</blockquote>
+<h3 id="第三句">第三句</h3>
+<blockquote>
+<p><strong>NLP 的核心目标，是解决人与机器之间“用自然语言沟通”这件事。</strong></p>
+</blockquote>
+<p>如果你把这三句话真正吃透，那么这门课的门，已经算是被你推开了。</p>
+<hr>
+<h2 id="拾參、送你一份小白版学习路线图（文字版思维导图）">拾參、送你一份小白版学习路线图（文字版思维导图）</h2>
+<p>既然这部分资料本身就和“语言学与自然语言处理”入门有关，那这里顺手给你一份<strong>可以直接照着走的路线图</strong>。</p>
+<h3 id="第一层：先把概念搞清楚">第一层：先把概念搞清楚</h3>
+<p>先理解这些词到底是什么意思：</p>
+<ul>
+<li>语言学</li>
+<li>自然语言</li>
+<li>自然语言处理</li>
+<li>语料库</li>
+<li>分词</li>
+<li>句法</li>
+<li>语义</li>
+<li>语用</li>
+</ul>
+<p>目标：</p>
+<blockquote>
+<p>不再把 NLP 当成一个玄学名词，而是真正知道它在研究什么。</p>
+</blockquote>
+<h3 id="第二层：理解语言的几个层次">第二层：理解语言的几个层次</h3>
+<p>按顺序掌握：</p>
+<ol>
+<li>语音</li>
+<li>词法</li>
+<li>句法</li>
+<li>语义</li>
+<li>语用</li>
+</ol>
+<p>目标：</p>
+<blockquote>
+<p>知道语言问题为什么能拆层，知道“机器听不懂人话”到底难在哪一层。</p>
+</blockquote>
+<h3 id="第三层：认识-NLP-的经典任务">第三层：认识 NLP 的经典任务</h3>
+<p>重点认识：</p>
+<ul>
+<li>分词</li>
+<li>词性标注</li>
+<li>命名实体识别</li>
+<li>句法分析</li>
+<li>文本分类</li>
+<li>情感分析</li>
+<li>信息抽取</li>
+<li>机器翻译</li>
+<li>摘要</li>
+<li>问答与对话</li>
+</ul>
+<p>目标：</p>
+<blockquote>
+<p>明白 NLP 不是一个点，而是一整套任务群。</p>
+</blockquote>
+<h3 id="第四层：补一点技术基础">第四层：补一点技术基础</h3>
+<p>如果后面你要继续深入，可以逐步补：</p>
+<ul>
+<li>Python 基础</li>
+<li>数据结构与基础编程</li>
+<li>概率统计基础</li>
+<li>机器学习基础</li>
+<li>深度学习基础</li>
+</ul>
+<p>目标：</p>
+<blockquote>
+<p>开始具备“把语言问题交给机器解决”的技术工具。</p>
+</blockquote>
+<h3 id="第五层：进入现代-NLP">第五层：进入现代 NLP</h3>
+<p>之后再继续往下走：</p>
+<ul>
+<li>词向量</li>
+<li>序列模型</li>
+<li>Transformer</li>
+<li>预训练模型</li>
+<li>大语言模型</li>
+</ul>
+<p>目标：</p>
+<blockquote>
+<p>从“知道 NLP 是什么”，走向“知道现代 NLP 为什么这么强”。</p>
+</blockquote>
+<h3 id="第六层：一定要做项目">第六层：一定要做项目</h3>
+<p>不做项目，很多理解都只是浮在表面。</p>
+<p>可以尝试：</p>
+<ul>
+<li>做一个情感分析小项目</li>
+<li>做一个文本分类器</li>
+<li>做一个命名实体识别 Demo</li>
+<li>调用模型做一个简单问答系统</li>
+</ul>
+<p>目标：</p>
+<blockquote>
+<p>把抽象概念变成真正能运行的东西。</p>
+</blockquote>
+<hr>
+<h2 id="拾肆、把全文压成一张“考前小抄”">拾肆、把全文压成一张“考前小抄”</h2>
+<p>如果你现在只想记最关键的内容，那就记下面这些：</p>
+<ol>
+<li><strong>语言学</strong>是研究人类语言规律的学科。</li>
+<li><strong>自然语言</strong>是人类自然形成的语言，比如中文、英文。</li>
+<li>**自然语言处理（NLP）**是让机器处理、理解和生成自然语言的技术。</li>
+<li>NLP 的核心目标，是解决“人和机器怎么自然沟通”的问题。</li>
+<li>语言难，是因为它有歧义、依赖上下文、依赖常识，而且不总是规范。</li>
+<li>语言可以从语音、词法、句法、语义、语用等层次来研究。</li>
+<li>NLP 的经典任务包括分词、词性标注、实体识别、句法分析、情感分析、翻译、摘要、问答等。</li>
+<li>机器不是直接“懂文字”，而是先把语言变成可以计算的表示。</li>
+<li>语料库是机器学习语言的重要材料来源。</li>
+<li>语言学和 NLP 是互相支撑的：一个研究语言，一个让机器处理语言。</li>
+</ol>
+<hr>
+<h2 id="拾伍、把抽象概念塞回生活：你的一天里，其实全是-NLP">拾伍、把抽象概念塞回生活：你的一天里，其实全是 NLP</h2>
+<p>很多小白会有一种错觉：</p>
+<blockquote>
+<p>“自然语言处理听起来很高端，应该离我的生活很远吧？”</p>
+</blockquote>
+<p>其实恰恰相反。</p>
+<p>你不但接触过 NLP，而且你<strong>几乎每天都在用</strong>。</p>
+<p>我们来过一遍非常普通、甚至有点平凡的一天。</p>
+<h3 id="1-早上，你对手机说：“今天天气怎么样？”">1. 早上，你对手机说：“今天天气怎么样？”</h3>
+<p>这背后至少发生了几件事：</p>
+<ul>
+<li>语音识别：先把你说的话变成文字</li>
+<li>语言理解：判断你是在查询天气</li>
+<li>信息抽取：识别“今天”“天气”这类关键信息</li>
+<li>文本生成：组织回答内容</li>
+<li>语音合成：再把回答念给你听</li>
+</ul>
+<p>你嘴里轻轻一句“今天天气怎么样”，<br>
+机器背后已经忙成流水线了。</p>
+<h3 id="2-你打字时，输入法在猜你想说什么">2. 你打字时，输入法在猜你想说什么</h3>
+<p>你刚输入：</p>
+<ul>
+<li>“自然语”</li>
+</ul>
+<p>输入法就开始给你推荐：</p>
+<ul>
+<li>自然语言</li>
+<li>自然语言处理</li>
+<li>自然语义</li>
+</ul>
+<p>它为什么能猜？</p>
+<p>因为它会参考：</p>
+<ul>
+<li>常见词搭配</li>
+<li>你以前的输入习惯</li>
+<li>当前上下文</li>
+<li>哪些词在真实文本中更常一起出现</li>
+</ul>
+<p>这其实就是 NLP 的语言建模思想在发挥作用。</p>
+<h3 id="3-你去搜：“附近便宜又好吃的面馆”">3. 你去搜：“附近便宜又好吃的面馆”</h3>
+<p>表面上你只是搜了一句话，<br>
+实际上搜索系统要判断很多事：</p>
+<ul>
+<li>你想找的是“餐馆”，不是食谱</li>
+<li>“附近”说明跟位置有关</li>
+<li>“便宜”是价格偏好</li>
+<li>“好吃”带有主观评价需求</li>
+<li>“面馆”限制了商家类型</li>
+</ul>
+<p>也就是说，它不是只在匹配字，而是在尽量理解你的意图。</p>
+<h3 id="4-你刷视频，看到自动字幕">4. 你刷视频，看到自动字幕</h3>
+<p>自动字幕的背后，首先是语音识别；<br>
+字幕出来之后，如果系统还会：</p>
+<ul>
+<li>自动纠错</li>
+<li>自动总结</li>
+<li>自动翻译</li>
+<li>自动提取关键词</li>
+</ul>
+<p>那就已经明显进入 NLP 的工作范围了。</p>
+<h3 id="5-你看电商评论，平台给你总结“大家都在夸什么”">5. 你看电商评论，平台给你总结“大家都在夸什么”</h3>
+<p>比如系统告诉你：</p>
+<ul>
+<li>优点：物流快、包装好、味道不错</li>
+<li>缺点：价格偏高、分量偏少</li>
+</ul>
+<p>这背后可能用到了：</p>
+<ul>
+<li>情感分析</li>
+<li>观点抽取</li>
+<li>文本聚类</li>
+<li>自动摘要</li>
+</ul>
+<p>也就是说，机器在替你把一大堆人话，压缩成你能快速看懂的信息。</p>
+<h3 id="6-你找客服，先遇到智能机器人">6. 你找客服，先遇到智能机器人</h3>
+<p>你问：</p>
+<ul>
+<li>“我的快递怎么还没到？”</li>
+</ul>
+<p>系统要尽量判断：</p>
+<ul>
+<li>这是在问物流，不是退款</li>
+<li>你的情绪可能有点着急</li>
+<li>它应该优先返回物流状态或转人工</li>
+</ul>
+<p>如果它回答得还算像样，那说明背后已经做了不少语言理解工作。</p>
+<h3 id="7-你读外文文章，顺手点一下翻译">7. 你读外文文章，顺手点一下翻译</h3>
+<p>你看到一篇英文资料，点一下翻译，几秒后就有中文结果。</p>
+<p>这背后不是“字典逐字替换”，而是：</p>
+<ul>
+<li>理解原句结构</li>
+<li>处理词义差异</li>
+<li>调整语序</li>
+<li>选择更自然的目标语言表达</li>
+</ul>
+<p>这就是机器翻译。</p>
+<h3 id="8-晚上你问-AI：“帮我写一段请假理由”">8. 晚上你问 AI：“帮我写一段请假理由”</h3>
+<p>这是更典型的 NLP 场景。</p>
+<p>系统需要：</p>
+<ul>
+<li>理解你的需求</li>
+<li>判断文体</li>
+<li>组织句子</li>
+<li>输出一段像人写的话</li>
+</ul>
+<p>所以你可以把这整件事记成一句话：</p>
+<blockquote>
+<p><strong>你不是没接触过 NLP，而是你早就生活在 NLP 里了。</strong></p>
+</blockquote>
+<hr>
+<h2 id="拾陸、中文-NLP-为什么尤其让机器头疼？">拾陸、中文 NLP 为什么尤其让机器头疼？</h2>
+<p>如果说自然语言处理本来就难，<br>
+那么中文自然语言处理，经常还要在这个“难”字前面再加一个“更”。</p>
+<p>为什么？因为中文有一些非常有特色、也非常能折磨机器的地方。</p>
+<h3 id="1-中文没有天然空格，词边界不明显">1. 中文没有天然空格，词边界不明显</h3>
+<p>英文写成：</p>
+<blockquote>
+<p>I love natural language processing.</p>
+</blockquote>
+<p>机器一眼大概就知道词在哪里。</p>
+<p>但中文常常写成：</p>
+<blockquote>
+<p>我喜欢自然语言处理</p>
+</blockquote>
+<p>机器得先猜：</p>
+<ul>
+<li>我 / 喜欢 / 自然语言处理</li>
+</ul>
+<p>还是：</p>
+<ul>
+<li>我 / 喜欢 / 自然 / 语言 / 处理</li>
+</ul>
+<p>再比如经典例子：</p>
+<ul>
+<li>南京市长江大桥</li>
+<li>研究生命起源</li>
+</ul>
+<p>到底怎么切，直接影响后面所有理解。</p>
+<h3 id="2-中文特别爱省略">2. 中文特别爱省略</h3>
+<p>日常对话里，人类很爱把话说一半。</p>
+<p>比如：</p>
+<ul>
+<li>“吃了吗？”</li>
+<li>“到了。”</li>
+<li>“看过了。”</li>
+<li>“可以，发我。”</li>
+</ul>
+<p>这些句子里，主语、宾语、背景信息，经常都被省略了。</p>
+<p>人类靠语境自动补全：</p>
+<ul>
+<li>谁到了？</li>
+<li>到哪儿了？</li>
+<li>什么看过了？</li>
+<li>发什么给谁？</li>
+</ul>
+<p>机器如果没有上下文，就会一脸茫然。</p>
+<h3 id="3-中文词类有时很灵活">3. 中文词类有时很灵活</h3>
+<p>同一个词，在不同句子里，角色可能不一样。</p>
+<p>比如“研究”：</p>
+<ul>
+<li>“他在研究这个问题。” → 这里更像动词</li>
+<li>“这个研究很有价值。” → 这里更像名词</li>
+</ul>
+<p>再比如“影响”：</p>
+<ul>
+<li>“这会影响结果。” → 动词</li>
+<li>“这件事的影响很大。” → 名词</li>
+</ul>
+<p>这就意味着，机器不能只看词表，还得看上下文。</p>
+<h3 id="4-中文特别依赖语境和语气">4. 中文特别依赖语境和语气</h3>
+<p>比如：</p>
+<p><strong>“你真行。”</strong></p>
+<p>它可能是：</p>
+<ul>
+<li>真心夸奖</li>
+<li>阴阳怪气</li>
+<li>无奈吐槽</li>
+</ul>
+<p>如果你只看字面，很容易误判。</p>
+<p>再比如：</p>
+<p><strong>“行啊。”</strong></p>
+<p>有时候是爽快答应，<br>
+有时候是“我记住你了”的前奏。</p>
+<p>这类微妙差异，对机器非常不友好。</p>
+<h3 id="5-中文里有大量成语、俗语、网络语">5. 中文里有大量成语、俗语、网络语</h3>
+<p>比如：</p>
+<ul>
+<li>一石二鸟</li>
+<li>对牛弹琴</li>
+<li>破防了</li>
+<li>栓Q</li>
+<li>YYDS</li>
+<li>我真的会谢</li>
+</ul>
+<p>这些表达如果按字面理解，常常会翻车。</p>
+<p>比如“我真的会谢”，<br>
+大多数时候不是在表达“我要去感谢别人”，<br>
+而是在表达一种无语、崩溃、哭笑不得的情绪。</p>
+<h3 id="6-中文文本常常缺少语音信息">6. 中文文本常常缺少语音信息</h3>
+<p>面对面说话时，人能靠：</p>
+<ul>
+<li>语调</li>
+<li>表情</li>
+<li>停顿</li>
+<li>重音</li>
+</ul>
+<p>来判断意思。</p>
+<p>但到了纯文本里，这些信息往往都不见了。</p>
+<p>于是像下面这种话就很难：</p>
+<ul>
+<li>“可以啊。”</li>
+<li>“你厉害。”</li>
+<li>“不错不错。”</li>
+</ul>
+<p>到底是夸，还是反讽？<br>
+很多时候，人都得猜，更别说机器。</p>
+<h3 id="7-中文里还有很多“人类懂，但不好讲清”的习惯">7. 中文里还有很多“人类懂，但不好讲清”的习惯</h3>
+<p>比如：</p>
+<ul>
+<li>“把字句”</li>
+<li>“被字句”</li>
+<li>话题先行</li>
+<li>省主语</li>
+<li>连续短句</li>
+</ul>
+<p>这些东西，中国人平时说起来完全自然，<br>
+但真让你写成规则给机器看，你会发现：</p>
+<blockquote>
+<p>原来我们会说话，不代表我们会把“为什么这样说”解释清楚。</p>
+</blockquote>
+<p>这也是为什么语言学很重要。</p>
+<p>它不是来让你背得更痛苦的，<br>
+它是来帮你把“本来觉得理所当然的语言现象”拆开讲明白的。</p>
+<p>一句话总结这一节：</p>
+<blockquote>
+<p><strong>中文 NLP 难，不只是因为中文复杂，而是因为中文在“省略、语境、歧义、灵活表达”这些方面都很强。</strong></p>
+</blockquote>
+<hr>
+<h2 id="拾柒、如果老师突然问你：什么是语言学与自然语言处理？你可以怎么答">拾柒、如果老师突然问你：什么是语言学与自然语言处理？你可以怎么答</h2>
+<p>这一节很适合两种人：</p>
+<ul>
+<li>一种是要考试的人</li>
+<li>另一种是明明懂了一点，但一张嘴就卡壳的人</li>
+</ul>
+<p>下面给你两个模板。</p>
+<h3 id="1-一句话版本">1. 一句话版本</h3>
+<blockquote>
+<p><strong>语言学研究人类语言的结构、规律和使用方式；自然语言处理研究怎样让计算机处理、理解和生成人类自然语言。</strong></p>
+</blockquote>
+<p>如果只能说一句，这句已经够用了。</p>
+<h3 id="2-三十秒版本">2. 三十秒版本</h3>
+<blockquote>
+<p>语言学是研究人类语言本身的学科，关注语音、词法、句法、语义、语用等层次；自然语言处理是在语言学、计算机科学和人工智能交叉基础上，研究如何让机器理解和使用自然语言的一门技术。它的目标是解决人和机器之间的语言沟通问题。</p>
+</blockquote>
+<h3 id="3-一分钟版本">3. 一分钟版本</h3>
+<blockquote>
+<p>语言学主要研究语言是什么、语言有哪些规律，比如词怎么构成、句子怎么组织、意义怎么产生。自然语言处理则更关心机器怎么处理这些语言，比如分词、词性标注、情感分析、机器翻译、问答系统等。因为自然语言存在歧义、依赖上下文和常识，所以让机器真正理解语言是一件很难但很重要的事。</p>
+</blockquote>
+<h3 id="4-考试答题展开模板">4. 考试答题展开模板</h3>
+<p>如果题目比较大，你可以按这个顺序展开：</p>
+<h4 id="第一步：先下定义">第一步：先下定义</h4>
+<ul>
+<li>语言学是什么</li>
+<li>自然语言是什么</li>
+<li>自然语言处理是什么</li>
+</ul>
+<h4 id="第二步：再讲为什么难">第二步：再讲为什么难</h4>
+<ul>
+<li>有歧义</li>
+<li>依赖语境</li>
+<li>依赖常识</li>
+<li>中文还涉及分词、省略、口语表达等问题</li>
+</ul>
+<h4 id="第三步：再讲语言有哪些层次">第三步：再讲语言有哪些层次</h4>
+<ul>
+<li>语音</li>
+<li>词法</li>
+<li>句法</li>
+<li>语义</li>
+<li>语用</li>
+</ul>
+<h4 id="第四步：再讲-NLP-能做什么">第四步：再讲 NLP 能做什么</h4>
+<ul>
+<li>分词</li>
+<li>词性标注</li>
+<li>命名实体识别</li>
+<li>句法分析</li>
+<li>情感分析</li>
+<li>翻译</li>
+<li>摘要</li>
+<li>问答系统</li>
+</ul>
+<h4 id="第五步：最后讲关系">第五步：最后讲关系</h4>
+<ul>
+<li>语言学提供理论基础</li>
+<li>NLP 负责技术实现与应用落地</li>
+</ul>
+<p>这样答出来，结构会非常清楚。</p>
+<p>一句话送给容易紧张的同学：</p>
+<blockquote>
+<p><strong>答大题时，最怕的不是不会，而是脑子里有东西但没有顺序。</strong></p>
+</blockquote>
+<p>而这一节，就是帮你把顺序理出来。</p>
+<hr>
+<h2 id="拾捌、小白真正可执行的学习路线：从“看懂概念”到“做出一个小-Demo”">拾捌、小白真正可执行的学习路线：从“看懂概念”到“做出一个小 Demo”</h2>
+<p>很多人学 NLP，会在两个坑里反复横跳：</p>
+<ul>
+<li>要么一直停留在背概念</li>
+<li>要么一上来就冲大模型，结果连问题本身都没看明白</li>
+</ul>
+<p>更稳妥的方式，是一层一层来。</p>
+<h3 id="第壹层：先把“语言问题”看明白">第壹层：先把“语言问题”看明白</h3>
+<p>你先别急着训练模型。</p>
+<p>先把这些概念真正搞懂：</p>
+<ul>
+<li>自然语言是什么</li>
+<li>为什么自然语言难</li>
+<li>语音、词法、句法、语义、语用分别是什么</li>
+<li>分词、实体识别、情感分析这些任务到底在做什么</li>
+</ul>
+<p>这一层的目标不是会写代码，<br>
+而是你看到一句话时，能开始有意识地想：</p>
+<ul>
+<li>这是词义歧义吗？</li>
+<li>这是句法问题吗？</li>
+<li>这是语义问题还是语用问题？</li>
+</ul>
+<p>当你会这样想时，你就已经不是纯小白了。</p>
+<h3 id="第貳层：补上最基本的工具能力">第貳层：补上最基本的工具能力</h3>
+<p>如果你想继续往下走，就要具备最基本的技术工具：</p>
+<ul>
+<li>会一点 Python</li>
+<li>会读写文本文件</li>
+<li>知道什么是数据集</li>
+<li>知道怎么把文本整理成机器能处理的形式</li>
+</ul>
+<p>你不一定一开始就要会特别多数学，<br>
+但至少要知道：</p>
+<ul>
+<li>数据从哪里来</li>
+<li>数据怎么清洗</li>
+<li>标签是什么</li>
+<li>输入和输出分别是什么</li>
+</ul>
+<h3 id="第參层：先做经典小任务，别一上来就挑战宇宙难题">第參层：先做经典小任务，别一上来就挑战宇宙难题</h3>
+<p>最适合入门的任务通常是：</p>
+<ul>
+<li>文本分类</li>
+<li>情感分析</li>
+<li>命名实体识别</li>
+<li>关键词提取</li>
+<li>简单问答或检索</li>
+</ul>
+<p>为什么这些适合入门？</p>
+<p>因为它们：</p>
+<ul>
+<li>目标相对清楚</li>
+<li>输入输出比较明确</li>
+<li>容易验证效果</li>
+<li>做出来之后成就感也比较足</li>
+</ul>
+<p>比如，你完全可以从下面这些小项目开始：</p>
+<h4 id="小项目-1：做一个评论情感判断器">小项目 1：做一个评论情感判断器</h4>
+<p>输入一句评论：</p>
+<ul>
+<li>“这家店很好吃，下次还来。”</li>
+</ul>
+<p>输出：</p>
+<ul>
+<li>正面</li>
+</ul>
+<h4 id="小项目-2：做一个新闻分类器">小项目 2：做一个新闻分类器</h4>
+<p>输入一段新闻，输出：</p>
+<ul>
+<li>体育 / 财经 / 科技 / 娱乐</li>
+</ul>
+<h4 id="小项目-3：做一个实体识别-Demo">小项目 3：做一个实体识别 Demo</h4>
+<p>输入：</p>
+<ul>
+<li>“马云在杭州创办了阿里巴巴。”</li>
+</ul>
+<p>输出：</p>
+<ul>
+<li>人名：马云</li>
+<li>地名：杭州</li>
+<li>机构名：阿里巴巴</li>
+</ul>
+<p>这些项目都不一定惊天动地，<br>
+但它们会让你第一次真正感受到：</p>
+<blockquote>
+<p>原来“处理语言”这件事，是可以一步一步做出来的。</p>
+</blockquote>
+<h3 id="第肆层：再去理解现代-NLP-模型为什么强">第肆层：再去理解现代 NLP 模型为什么强</h3>
+<p>等你对问题本身有感觉了，再去看现代模型，会顺很多。</p>
+<p>这时你可以逐步接触：</p>
+<ul>
+<li>词向量</li>
+<li>序列模型</li>
+<li>注意力机制</li>
+<li>Transformer</li>
+<li>预训练模型</li>
+<li>大语言模型</li>
+</ul>
+<p>这时候你会发现，你不是在背术语，而是在回答一个问题：</p>
+<blockquote>
+<p><strong>这些模型，到底是怎么让机器更会“处理语言”的？</strong></p>
+</blockquote>
+<h3 id="第伍层：一定要做“完整流程”项目">第伍层：一定要做“完整流程”项目</h3>
+<p>真正让人进步最快的，不是只看一段代码，<br>
+而是亲手走完一遍完整流程：</p>
+<ol>
+<li>选问题</li>
+<li>收集或整理数据</li>
+<li>明确输入输出</li>
+<li>训练或调用模型</li>
+<li>看结果</li>
+<li>分析错误</li>
+<li>继续改进</li>
+</ol>
+<p>注意，“分析错误”特别重要。</p>
+<p>因为很多时候，真正的成长不是来自“模型跑通了”，而是来自：</p>
+<ul>
+<li>你发现它为什么错</li>
+<li>你知道这个错是词义问题、句法问题，还是数据问题</li>
+<li>你知道下一步该改哪里</li>
+</ul>
+<h3 id="第陸层：学会从“任务视角”而不是“模型视角”看问题">第陸层：学会从“任务视角”而不是“模型视角”看问题</h3>
+<p>初学者很容易掉进一个坑：</p>
+<ul>
+<li>天天记模型名字</li>
+<li>Transformer、BERT、GPT、RAG、一堆缩写全背了</li>
+</ul>
+<p>但一遇到真实任务，就不知道从哪儿下手。</p>
+<p>更好的思路是反过来：</p>
+<ul>
+<li>我的问题是什么？</li>
+<li>输入是什么？</li>
+<li>输出是什么？</li>
+<li>难点是什么？</li>
+<li>评价标准是什么？</li>
+</ul>
+<p>当你先看任务，再选方法，思路会清楚很多。</p>
+<p>一句话总结这一整节：</p>
+<blockquote>
+<p><strong>学 NLP，先理解语言问题，再学技术工具；先做小任务，再看大模型；先能分析问题，再追求模型高级。</strong></p>
+</blockquote>
+<hr>
+<h2 id="拾玖、术语速查表：把这篇里最容易混的词一次讲清">拾玖、术语速查表：把这篇里最容易混的词一次讲清</h2>
+<p>下面这张表，你可以把它当成“看完文章后的快速翻译器”。</p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>大白话解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语言学</td>
+<td>研究人类语言规律的学科</td>
+</tr>
+<tr>
+<td>自然语言</td>
+<td>人类自然形成并使用的语言，如中文、英文</td>
+</tr>
+<tr>
+<td>NLP</td>
+<td>让机器处理、理解、生成自然语言的技术</td>
+</tr>
+<tr>
+<td>语料库</td>
+<td>大量真实语言材料的集合，是机器学习语言的重要数据来源</td>
+</tr>
+<tr>
+<td>分词</td>
+<td>把连续文本切成词，中文里尤其重要</td>
+</tr>
+<tr>
+<td>词性标注</td>
+<td>判断一个词在句子里是名词、动词还是别的词类</td>
+</tr>
+<tr>
+<td>句法</td>
+<td>研究词和词如何组成句子</td>
+</tr>
+<tr>
+<td>语义</td>
+<td>研究一句话或一个词表达的意义</td>
+</tr>
+<tr>
+<td>语用</td>
+<td>研究一句话在具体场景里真正想表达什么</td>
+</tr>
+<tr>
+<td>命名实体识别</td>
+<td>识别人名、地名、机构名、时间等专有信息</td>
+</tr>
+<tr>
+<td>文本分类</td>
+<td>给一段文字打标签，比如体育、财经、科技</td>
+</tr>
+<tr>
+<td>情感分析</td>
+<td>判断文本表达的是正面、负面还是中性情绪</td>
+</tr>
+<tr>
+<td>信息抽取</td>
+<td>从自然语言中提取结构化信息</td>
+</tr>
+<tr>
+<td>机器翻译</td>
+<td>把一种语言自动转成另一种语言</td>
+</tr>
+<tr>
+<td>自动摘要</td>
+<td>把长文本压缩成短总结</td>
+</tr>
+<tr>
+<td>文本表示</td>
+<td>把语言转成机器可计算的数字形式</td>
+</tr>
+<tr>
+<td>上下文</td>
+<td>一句话所在的前后环境，常常决定真正含义</td>
+</tr>
+<tr>
+<td>歧义</td>
+<td>同一句话或同一个词可能有多个解释</td>
+</tr>
+<tr>
+<td>模型</td>
+<td>机器学习到的一套处理模式或计算结构</td>
+</tr>
+<tr>
+<td>大语言模型</td>
+<td>在海量文本上训练出来、能生成和理解语言的强大模型</td>
+</tr>
+</tbody>
+</table>
+<p>如果你现在看到这些词，不再只觉得“好像听过”，而是能大概讲出意思，说明你已经前进很大一步了。</p>
+<hr>
+<h2 id="貳拾、来做几个小测试：看看你到底懂了没有">貳拾、来做几个小测试：看看你到底懂了没有</h2>
+<p>下面这些问题，不是为了吓你，<br>
+而是为了帮你判断：你到底是“看过了”，还是“真的懂了”。</p>
+<h3 id="1-什么是自然语言？">1. 什么是自然语言？</h3>
+<p>参考答案：</p>
+<blockquote>
+<p>自然语言是人类在长期社会生活中自然形成并使用的语言，比如中文、英文。它不是专门为机器设计的，所以常常有歧义、依赖语境，也更难处理。</p>
+</blockquote>
+<h3 id="2-为什么自然语言处理很难？">2. 为什么自然语言处理很难？</h3>
+<p>参考答案：</p>
+<blockquote>
+<p>因为自然语言不是严格、唯一、无歧义的。它有一词多义、一句多解、依赖上下文、依赖常识、表达不规范等特点，所以机器很难像人一样自然理解它。</p>
+</blockquote>
+<h3 id="3-语言学和自然语言处理有什么区别？">3. 语言学和自然语言处理有什么区别？</h3>
+<p>参考答案：</p>
+<blockquote>
+<p>语言学研究语言本身的结构和规律，偏理论；自然语言处理研究机器怎样处理语言，偏技术与应用。前者提供理解语言的视角，后者负责把处理语言的能力落到系统里。</p>
+</blockquote>
+<h3 id="4-“苹果发布了新手机”里的“苹果”和“苹果很好吃”里的“苹果”，为什么是个典型-NLP-问题？">4. “苹果发布了新手机”里的“苹果”和“苹果很好吃”里的“苹果”，为什么是个典型 NLP 问题？</h3>
+<p>参考答案：</p>
+<blockquote>
+<p>因为这里涉及词义歧义。同一个词在不同上下文里含义不同，机器需要根据句子环境判断它到底指水果还是公司。</p>
+</blockquote>
+<h3 id="5-语义和语用有什么区别？">5. 语义和语用有什么区别？</h3>
+<p>参考答案：</p>
+<blockquote>
+<p>语义关注“字面或结构上的意思是什么”；语用关注“在具体场景里，说这句话真正想表达什么”。比如“有点冷啊”在语义上是在描述温度，在语用上可能是在请求别人关窗。</p>
+</blockquote>
+<h3 id="6-为什么中文-NLP-往往比很多人想象中更难？">6. 为什么中文 NLP 往往比很多人想象中更难？</h3>
+<p>参考答案：</p>
+<blockquote>
+<p>因为中文没有天然空格，先要解决分词问题；同时中文还大量依赖语境，喜欢省略，词类灵活，口语和网络表达丰富，这些都会增加机器理解难度。</p>
+</blockquote>
+<h3 id="7-NLP-常见任务有哪些？">7. NLP 常见任务有哪些？</h3>
+<p>参考答案：</p>
+<blockquote>
+<p>分词、词性标注、命名实体识别、句法分析、语义分析、情感分析、文本分类、信息抽取、机器翻译、自动摘要、问答与对话系统等。</p>
+</blockquote>
+<h3 id="8-如果让你用一句话概括-NLP-的目标，你会怎么说？">8. 如果让你用一句话概括 NLP 的目标，你会怎么说？</h3>
+<p>参考答案：</p>
+<blockquote>
+<p>NLP 的目标是让机器尽可能理解、处理和生成人类自然语言，从而改善人和机器之间的沟通。</p>
+</blockquote>
+<p>如果上面这 8 个问题你已经能顺下来讲得七七八八，<br>
+那说明你对这篇内容已经不是“看热闹”，而是真入门了。</p>
+<hr>
+<h2 id="貳拾壹、最后用一句话收尾">貳拾壹、最后用一句话收尾</h2>
+<p>如果要把“语言学与自然语言处理”这门内容浓缩成一句最通俗的话，那就是：</p>
+<blockquote>
+<p><strong>语言学在研究：人类是怎么用语言表达世界的；自然语言处理在研究：怎样让机器也尽量学会这件事。</strong></p>
+</blockquote>
+<p>而这件事之所以迷人，就在于：</p>
+<ul>
+<li>它既有人文学科对语言的观察，</li>
+<li>又有计算机科学对问题的解决，</li>
+<li>还夹着一点人工智能对“理解”这件事的野心。</li>
+</ul>
+<p>说得俏皮一点就是：</p>
+<blockquote>
+<p><strong>语言学负责研究“人为什么这么说”；NLP 负责研究“机器怎么才能别再听不懂”。</strong></p>
+</blockquote>
+<p>如果你读到这里，已经不再觉得这几个词只是“听起来很厉害的黑话”，<br>
+而是开始能把它们讲给别人听、拿来答题、甚至拿来规划自己的学习路线，<br>
+那这篇文章就真的完成任务了。</p>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>从零讲明白：语言学与自然语言处理</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://yjyrichard.github.io/posts/63064e94.html">https://yjyrichard.github.io/posts/63064e94.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Yangjiayu</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2026-04-09</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2026-04-09</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NLP/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>NLP</a></div></div><link rel="stylesheet" href="/css/coin.css" media="defer" onload="this.media='all'"/><div class="post-reward"><button class="tip-button reward-button"><span class="tip-button__text">投喂作者</span><div class="coin-wrapper"><div class="coin"><div class="coin__middle"></div><div class="coin__back"></div><div class="coin__front"></div></div></div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98.jpg" target="_blank"><img class="post-qr-code-img" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E6%94%AF%E4%BB%98%E5%AE%9D.jpg" target="_blank"><img class="post-qr-code-img" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E6%94%AF%E4%BB%98%E5%AE%9D.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></button></div><audio id="coinAudio" src="https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a"></audio><script defer="defer" src="/js/coin.js"></script><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2de3af35.html"><img class="prev-cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/13.png" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">LLM时代为什么一定要补数学基础：从导数、向量到深度学习与大模型</div></div></a></div><div class="next-post pull-right"><a href="/posts/34f24360.html"><img class="next-cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/4.png" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Go 从 0 到精通 · 第 40 课：综合项目与进阶路线建议</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><svg class="meta_icon" style="width:22px;height:22px;position:relative;top:5px"><use xlink:href="#icon-mulu1"></use></svg><span style="font-weight:bold">目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">从零讲明白：语言学与自然语言处理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A3%B9%E3%80%81%E5%85%88%E5%88%AB%E6%80%95%EF%BC%9A%E8%BF%99%E9%97%A8%E5%AD%A6%E9%97%AE%E5%88%B0%E5%BA%95%E5%9C%A8%E7%A0%94%E7%A9%B6%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">壹、先别怕：这门学问到底在研究什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BA%BA%E5%92%8C%E4%BA%BA%E6%B2%9F%E9%80%9A"><span class="toc-text">1. 人和人沟通</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9C%BA%E5%99%A8%E5%92%8C%E6%9C%BA%E5%99%A8%E6%B2%9F%E9%80%9A"><span class="toc-text">2. 机器和机器沟通</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BA%BA%E5%92%8C%E6%9C%BA%E5%99%A8%E6%B2%9F%E9%80%9A"><span class="toc-text">3. 人和机器沟通</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B2%B3%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E8%AF%AD%E8%A8%80%E5%AD%A6%E2%80%9D%EF%BC%9F"><span class="toc-text">貳、什么是“语言学”？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%AD%E8%A8%80%E5%AD%A6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">1. 语言学的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B8%8D%E6%98%AF%E8%83%8C%E8%A7%84%E5%88%99%EF%BC%8C%E8%80%8C%E6%98%AF%E7%A0%94%E7%A9%B6%E8%A7%84%E5%BE%8B"><span class="toc-text">2. 语言学不是背规则，而是研究规律</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E2%80%9D%EF%BC%9F"><span class="toc-text">參、什么是“自然语言”？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">1. 自然语言的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%92%8C%E7%A8%8B%E5%BA%8F%E8%AF%AD%E8%A8%80%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="toc-text">2. 自然语言和程序语言有什么不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E9%9A%BE%E5%A4%84%E7%90%86%EF%BC%9F"><span class="toc-text">3. 为什么自然语言难处理？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%82%86%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%BA%E5%99%A8%E5%90%AC%E4%B8%8D%E6%87%82%E4%BA%BA%E8%AF%9D%EF%BC%9F"><span class="toc-text">肆、为什么机器听不懂人话？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%AD%E8%A8%80%E6%9C%89%E6%AD%A7%E4%B9%89"><span class="toc-text">1. 语言有歧义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%8D%E4%B9%89%E6%AD%A7%E4%B9%89"><span class="toc-text">词义歧义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%A5%E6%B3%95%E6%AD%A7%E4%B9%89"><span class="toc-text">句法歧义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A3%E6%AD%A7%E4%B9%89"><span class="toc-text">指代歧义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%AD%E8%A8%80%E4%BE%9D%E8%B5%96%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-text">2. 语言依赖上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%AD%E8%A8%80%E4%BE%9D%E8%B5%96%E5%B8%B8%E8%AF%86"><span class="toc-text">3. 语言依赖常识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%AD%E8%A8%80%E7%BB%8F%E5%B8%B8%E4%B8%8D%E8%A7%84%E8%8C%83"><span class="toc-text">4. 语言经常不规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%B8%AD%E6%96%87%E8%BF%98%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E9%A2%9D%E5%A4%96%E9%9A%BE%E9%A2%98"><span class="toc-text">5. 中文还有自己的额外难题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%8D%E3%80%81%E8%AF%AD%E8%A8%80%E5%AD%A6%E9%80%9A%E5%B8%B8%E7%A0%94%E7%A9%B6%E8%AF%AD%E8%A8%80%E7%9A%84%E5%93%AA%E4%BA%9B%E5%B1%82%E6%AC%A1%EF%BC%9F"><span class="toc-text">伍、语言学通常研究语言的哪些层次？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%AD%E9%9F%B3%E5%B1%82%EF%BC%9A%E5%A3%B0%E9%9F%B3%E6%98%AF%E6%80%8E%E4%B9%88%E5%9B%9E%E4%BA%8B"><span class="toc-text">1. 语音层：声音是怎么回事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%8D%E6%B3%95%E5%B1%82%EF%BC%9A%E8%AF%8D%E6%98%AF%E6%80%8E%E4%B9%88%E9%95%BF%E5%87%BA%E6%9D%A5%E7%9A%84"><span class="toc-text">2. 词法层：词是怎么长出来的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%A5%E6%B3%95%E5%B1%82%EF%BC%9A%E8%AF%8D%E6%80%8E%E4%B9%88%E6%8B%BC%E6%88%90%E5%8F%A5%E5%AD%90"><span class="toc-text">3. 句法层：词怎么拼成句子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%AD%E4%B9%89%E5%B1%82%EF%BC%9A%E8%BF%99%E5%8F%A5%E8%AF%9D%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D"><span class="toc-text">4. 语义层：这句话到底是什么意思</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AF%AD%E7%94%A8%E5%B1%82%EF%BC%9A%E4%BA%BA%E8%AF%B4%E7%9A%84%E8%AF%9D%EF%BC%8C%E4%B8%8D%E4%B8%80%E5%AE%9A%E5%8F%AA%E7%AD%89%E4%BA%8E%E5%AD%97%E9%9D%A2"><span class="toc-text">5. 语用层：人说的话，不一定只等于字面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%B8%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%EF%BC%88NLP%EF%BC%89%EF%BC%9F"><span class="toc-text">陸、什么是自然语言处理（NLP）？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-NLP-%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">1. NLP 的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-NLP-%E7%9A%84%E7%9B%AE%E6%A0%87%EF%BC%8C%E7%94%A8%E4%B8%80%E5%8F%A5%E5%A4%A7%E7%99%BD%E8%AF%9D%E6%9D%A5%E8%AF%B4"><span class="toc-text">2. NLP 的目标，用一句大白话来说</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-NLP-%E4%B8%8D%E6%98%AF%E5%8F%AA%E6%9C%89%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-text">3. NLP 不是只有聊天机器人</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%92%E3%80%81%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%85%B7%E4%BD%93%E5%9C%A8%E5%81%9A%E5%93%AA%E4%BA%9B%E4%BA%8B%EF%BC%9F"><span class="toc-text">柒、自然语言处理具体在做哪些事？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%86%E8%AF%8D"><span class="toc-text">1. 分词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%8D%E6%80%A7%E6%A0%87%E6%B3%A8"><span class="toc-text">2. 词性标注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%91%BD%E5%90%8D%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB"><span class="toc-text">3. 命名实体识别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">4. 句法分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90"><span class="toc-text">5. 语义分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%83%85%E6%84%9F%E5%88%86%E6%9E%90"><span class="toc-text">6. 情感分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB"><span class="toc-text">7. 文本分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E4%BF%A1%E6%81%AF%E6%8A%BD%E5%8F%96"><span class="toc-text">8. 信息抽取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E6%9C%BA%E5%99%A8%E7%BF%BB%E8%AF%91"><span class="toc-text">9. 机器翻译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E8%87%AA%E5%8A%A8%E6%91%98%E8%A6%81"><span class="toc-text">10. 自动摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E9%97%AE%E7%AD%94%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%AF%B9%E8%AF%9D%E7%B3%BB%E7%BB%9F"><span class="toc-text">11. 问答系统与对话系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E6%96%87%E6%9C%AC%E7%94%9F%E6%88%90"><span class="toc-text">12. 文本生成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%8C%E3%80%81%E6%9C%BA%E5%99%A8%E5%88%B0%E5%BA%95%E6%98%AF%E6%80%8E%E4%B9%88%E2%80%9C%E7%90%86%E8%A7%A3%E2%80%9D%E8%AF%AD%E8%A8%80%E7%9A%84%EF%BC%9F"><span class="toc-text">捌、机器到底是怎么“理解”语言的？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AF%B9%E6%9C%BA%E5%99%A8%E6%9D%A5%E8%AF%B4%EF%BC%8C%E6%96%87%E5%AD%97%E4%B8%80%E5%BC%80%E5%A7%8B%E5%8F%AA%E6%98%AF%E7%AC%A6%E5%8F%B7"><span class="toc-text">1. 对机器来说，文字一开始只是符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%AD%E8%A8%80%E6%9C%80%E7%BB%88%E8%A6%81%E8%A1%A8%E7%A4%BA%E6%88%90%E6%95%B0%E5%AD%97"><span class="toc-text">2. 语言最终要表示成数字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%AD%E6%96%99%E5%BA%93%E5%BE%88%E9%87%8D%E8%A6%81"><span class="toc-text">3. 语料库很重要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-NLP-%E7%9A%84%E5%8F%91%E5%B1%95%E5%A4%A7%E8%87%B4%E7%BB%8F%E5%8E%86%E4%BA%86%E5%87%A0%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="toc-text">4. NLP 的发展大致经历了几个阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%A7%84%E5%88%99%E6%96%B9%E6%B3%95"><span class="toc-text">（1）规则方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="toc-text">（2）统计方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="toc-text">（3）深度学习方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E9%98%B6%E6%AE%B5"><span class="toc-text">（4）大语言模型阶段</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%96%E3%80%81%E8%AF%AD%E8%A8%80%E5%AD%A6%E5%92%8C%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%EF%BC%8C%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="toc-text">玖、语言学和自然语言处理，到底是什么关系？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%AD%E8%A8%80%E5%AD%A6%E7%A0%94%E7%A9%B6%E2%80%9C%E8%AF%AD%E8%A8%80%E6%98%AF%E4%BB%80%E4%B9%88%E2%80%9D"><span class="toc-text">1. 语言学研究“语言是什么”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%A0%94%E7%A9%B6%E2%80%9C%E6%9C%BA%E5%99%A8%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%E8%AF%AD%E8%A8%80%E2%80%9D"><span class="toc-text">2. 自然语言处理研究“机器怎么处理语言”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BA%8C%E8%80%85%E4%B8%8D%E6%98%AF%E5%AF%B9%E7%AB%8B%E5%85%B3%E7%B3%BB%EF%BC%8C%E8%80%8C%E6%98%AF%E4%BA%92%E7%9B%B8%E6%94%AF%E6%92%91"><span class="toc-text">3. 二者不是对立关系，而是互相支撑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E3%80%81%E4%B8%BE%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E4%BE%8B%E5%AD%90%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E4%B8%80%E5%8F%A5%E4%BA%BA%E8%AF%9D%EF%BC%9F"><span class="toc-text">拾、举一个完整例子：机器如何处理一句人话？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%88%86%E8%AF%8D"><span class="toc-text">第一步：分词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%AF%86%E5%88%AB%E5%85%B3%E9%94%AE%E4%BF%A1%E6%81%AF"><span class="toc-text">第二步：识别关键信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E8%AF%86%E5%88%AB%E7%94%A8%E6%88%B7%E6%84%8F%E5%9B%BE"><span class="toc-text">第三步：识别用户意图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E5%88%A4%E6%96%AD%E4%BF%A1%E6%81%AF%E6%98%AF%E5%90%A6%E5%AE%8C%E6%95%B4"><span class="toc-text">第四步：判断信息是否完整</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E7%94%9F%E6%88%90%E5%9B%9E%E5%BA%94"><span class="toc-text">第五步：生成回应</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E5%A3%B9%E3%80%81%E5%88%9D%E5%AD%A6%E8%80%85%E6%9C%80%E5%AE%B9%E6%98%93%E8%B8%A9%E7%9A%84%E5%87%A0%E4%B8%AA%E8%AF%AF%E5%8C%BA"><span class="toc-text">拾壹、初学者最容易踩的几个误区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AF%E5%8C%BA-1%EF%BC%9ANLP-%E5%B0%B1%E6%98%AF%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-text">误区 1：NLP 就是聊天机器人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AF%E5%8C%BA-2%EF%BC%9A%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%B0%B1%E6%98%AF%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86"><span class="toc-text">误区 2：语言处理就是字符串处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AF%E5%8C%BA-3%EF%BC%9A%E6%9C%BA%E5%99%A8%E8%83%BD%E5%9B%9E%E7%AD%94%EF%BC%8C%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%AE%83%E7%9C%9F%E7%9A%84%E5%83%8F%E4%BA%BA%E4%B8%80%E6%A0%B7%E7%90%86%E8%A7%A3"><span class="toc-text">误区 3：机器能回答，不等于它真的像人一样理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AF%E5%8C%BA-4%EF%BC%9A%E5%8F%AA%E8%A6%81%E4%BC%9A%E8%B0%83%E6%A8%A1%E5%9E%8B%EF%BC%8C%E5%B0%B1%E7%AD%89%E4%BA%8E%E6%87%82-NLP"><span class="toc-text">误区 4：只要会调模型，就等于懂 NLP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E8%B2%B3%E3%80%81%E5%A6%82%E6%9E%9C%E4%BD%A0%E6%98%AF%E9%9B%B6%E5%9F%BA%E7%A1%80%EF%BC%8C%E5%BA%94%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%90%86%E8%A7%A3%E8%BF%99%E9%97%A8%E8%AF%BE%EF%BC%9F"><span class="toc-text">拾貳、如果你是零基础，应该怎样理解这门课？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%8F%A5"><span class="toc-text">第一句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%8F%A5"><span class="toc-text">第二句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%8F%A5"><span class="toc-text">第三句</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E5%8F%83%E3%80%81%E9%80%81%E4%BD%A0%E4%B8%80%E4%BB%BD%E5%B0%8F%E7%99%BD%E7%89%88%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE%EF%BC%88%E6%96%87%E5%AD%97%E7%89%88%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%EF%BC%89"><span class="toc-text">拾參、送你一份小白版学习路线图（文字版思维导图）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82%EF%BC%9A%E5%85%88%E6%8A%8A%E6%A6%82%E5%BF%B5%E6%90%9E%E6%B8%85%E6%A5%9A"><span class="toc-text">第一层：先把概念搞清楚</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82%EF%BC%9A%E7%90%86%E8%A7%A3%E8%AF%AD%E8%A8%80%E7%9A%84%E5%87%A0%E4%B8%AA%E5%B1%82%E6%AC%A1"><span class="toc-text">第二层：理解语言的几个层次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82%EF%BC%9A%E8%AE%A4%E8%AF%86-NLP-%E7%9A%84%E7%BB%8F%E5%85%B8%E4%BB%BB%E5%8A%A1"><span class="toc-text">第三层：认识 NLP 的经典任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E5%B1%82%EF%BC%9A%E8%A1%A5%E4%B8%80%E7%82%B9%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80"><span class="toc-text">第四层：补一点技术基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E5%B1%82%EF%BC%9A%E8%BF%9B%E5%85%A5%E7%8E%B0%E4%BB%A3-NLP"><span class="toc-text">第五层：进入现代 NLP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E5%B1%82%EF%BC%9A%E4%B8%80%E5%AE%9A%E8%A6%81%E5%81%9A%E9%A1%B9%E7%9B%AE"><span class="toc-text">第六层：一定要做项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E8%82%86%E3%80%81%E6%8A%8A%E5%85%A8%E6%96%87%E5%8E%8B%E6%88%90%E4%B8%80%E5%BC%A0%E2%80%9C%E8%80%83%E5%89%8D%E5%B0%8F%E6%8A%84%E2%80%9D"><span class="toc-text">拾肆、把全文压成一张“考前小抄”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E4%BC%8D%E3%80%81%E6%8A%8A%E6%8A%BD%E8%B1%A1%E6%A6%82%E5%BF%B5%E5%A1%9E%E5%9B%9E%E7%94%9F%E6%B4%BB%EF%BC%9A%E4%BD%A0%E7%9A%84%E4%B8%80%E5%A4%A9%E9%87%8C%EF%BC%8C%E5%85%B6%E5%AE%9E%E5%85%A8%E6%98%AF-NLP"><span class="toc-text">拾伍、把抽象概念塞回生活：你的一天里，其实全是 NLP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%97%A9%E4%B8%8A%EF%BC%8C%E4%BD%A0%E5%AF%B9%E6%89%8B%E6%9C%BA%E8%AF%B4%EF%BC%9A%E2%80%9C%E4%BB%8A%E5%A4%A9%E5%A4%A9%E6%B0%94%E6%80%8E%E4%B9%88%E6%A0%B7%EF%BC%9F%E2%80%9D"><span class="toc-text">1. 早上，你对手机说：“今天天气怎么样？”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BD%A0%E6%89%93%E5%AD%97%E6%97%B6%EF%BC%8C%E8%BE%93%E5%85%A5%E6%B3%95%E5%9C%A8%E7%8C%9C%E4%BD%A0%E6%83%B3%E8%AF%B4%E4%BB%80%E4%B9%88"><span class="toc-text">2. 你打字时，输入法在猜你想说什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%A0%E5%8E%BB%E6%90%9C%EF%BC%9A%E2%80%9C%E9%99%84%E8%BF%91%E4%BE%BF%E5%AE%9C%E5%8F%88%E5%A5%BD%E5%90%83%E7%9A%84%E9%9D%A2%E9%A6%86%E2%80%9D"><span class="toc-text">3. 你去搜：“附近便宜又好吃的面馆”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%A0%E5%88%B7%E8%A7%86%E9%A2%91%EF%BC%8C%E7%9C%8B%E5%88%B0%E8%87%AA%E5%8A%A8%E5%AD%97%E5%B9%95"><span class="toc-text">4. 你刷视频，看到自动字幕</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BD%A0%E7%9C%8B%E7%94%B5%E5%95%86%E8%AF%84%E8%AE%BA%EF%BC%8C%E5%B9%B3%E5%8F%B0%E7%BB%99%E4%BD%A0%E6%80%BB%E7%BB%93%E2%80%9C%E5%A4%A7%E5%AE%B6%E9%83%BD%E5%9C%A8%E5%A4%B8%E4%BB%80%E4%B9%88%E2%80%9D"><span class="toc-text">5. 你看电商评论，平台给你总结“大家都在夸什么”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%BD%A0%E6%89%BE%E5%AE%A2%E6%9C%8D%EF%BC%8C%E5%85%88%E9%81%87%E5%88%B0%E6%99%BA%E8%83%BD%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-text">6. 你找客服，先遇到智能机器人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%BD%A0%E8%AF%BB%E5%A4%96%E6%96%87%E6%96%87%E7%AB%A0%EF%BC%8C%E9%A1%BA%E6%89%8B%E7%82%B9%E4%B8%80%E4%B8%8B%E7%BF%BB%E8%AF%91"><span class="toc-text">7. 你读外文文章，顺手点一下翻译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%99%9A%E4%B8%8A%E4%BD%A0%E9%97%AE-AI%EF%BC%9A%E2%80%9C%E5%B8%AE%E6%88%91%E5%86%99%E4%B8%80%E6%AE%B5%E8%AF%B7%E5%81%87%E7%90%86%E7%94%B1%E2%80%9D"><span class="toc-text">8. 晚上你问 AI：“帮我写一段请假理由”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E9%99%B8%E3%80%81%E4%B8%AD%E6%96%87-NLP-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B0%A4%E5%85%B6%E8%AE%A9%E6%9C%BA%E5%99%A8%E5%A4%B4%E7%96%BC%EF%BC%9F"><span class="toc-text">拾陸、中文 NLP 为什么尤其让机器头疼？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%AD%E6%96%87%E6%B2%A1%E6%9C%89%E5%A4%A9%E7%84%B6%E7%A9%BA%E6%A0%BC%EF%BC%8C%E8%AF%8D%E8%BE%B9%E7%95%8C%E4%B8%8D%E6%98%8E%E6%98%BE"><span class="toc-text">1. 中文没有天然空格，词边界不明显</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%AD%E6%96%87%E7%89%B9%E5%88%AB%E7%88%B1%E7%9C%81%E7%95%A5"><span class="toc-text">2. 中文特别爱省略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%AD%E6%96%87%E8%AF%8D%E7%B1%BB%E6%9C%89%E6%97%B6%E5%BE%88%E7%81%B5%E6%B4%BB"><span class="toc-text">3. 中文词类有时很灵活</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%AD%E6%96%87%E7%89%B9%E5%88%AB%E4%BE%9D%E8%B5%96%E8%AF%AD%E5%A2%83%E5%92%8C%E8%AF%AD%E6%B0%94"><span class="toc-text">4. 中文特别依赖语境和语气</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%B8%AD%E6%96%87%E9%87%8C%E6%9C%89%E5%A4%A7%E9%87%8F%E6%88%90%E8%AF%AD%E3%80%81%E4%BF%97%E8%AF%AD%E3%80%81%E7%BD%91%E7%BB%9C%E8%AF%AD"><span class="toc-text">5. 中文里有大量成语、俗语、网络语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%B8%AD%E6%96%87%E6%96%87%E6%9C%AC%E5%B8%B8%E5%B8%B8%E7%BC%BA%E5%B0%91%E8%AF%AD%E9%9F%B3%E4%BF%A1%E6%81%AF"><span class="toc-text">6. 中文文本常常缺少语音信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%B8%AD%E6%96%87%E9%87%8C%E8%BF%98%E6%9C%89%E5%BE%88%E5%A4%9A%E2%80%9C%E4%BA%BA%E7%B1%BB%E6%87%82%EF%BC%8C%E4%BD%86%E4%B8%8D%E5%A5%BD%E8%AE%B2%E6%B8%85%E2%80%9D%E7%9A%84%E4%B9%A0%E6%83%AF"><span class="toc-text">7. 中文里还有很多“人类懂，但不好讲清”的习惯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E6%9F%92%E3%80%81%E5%A6%82%E6%9E%9C%E8%80%81%E5%B8%88%E7%AA%81%E7%84%B6%E9%97%AE%E4%BD%A0%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B8%8E%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%EF%BC%9F%E4%BD%A0%E5%8F%AF%E4%BB%A5%E6%80%8E%E4%B9%88%E7%AD%94"><span class="toc-text">拾柒、如果老师突然问你：什么是语言学与自然语言处理？你可以怎么答</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%80%E5%8F%A5%E8%AF%9D%E7%89%88%E6%9C%AC"><span class="toc-text">1. 一句话版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%89%E5%8D%81%E7%A7%92%E7%89%88%E6%9C%AC"><span class="toc-text">2. 三十秒版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%80%E5%88%86%E9%92%9F%E7%89%88%E6%9C%AC"><span class="toc-text">3. 一分钟版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%80%83%E8%AF%95%E7%AD%94%E9%A2%98%E5%B1%95%E5%BC%80%E6%A8%A1%E6%9D%BF"><span class="toc-text">4. 考试答题展开模板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%85%88%E4%B8%8B%E5%AE%9A%E4%B9%89"><span class="toc-text">第一步：先下定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%86%8D%E8%AE%B2%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9A%BE"><span class="toc-text">第二步：再讲为什么难</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%86%8D%E8%AE%B2%E8%AF%AD%E8%A8%80%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B1%82%E6%AC%A1"><span class="toc-text">第三步：再讲语言有哪些层次</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E5%86%8D%E8%AE%B2-NLP-%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88"><span class="toc-text">第四步：再讲 NLP 能做什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E6%9C%80%E5%90%8E%E8%AE%B2%E5%85%B3%E7%B3%BB"><span class="toc-text">第五步：最后讲关系</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E6%8D%8C%E3%80%81%E5%B0%8F%E7%99%BD%E7%9C%9F%E6%AD%A3%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%EF%BC%9A%E4%BB%8E%E2%80%9C%E7%9C%8B%E6%87%82%E6%A6%82%E5%BF%B5%E2%80%9D%E5%88%B0%E2%80%9C%E5%81%9A%E5%87%BA%E4%B8%80%E4%B8%AA%E5%B0%8F-Demo%E2%80%9D"><span class="toc-text">拾捌、小白真正可执行的学习路线：从“看懂概念”到“做出一个小 Demo”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%A3%B9%E5%B1%82%EF%BC%9A%E5%85%88%E6%8A%8A%E2%80%9C%E8%AF%AD%E8%A8%80%E9%97%AE%E9%A2%98%E2%80%9D%E7%9C%8B%E6%98%8E%E7%99%BD"><span class="toc-text">第壹层：先把“语言问题”看明白</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E8%B2%B3%E5%B1%82%EF%BC%9A%E8%A1%A5%E4%B8%8A%E6%9C%80%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%B7%A5%E5%85%B7%E8%83%BD%E5%8A%9B"><span class="toc-text">第貳层：补上最基本的工具能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%8F%83%E5%B1%82%EF%BC%9A%E5%85%88%E5%81%9A%E7%BB%8F%E5%85%B8%E5%B0%8F%E4%BB%BB%E5%8A%A1%EF%BC%8C%E5%88%AB%E4%B8%80%E4%B8%8A%E6%9D%A5%E5%B0%B1%E6%8C%91%E6%88%98%E5%AE%87%E5%AE%99%E9%9A%BE%E9%A2%98"><span class="toc-text">第參层：先做经典小任务，别一上来就挑战宇宙难题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E9%A1%B9%E7%9B%AE-1%EF%BC%9A%E5%81%9A%E4%B8%80%E4%B8%AA%E8%AF%84%E8%AE%BA%E6%83%85%E6%84%9F%E5%88%A4%E6%96%AD%E5%99%A8"><span class="toc-text">小项目 1：做一个评论情感判断器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E9%A1%B9%E7%9B%AE-2%EF%BC%9A%E5%81%9A%E4%B8%80%E4%B8%AA%E6%96%B0%E9%97%BB%E5%88%86%E7%B1%BB%E5%99%A8"><span class="toc-text">小项目 2：做一个新闻分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E9%A1%B9%E7%9B%AE-3%EF%BC%9A%E5%81%9A%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB-Demo"><span class="toc-text">小项目 3：做一个实体识别 Demo</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E8%82%86%E5%B1%82%EF%BC%9A%E5%86%8D%E5%8E%BB%E7%90%86%E8%A7%A3%E7%8E%B0%E4%BB%A3-NLP-%E6%A8%A1%E5%9E%8B%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%BA"><span class="toc-text">第肆层：再去理解现代 NLP 模型为什么强</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BC%8D%E5%B1%82%EF%BC%9A%E4%B8%80%E5%AE%9A%E8%A6%81%E5%81%9A%E2%80%9C%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B%E2%80%9D%E9%A1%B9%E7%9B%AE"><span class="toc-text">第伍层：一定要做“完整流程”项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E9%99%B8%E5%B1%82%EF%BC%9A%E5%AD%A6%E4%BC%9A%E4%BB%8E%E2%80%9C%E4%BB%BB%E5%8A%A1%E8%A7%86%E8%A7%92%E2%80%9D%E8%80%8C%E4%B8%8D%E6%98%AF%E2%80%9C%E6%A8%A1%E5%9E%8B%E8%A7%86%E8%A7%92%E2%80%9D%E7%9C%8B%E9%97%AE%E9%A2%98"><span class="toc-text">第陸层：学会从“任务视角”而不是“模型视角”看问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BE%E7%8E%96%E3%80%81%E6%9C%AF%E8%AF%AD%E9%80%9F%E6%9F%A5%E8%A1%A8%EF%BC%9A%E6%8A%8A%E8%BF%99%E7%AF%87%E9%87%8C%E6%9C%80%E5%AE%B9%E6%98%93%E6%B7%B7%E7%9A%84%E8%AF%8D%E4%B8%80%E6%AC%A1%E8%AE%B2%E6%B8%85"><span class="toc-text">拾玖、术语速查表：把这篇里最容易混的词一次讲清</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B2%B3%E6%8B%BE%E3%80%81%E6%9D%A5%E5%81%9A%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%B5%8B%E8%AF%95%EF%BC%9A%E7%9C%8B%E7%9C%8B%E4%BD%A0%E5%88%B0%E5%BA%95%E6%87%82%E4%BA%86%E6%B2%A1%E6%9C%89"><span class="toc-text">貳拾、来做几个小测试：看看你到底懂了没有</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%EF%BC%9F"><span class="toc-text">1. 什么是自然语言？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%BE%88%E9%9A%BE%EF%BC%9F"><span class="toc-text">2. 为什么自然语言处理很难？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%AD%E8%A8%80%E5%AD%A6%E5%92%8C%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">3. 语言学和自然语言处理有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E2%80%9C%E8%8B%B9%E6%9E%9C%E5%8F%91%E5%B8%83%E4%BA%86%E6%96%B0%E6%89%8B%E6%9C%BA%E2%80%9D%E9%87%8C%E7%9A%84%E2%80%9C%E8%8B%B9%E6%9E%9C%E2%80%9D%E5%92%8C%E2%80%9C%E8%8B%B9%E6%9E%9C%E5%BE%88%E5%A5%BD%E5%90%83%E2%80%9D%E9%87%8C%E7%9A%84%E2%80%9C%E8%8B%B9%E6%9E%9C%E2%80%9D%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%AA%E5%85%B8%E5%9E%8B-NLP-%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-text">4. “苹果发布了新手机”里的“苹果”和“苹果很好吃”里的“苹果”，为什么是个典型 NLP 问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AF%AD%E4%B9%89%E5%92%8C%E8%AF%AD%E7%94%A8%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">5. 语义和语用有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%AD%E6%96%87-NLP-%E5%BE%80%E5%BE%80%E6%AF%94%E5%BE%88%E5%A4%9A%E4%BA%BA%E6%83%B3%E8%B1%A1%E4%B8%AD%E6%9B%B4%E9%9A%BE%EF%BC%9F"><span class="toc-text">6. 为什么中文 NLP 往往比很多人想象中更难？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-NLP-%E5%B8%B8%E8%A7%81%E4%BB%BB%E5%8A%A1%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-text">7. NLP 常见任务有哪些？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%A6%82%E6%9E%9C%E8%AE%A9%E4%BD%A0%E7%94%A8%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%A6%82%E6%8B%AC-NLP-%E7%9A%84%E7%9B%AE%E6%A0%87%EF%BC%8C%E4%BD%A0%E4%BC%9A%E6%80%8E%E4%B9%88%E8%AF%B4%EF%BC%9F"><span class="toc-text">8. 如果让你用一句话概括 NLP 的目标，你会怎么说？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B2%B3%E6%8B%BE%E5%A3%B9%E3%80%81%E6%9C%80%E5%90%8E%E7%94%A8%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%94%B6%E5%B0%BE"><span class="toc-text">貳拾壹、最后用一句话收尾</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l"><p class="ft-t t-l-t">格言🧬</p><div class="bg-ad"><div>再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨</div><div class="btn-xz-box"><a class="btn-xz" href="#">点击开启星辰之旅</a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">猜你想看💡</p><ul class="ft-links"><li><a href="/social/link/">我的朋友</a><a href="/comments/">留点什么</a></li><li><a href="/personal/about/">关于作者</a><a href="/archives/">文章归档</a></li><li><a href="/categories/">文章分类</a><a href="/tags/">文章标签</a></li><li><a href="/box/Gallery/">我的画廊</a><a href="/personal/bb/">我的唠叨</a></li><li><a href="/site/time/">建设进程</a><a href="/site/census/">网站统计</a></li></ul></div></div></div><div class="ft-item-2"><p class="ft-t">推荐友链⌛</p><div class="ft-img-group"></div></div></div><div class="copyright"><span><b>&copy;2025-2026</b></span><span><b>&nbsp;&nbsp;By Yangjiayu</b></span></div><div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v6.3.0"><img src="https://sourcebucket.s3.ladydaily.com/badge/Frame-Hexo-blue.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.3.1"><img src="https://sourcebucket.s3.ladydaily.com/badge/Theme-Butterfly-6513df.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" title="本站采用多线部署，主线路托管于Vercel"><img src="https://sourcebucket.s3.ladydaily.com/badge/Hosted-Vercel-brightgreen.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://user.51.la/" style="margin-inline:5px" title="本站数据分析得益于51la技术支持"><img src="https://sourcebucket.s3.ladydaily.com/badge/Analytics-51la-3db1eb.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://icp.gov.moe/?keyword=20226665" style="margin-inline:5px" title="本站已加入萌ICP豪华套餐，萌ICP备20226665号"><img src="https://sourcebucket.s3.ladydaily.com/badge/萌ICP备-20226665-fe1384.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://bitiful.dogecast.com/buckets" style="margin-inline:5px" title="本网站经Service Worker分流至缤纷云对象存储"><img src=" https://sourcebucket.s3.ladydaily.com/badge/Bucket-缤纷云-9c62da.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://www.netdun.net/" style="margin-inline:5px" title="本站使用网盾星球提供CDN加速与防护"><img src="https://sourcebucket.s3.ladydaily.com/badge/CDN-网盾星球-fff2cc.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本网站源码由Github提供存储仓库"><img src=" https://sourcebucket.s3.ladydaily.com/badge/Source-Github-d021d6.svg" alt=""/></a></p></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button class="share" type="button" title="右键模式" onclick="changeMouseMode()"><i class="fas fa-mouse"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog right_side"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button class="share" type="button" title="分享链接" onclick="share()"><i class="fas fa-share-nodes"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i><span id="percent">0<span>%</span></span></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div class="js-pjax" id="rightMenu"><div class="rightMenu-group rightMenu-small"><a class="rightMenu-item" href="javascript:window.history.back();"><i class="fa fa-arrow-left"></i></a><a class="rightMenu-item" href="javascript:window.history.forward();"><i class="fa fa-arrow-right"></i></a><a class="rightMenu-item" href="javascript:window.location.reload();"><i class="fa fa-refresh"></i></a><a class="rightMenu-item" href="javascript:rmf.scrollToTop();"><i class="fa fa-arrow-up"></i></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-text"><a class="rightMenu-item" href="javascript:rmf.copySelect();"><i class="fa fa-copy"></i><span>复制</span></a><a class="rightMenu-item" href="javascript:window.open(&quot;https://www.baidu.com/s?wd=&quot;+window.getSelection().toString());window.location.reload();"><i class="fa fa-search"></i><span>百度搜索</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-too"><a class="rightMenu-item" href="javascript:window.open(window.getSelection().toString());window.location.reload();"><i class="fa fa-link"></i><span>转到链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-paste"><a class="rightMenu-item" href="javascript:rmf.paste()"><i class="fa fa-copy"></i><span>粘贴</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-post"><a class="rightMenu-item" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item" href="javascript:rmf.copyWordsLink()"><i class="fa fa-link"></i><span>复制本文地址</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-to"><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>新窗口打开</span></a><a class="rightMenu-item" id="menu-too" href="javascript:rmf.open()"><i class="fa fa-link"></i><span>转到链接</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-img"><a class="rightMenu-item" href="javascript:rmf.saveAs()"><i class="fa fa-download"></i><span>保存图片</span></a><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>在新窗口打开</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制图片链接</span></a></div><div class="rightMenu-group rightMenu-line"><a class="rightMenu-item" href="javascript:randomPost()"><i class="fa fa-paper-plane"></i><span>随便逛逛</span></a><a class="rightMenu-item" href="javascript:switchNightMode();"><i class="fa fa-moon"></i><span>昼夜切换</span></a><a class="rightMenu-item" href="javascript:rmf.switchReadMode();"><i class="fa fa-book"></i><span>阅读模式</span></a><a class="rightMenu-item" href="/personal/about/"><i class="fa fa-info-circle"></i><span>关于博客</span></a><a class="rightMenu-item" href="javascript:toggleWinbox();"><i class="fas fa-cog"></i><span>美化设置</span></a><a class="rightMenu-item" href="javascript:rmf.fullScreen();"><i class="fas fa-expand"></i><span>切换全屏</span></a><a class="rightMenu-item" href="javascript:window.print();"><i class="fa-solid fa-print"></i><span>打印页面</span></a></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.staticfile.org/fancyapps-ui/4.0.31/fancybox.umd.min.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/instant.page/5.1.0/instantpage.min.js" type="module"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/node-snackbar/0.1.16/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())
+setTimeout(function(){preloader.endLoading();}, 5000);
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.2/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://www.312782.xyz/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://www.312782.xyz/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.staticfile.org/twikoo/1.6.8/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js"></script><script async src="https://cdn1.tianli0.top/npm/vue@2.6.14/dist/vue.min.js"></script><script async src="https://cdn1.tianli0.top/npm/element-ui@2.15.6/lib/index.js"></script><script async src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script><script defer type="text/javascript" src="https://cdn1.tianli0.top/npm/sweetalert2@8.19.0/dist/sweetalert2.all.js"></script><script async src="//npm.elemecdn.com/pace-js@1.2.4/pace.min.js"></script><script defer src="https://cdn1.tianli0.top/gh/nextapps-de/winbox/dist/winbox.bundle.min.js"></script><script async src="//at.alicdn.com/t/c/font_3586335_hsivh70x0fm.js"></script><script async src="//at.alicdn.com/t/c/font_3636804_gr02jmjr3y9.js"></script><script async src="//at.alicdn.com/t/c/font_3612150_kfv55xn3u2g.js"></script><script async src="https://cdn.wpon.cn/2022-sucai/Gold-ingot.js"></script><canvas id="universe"></canvas><canvas id="snow"></canvas><script defer src="/js/fomal.js"></script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="https://yjyrichard.github.io/categories/算法/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍡 算法学习笔记 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item" style="visibility: hidden"></div><div class="magnet_item" style="visibility: hidden"></div><a class="magnet_link_more"  href="https://yjyrichard.github.io/categories/" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(33.333333333333336% - 5px);background: #e9e9e9;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: var(--text-bg-hover)}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/d522d575.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/15.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/d522d575.html" alt="">小程序起步</a><div class="blog-slider__text">初识小程序</div><a class="blog-slider__button" href="posts/d522d575.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/8610680.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/6.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/8610680.html" alt="">大模型的token究竟是啥?</a><div class="blog-slider__text">大模型的token究竟是啥?</div><a class="blog-slider__button" href="posts/8610680.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/5c2f4951.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/14.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/5c2f4951.html" alt="">基础数据结构(3)</a><div class="blog-slider__text">栈，队列，堆，二叉树</div><a class="blog-slider__button" href="posts/5c2f4951.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/45347810.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/8.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/45347810.html" alt="">基础数据结构(2)</a><div class="blog-slider__text">递归</div><a class="blog-slider__button" href="posts/45347810.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/6e192bd3.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/9.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" href="posts/6e192bd3.html" alt="">基础数据结构(1)</a><div class="blog-slider__text">数组与链表</div><a class="blog-slider__button" href="posts/6e192bd3.html" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="posts/3ec27523.html" alt=""><img width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/16.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-21</span><a class="blog-slider__title" href="posts/3ec27523.html" alt="">微信支付</a><div class="blog-slider__text">java整合微信的网页支付包含原理</div><a class="blog-slider__button" href="posts/3ec27523.html" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><script data-pjax src="https://npm.elemecdn.com/hexo-filter-gitcalendar/lib/gitcalendar.js"></script><script data-pjax>
+  function gitcalendar_injector_config(){
+      var parent_div_git = document.getElementById('gitZone');
+      var item_html = '<div class="recent-post-item" id="gitcalendarBar" style="width:100%;height:auto;padding:10px;"><style>#git_container{min-height: 320px}@media screen and (max-width:650px) {#git_container{min-height: 0px}}</style><div id="git_loading" style="width:10%;height:100%;margin:0 auto;display: block;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animatetransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animatetransform></path></svg><style>#git_container{display: none;}</style></div><div id="git_container"></div></div>';
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      console.log('已挂载gitcalendar')
+      }
+
+    if( document.getElementById('gitZone') && (location.pathname ==='/site/census/'|| '/site/census/' ==='all')){
+        gitcalendar_injector_config()
+        GitCalendarInit("/api?null",['#d9e0df', '#c6e0dc', '#a8dcd4', '#9adcd2', '#89ded1', '#77e0d0', '#5fdecb', '#47dcc6', '#39dcc3', '#1fdabe', '#00dab9'],'null')
+    }
+  </script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('blog-slider swiper-container-fade swiper-container-horizontal');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('catalog_magnet');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s·');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '2s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('pagination');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__jackInTheBox');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><!-- hexo injector body_end end --></body></html>
