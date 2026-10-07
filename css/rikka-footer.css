@@ -1,0 +1,34 @@
+/* A locally rendered footer replaces fragile remote status and badge images. */
+#footer::before { background: #f3f2faf5 !important; }
+[data-theme='dark'] #footer::before { background: #1b1a2df5 !important; }
+#footer #footer-wrap { max-width: 1200px; margin: auto; padding: 44px 32px 24px; color: #39324f; text-align: left; }
+#footer .rikka-footer-main { display: flex; justify-content: space-between; gap: 40px; padding-bottom: 28px; }
+.rikka-footer-intro { max-width: 490px; }
+.rikka-footer-heading { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.rikka-footer-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+#footer .rikka-footer-heading strong { font-size: clamp(19px, 2vw, 25px); color: #433661; letter-spacing: .01em; }
+#footer .rikka-footer-intro p { margin: 8px 0; font-size: 14px; line-height: 1.9; color: #5b536d; }
+.rikka-footer-status { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #514486; }
+.rikka-footer-status svg { width: 16px; height: 16px; color: #94702e; flex: 0 0 auto; }
+#footer .rikka-footer-nav { display: grid; grid-template-columns: repeat(2, minmax(90px, 1fr)); gap: 2px 28px; align-content: start; }
+#footer .rikka-footer-nav a { display: flex; align-items: center; min-height: 44px; font-size: 14px; border-radius: 4px; }
+#footer a { color: #514486; text-underline-offset: 4px; }
+#footer a:focus-visible { outline: 2px solid #8975b8; outline-offset: 3px; }
+#footer .rikka-footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px; border-top: 1px solid #d8d2e4; padding-top: 18px; font-size: 12px; }
+#footer .copyright { font-size: 12px; }
+#footer #workboard { margin-top: 12px; color: #5b536d; font-size: 12px; line-height: 1.9; font-variant-numeric: tabular-nums; }
+#footer .rikka-credits { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+#footer .rikka-credits a { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; border-radius: 4px; }
+.rikka-credits svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+[data-theme='dark'] #footer #footer-wrap, [data-theme='dark'] #footer .rikka-footer-heading strong { color: #eee8fa; }
+[data-theme='dark'] #footer :is(a, .rikka-footer-status) { color: #d1bff4; }
+[data-theme='dark'] #footer .rikka-footer-status svg { color: #e7c477; }
+[data-theme='dark'] #footer .rikka-footer-bottom { border-color: #474058; }
+@media (max-width: 800px) {
+  #footer #footer-wrap { padding: 32px 24px 20px; }
+  #footer .rikka-footer-main { flex-direction: column; gap: 20px; padding-bottom: 20px; }
+  #footer .rikka-footer-nav { grid-template-columns: repeat(3, 1fr); gap: 4px 12px; }
+  #footer .rikka-footer-nav a { font-size: 13px; }
+  .rikka-footer-avatar { width: 48px; height: 48px; }
+}
+[data-theme='dark'] #footer :is(.rikka-footer-intro p, #workboard) { color: #c5bcd7; }

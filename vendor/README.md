@@ -7,3 +7,5 @@ Hexo's `scripts/performance.js` emits content-hashed JS/CSS aliases and rewrites
 Vue and Element UI downloads are retained as migration/reference assets but no longer referenced by the site: native notifications replace their only direct use in the custom script. They add repository/deployment size, not page requests. No bulk file deletion was performed.
 
 Update deliberately: retrieve the specified upstream version, preserve its license, update the manifest hash, rebuild, and run the browser regression checks. Do not edit minified vendor code by hand.
+
+Twikoo uses the official 1.7.2 distribution, verified against the npm package integrity and the pinned CDN URL. Its Tencent Cloud admin configuration examples are masked upstream. Keep these official files when updating: the previous local bundle contained a complete example Secret ID that triggered GitHub push protection, including in generated content-hashed copies.

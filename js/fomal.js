@@ -31,12 +31,17 @@ function runVisualEffect(draw, enabled, element) {
 }
 
 /* 阅读进度 start */
-document.addEventListener('pjax:complete', function () {
-  window.onscroll = percent;
-});
-document.addEventListener('DOMContentLoaded', function () {
-  window.onscroll = percent;
-});
+document.addEventListener('pjax:complete', percent);
+document.addEventListener('DOMContentLoaded', percent);
+window.addEventListener('resize', percent);
+let progressFrame = 0;
+window.addEventListener('scroll', () => {
+  if (progressFrame) return;
+  progressFrame = requestAnimationFrame(() => {
+    progressFrame = 0;
+    percent();
+  });
+}, {passive: true});
 // 页面百分比
 function percent() {
 
@@ -48,19 +53,16 @@ function percent() {
 
   }
 
-  let a = document.documentElement.scrollTop, // 卷去高度
-    b = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight) - document.documentElement.clientHeight, // 整个网页高度 减去 可视高度
-    result = Math.round(a / b * 100), // 计算百分比
-    btn = document.querySelector("#go-up"); // 获取按钮
-
-  if (result < 95) { // 如果阅读进度小于95% 就显示百分比
-    btn.childNodes[0].style.display = 'none'
-    btn.childNodes[1].style.display = 'block'
-    btn.childNodes[1].innerHTML = result + '<span>%</span>';
-  } else { // 如果大于95%就显示回到顶部图标
-    btn.childNodes[1].style.display = 'none'
-    btn.childNodes[0].style.display = 'block'
-  }
+  const btn = document.getElementById('go-up');
+  const value = btn?.querySelector('.scroll-percent-value');
+  if (!value) return;
+  const page = document.scrollingElement || document.documentElement;
+  const distance = page.scrollHeight - document.documentElement.clientHeight;
+  const result = distance > 0 ? Math.max(0, Math.min(100, Math.round(page.scrollTop / distance * 100))) : 0;
+  value.textContent = String(result);
+  const label = `已浏览 ${result}% · 回到顶部`;
+  btn.title = label;
+  btn.setAttribute('aria-label', label);
 }
 /* 阅读进度 end */
 
@@ -1191,71 +1193,15 @@ createtime2();
 
 /* 夜间模式切换动画 start */
 function switchNightMode() {
-  document.querySelector('body').insertAdjacentHTML('beforeend', '<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"><div id="sun"></div><div id="moon"></div></div></div>'),
-    setTimeout(function () {
-      document.querySelector('body').classList.contains('DarkMode') ? (document.querySelector('body').classList.remove('DarkMode'), localStorage.setItem('isDark', '0'), document.getElementById('modeicon').setAttribute('xlink:href', '#icon-moon')) : (document.querySelector('body').classList.add('DarkMode'), localStorage.setItem('isDark', '1'), document.getElementById('modeicon').setAttribute('xlink:href', '#icon-sun')),
-        setTimeout(function () {
-          document.getElementsByClassName('Cuteen_DarkSky')[0].style.transition = 'opacity 3s';
-          document.getElementsByClassName('Cuteen_DarkSky')[0].style.opacity = '0';
-          setTimeout(function () {
-            document.getElementsByClassName('Cuteen_DarkSky')[0].remove();
-          }, 1e3);
-        }, 2e3)
-    })
-  const nowMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
-  if (nowMode === 'light') {
-    // 先设置太阳月亮透明度
-    document.getElementById("sun").style.opacity = "1";
-    document.getElementById("moon").style.opacity = "0";
-    setTimeout(function () {
-      document.getElementById("sun").style.opacity = "0";
-      document.getElementById("moon").style.opacity = "1";
-    }, 1000);
-
-    activateDarkMode()
-    saveToLocal.set('theme', 'dark', 2)
-    // GLOBAL_CONFIG.Snackbar !== undefined && btf.snackbarShow(GLOBAL_CONFIG.Snackbar.day_to_night)
-    document.getElementById('modeicon').setAttribute('xlink:href', '#icon-sun')
-    // 延时弹窗提醒
-    setTimeout(() => {
-      blogNotify({
-            title: "关灯啦🌙",
-            message: "当前已成功切换至夜间模式！",
-            position: 'top-left',
-            offset: 50,
-            showClose: true,
-            type: "success",
-            duration: 5000
-          })
-    }, 2000)
-  } else {
-    // 先设置太阳月亮透明度
-    document.getElementById("sun").style.opacity = "0";
-    document.getElementById("moon").style.opacity = "1";
-    setTimeout(function () {
-      document.getElementById("sun").style.opacity = "1";
-      document.getElementById("moon").style.opacity = "0";
-    }, 1000);
-
-    activateLightMode()
-    saveToLocal.set('theme', 'light', 2)
-    document.querySelector('body').classList.add('DarkMode'), document.getElementById('modeicon').setAttribute('xlink:href', '#icon-moon')
-    setTimeout(() => {
-      blogNotify({
-            title: "开灯啦🌞",
-            message: "当前已成功切换至白天模式！",
-            position: 'top-left',
-            offset: 50,
-            showClose: true,
-            type: "success",
-            duration: 5000
-          })
-    }, 2000)
+  const dark = document.documentElement.dataset.theme !== 'dark';
+  dark ? activateDarkMode() : activateLightMode();
+  try { saveToLocal.set('theme', dark ? 'dark' : 'light', 2); } catch (_) {}
+  document.dispatchEvent(new CustomEvent('rikka:theme-change'));
+  typeof utterancesTheme === 'function' && utterancesTheme();
+  typeof FB === 'object' && window.loadFBComment();
+  if (window.DISQUS && document.getElementById('disqus_thread')?.children.length) {
+    setTimeout(() => window.disqusReset(), 200);
   }
-  // handle some cases
-  typeof utterancesTheme === 'function' && utterancesTheme()
-  typeof FB === 'object' && window.loadFBComment()
-  window.DISQUS && document.getElementById('disqus_thread').children.length && setTimeout(() => window.disqusReset(), 200)
 }
 
 /* 夜间模式切换动画 end */
@@ -2606,6 +2552,7 @@ const getStyle2 = (el, attr) => {
 
 // 为了屏蔽异步加载导致无法读取颜色值，这里统一用哈希表预处理
 const map = new Map();
+map.set('rikka', "rgb(81, 68, 134)");
 map.set('red', "rgb(241, 71, 71)");
 map.set('orange', "rgb(241, 162, 71)");
 map.set('yellow', "rgb(241, 238, 71)")
@@ -2770,40 +2717,19 @@ class Cursor {
 /* 页脚计时器 start */
 var now = new Date();
 function createtime() {
-  // 当前时间
   now = new Date();
-  var start = new Date("02/21/2025 00:00:00"); // 旅行者1号开始计算的时间
-  var dis = Math.trunc(23400000000 + ((now - start) / 1000) * 17); // 距离=秒数*速度 记住转换毫秒
-  var unit = (dis / 149600000).toFixed(6);  // 天文单位
-  // 网站诞生时间
-  var grt = new Date("08/09/2022 00:00:00");
-  var days = (now - grt) / 1e3 / 60 / 60 / 24,
-    dnum = Math.floor(days),
-    hours = (now - grt) / 1e3 / 60 / 60 - 24 * dnum,
-    hnum = Math.floor(hours);
-  1 == String(hnum).length && (hnum = "0" + hnum);
-  var minutes = (now - grt) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
-    mnum = Math.floor(minutes);
-  1 == String(mnum).length && (mnum = "0" + mnum);
-  var seconds = (now - grt) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
-    snum = Math.round(seconds);
-  1 == String(snum).length && (snum = "0" + snum);
-  const board = document.getElementById('workboard');
-  if (!board) return;
-  if (!board.querySelector('[data-runtime]')) {
-    board.innerHTML = '<img class="boardsign" loading="lazy" decoding="async"><br><div style="font-size:13px;font-weight:bold"><span data-runtime></span> <i id="heartbeat" class="fas fa-heartbeat"></i><br><span data-voyager></span></div>';
-  }
-  const working = now.getHours() >= 9 && now.getHours() < 18;
-  const badge = working ? 'F小屋-科研摸鱼中.svg' : 'F小屋-下班休息啦.svg';
-  const img = board.querySelector('.boardsign');
-  if (img.dataset.badge !== badge) {
-    img.dataset.badge = badge;
-    img.src = 'https://lskypro.acozycotage.net/Fomalhaut/badge/' + badge;
-    img.alt = working ? '科研摸鱼中' : '下班休息啦';
-  }
-  board.querySelector('[data-runtime]').textContent = `本站居然运行了 ${dnum} 天 ${hnum} 小时 ${mnum} 分 ${snum} 秒`;
-  board.querySelector('[data-voyager]').textContent = `旅行者 1 号当前距离地球 ${dis} 千米，约为 ${unit} 个天文单位 🚀`;
+  const runtime = document.querySelector('#workboard [data-runtime]');
+  if (!runtime) return;
+  // Keep the existing site epoch, with explicit time zone and whole seconds.
+  const elapsed = Math.max(0, Math.floor((now - new Date('2022-08-09T00:00:00+08:00')) / 1000));
+  const days = Math.floor(elapsed / 86400);
+  const hours = String(Math.floor(elapsed % 86400 / 3600)).padStart(2, '0');
+  const minutes = String(Math.floor(elapsed % 3600 / 60)).padStart(2, '0');
+  const seconds = String(elapsed % 60).padStart(2, '0');
+  runtime.textContent = `小站已运行 ${days} 天 ${hours} 小时 ${minutes} 分 ${seconds} 秒`;
 }
+createtime();
+document.addEventListener('pjax:complete', createtime);
 // 设置重复执行函数，周期1000ms
 setInterval(() => {
   if (!document.hidden) createtime();
@@ -2895,7 +2821,7 @@ if (localStorage.getItem("reset_4") == undefined) {
 
 // 清除localStorage配置项
 function clearItem() {
-  localStorage.removeItem('blogbg');
+  localStorage.removeItem('blogbg-rikka-v1');
   localStorage.removeItem('universe');
   localStorage.removeItem('blur');
   localStorage.removeItem('fpson');
@@ -2941,16 +2867,17 @@ function setFontBorder() {
 
 // 设置主题色
 if (localStorage.getItem("themeColor") == undefined) {
-  localStorage.setItem("themeColor", "green");
+  localStorage.setItem("themeColor", "rikka");
 }
 setColor(localStorage.getItem("themeColor"));
 function setColor(c) {
-  document.getElementById("themeColor").innerText = `:root{--theme-color:` + map.get(c) + ` !important}`;
+  // The Rikka palette follows day/night; saved custom colors still take precedence.
+  document.getElementById("themeColor").innerText = c === 'rikka' ? '' : `:root{--theme-color:` + map.get(c) + ` !important}`;
   localStorage.setItem("themeColor", c);
   // 刷新鼠标颜色
   CURSOR.refresh();
   // 设置一个带有透明度的主题色，用于菜单栏的悬浮颜色
-  var theme_color = map.get(c);
+  var theme_color = c === "rikka" ? "rgb(81, 68, 134)" : map.get(c);
   var trans_theme_color = "rgba" + theme_color.substring(3, theme_color.length - 1) + ", 0.7)";
   var high_trans_color = "rgba" + theme_color.substring(3, theme_color.length - 1) + ", 0.5)";
   document.documentElement.style.setProperty("--text-bg-hover", trans_theme_color);
@@ -3110,11 +3037,11 @@ function setBlur() {
 // 上面两个函数如果你有其他需要存取数据的功能，也可以直接使用
 // 读取背景
 // try {
-//   let data = loadData("blogbg", 1440);
+//   let data = loadData("blogbg-rikka-v1", 1440);
 //   if (data) changeBg(data, 1);
-//   else localStorage.removeItem("blogbg");
+//   else localStorage.removeItem("blogbg-rikka-v1");
 // } catch (error) {
-//   localStorage.removeItem("blogbg");
+//   localStorage.removeItem("blogbg-rikka-v1");
 // }
 // 切换背景函数
 // 此处的flag是为了每次读取时都重新存储一次,导致过期时间不稳定
@@ -3128,12 +3055,12 @@ function setBlur() {
 //     bg.style.backgroundImage = s
 //   };
 //   if (!flag) {
-//     saveData("blogbg", s);
+//     saveData("blogbg-rikka-v1", s);
 //   }
 // }
 
 // 切换自定义颜色
-var defineColor = localStorage.getItem("blogbg") && localStorage.getItem("blogbg").charAt(0) == '#' ? localStorage.getItem("blogbg") : '#F4D88A';
+var defineColor = localStorage.getItem("blogbg-rikka-v1") && localStorage.getItem("blogbg-rikka-v1").charAt(0) == '#' ? localStorage.getItem("blogbg-rikka-v1") : '#F4D88A';
 function changeBgColor() {
   changeBg(document.querySelector("#define_colors").value);
 }
@@ -3161,8 +3088,8 @@ let unsplash = "url(https://source.unsplash.com/random/1920x1080/)";
 
 
 // 更换背景(自己的代码)
-if (localStorage.getItem("blogbg") != undefined) {
-  setBg(localStorage.getItem("blogbg"));
+if (localStorage.getItem("blogbg-rikka-v1") != undefined) {
+  setBg(localStorage.getItem("blogbg-rikka-v1"));
 } else {
   document.getElementById("defineBg").innerText = `:root{
     --default-bg: url(/assets/rikka-desktop.6e37ea6bd74e.webp);
@@ -3176,7 +3103,7 @@ function changeBg(s) {
   // 自定义颜色框
   defineColor = s.charAt(0) == "#" ? s : '#F4D88A';
   setBg(s);
-  localStorage.setItem("blogbg", s);
+  localStorage.setItem("blogbg-rikka-v1", s);
 }
 // 设置背景属性
 function setBg(s) {
@@ -3273,10 +3200,10 @@ function changeLight(flag) {
 // 解决开启Pjax的问题
 // function whenDOMReady() {
 //   try {
-//     let data = loadData('blogbg', 1440)
+//     let data = loadData('blogbg-rikka-v1', 1440)
 //     if (data) changeBg_noWindow(data, 0)
-//     else localStorage.removeItem('blogbg');
-//   } catch (error) { localStorage.removeItem('blogbg'); }
+//     else localStorage.removeItem('blogbg-rikka-v1');
+//   } catch (error) { localStorage.removeItem('blogbg-rikka-v1'); }
 // }
 // whenDOMReady()
 // document.addEventListener("pjax:success", whenDOMReady)
@@ -3289,7 +3216,7 @@ function changeLight(flag) {
 //     bg.style.backgroundImage = "none";
 //   } else bg.style.backgroundImage = s;
 //   if (!flag) {
-//     saveData("blogbg", s);
+//     saveData("blogbg-rikka-v1", s);
 //   }
 // }
 
@@ -3371,6 +3298,7 @@ function createWinbox() {
 </p>
 
 <h2>三、主题色设置</h2>
+<p><button type="button" onclick="setColor('rikka')" style="padding:8px 16px;border-radius:6px;background:#514486;color:#fff">六花 · 跟随昼夜配色</button></p>
 <div class="content" style="display:flex"><input type="radio" id="red" name="colors" value=" "
         onclick="setColor('red')"><input type="radio" id="orange" name="colors" value=" "
         onclick="setColor('orange')"><input type="radio" id="yellow" name="colors" value=" "
@@ -3498,7 +3426,7 @@ function createWinbox() {
 
 // 恢复默认背景
 function resetBg() {
-  localStorage.removeItem('blogbg');
+  localStorage.removeItem('blogbg-rikka-v1');
   reload();
 }
 

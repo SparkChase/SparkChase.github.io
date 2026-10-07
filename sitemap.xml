@@ -2,6 +2,60 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.20040829.xyz/assets/rikka-pet/provenance.json</loc>
+    
+    <lastmod>2026-10-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/assets/rikka-pet/manifest.json</loc>
+    
+    <lastmod>2026-10-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/custom/work.html</loc>
+    
+    <lastmod>2026-10-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/custom/about_me.html</loc>
+    
+    <lastmod>2026-10-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/custom/menu.html</loc>
+    
+    <lastmod>2026-10-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/custom/skill.html</loc>
+    
+    <lastmod>2026-10-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/posts/c4d5e6f7.html</loc>
     
     <lastmod>2026-10-07</lastmod>
@@ -14,42 +68,6 @@
     <loc>https://blog.20040829.xyz/posts/b7a2c1e8.html</loc>
     
     <lastmod>2026-10-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/custom/menu.html</loc>
-    
-    <lastmod>2026-08-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/custom/skill.html</loc>
-    
-    <lastmod>2026-08-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/custom/work.html</loc>
-    
-    <lastmod>2026-08-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/custom/about_me.html</loc>
-    
-    <lastmod>2026-08-20</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -92,15 +110,6 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/b0b0260f.html</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/posts/f5626ae9.html</loc>
     
     <lastmod>2026-03-22</lastmod>
@@ -119,16 +128,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/2a169f31.html</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/posts/b1a08992.html</loc>
+    <loc>https://blog.20040829.xyz/posts/b0b0260f.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -146,7 +146,25 @@
   </url>
   
   <url>
+    <loc>https://blog.20040829.xyz/posts/2a169f31.html</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/posts/26f3fbe0.html</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/b1a08992.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -164,25 +182,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/805b716d.html</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/posts/2a70c22.html</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/posts/cab9b418.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/e3e36542.html</loc>
+    <loc>https://blog.20040829.xyz/posts/805b716d.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -210,6 +210,24 @@
   
   <url>
     <loc>https://blog.20040829.xyz/posts/3421fbc8.html</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/cab9b418.html</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/e3e36542.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -245,15 +263,6 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/7c187e45.html</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/posts/357161ab.html</loc>
     
     <lastmod>2026-03-22</lastmod>
@@ -264,6 +273,24 @@
   
   <url>
     <loc>https://blog.20040829.xyz/posts/2cf76b95.html</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/7c187e45.html</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/30bb0a06.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -290,7 +317,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/30bb0a06.html</loc>
+    <loc>https://blog.20040829.xyz/posts/4351da6a.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -299,7 +326,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/4351da6a.html</loc>
+    <loc>https://blog.20040829.xyz/posts/f5af6718.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -317,6 +344,15 @@
   </url>
   
   <url>
+    <loc>https://blog.20040829.xyz/posts/73dcc026.html</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/posts/3aebd901.html</loc>
     
     <lastmod>2026-03-22</lastmod>
@@ -326,7 +362,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/f5af6718.html</loc>
+    <loc>https://blog.20040829.xyz/posts/8699275c.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -371,7 +407,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/8699275c.html</loc>
+    <loc>https://blog.20040829.xyz/posts/820f7ce3.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -389,15 +425,6 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/820f7ce3.html</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/posts/38229cd3.html</loc>
     
     <lastmod>2026-03-22</lastmod>
@@ -407,16 +434,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/2fcc35c0.html</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/posts/73dcc026.html</loc>
+    <loc>https://blog.20040829.xyz/posts/26f7437a.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -434,7 +452,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/81063a43.html</loc>
+    <loc>https://blog.20040829.xyz/posts/2fcc35c0.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -452,7 +470,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/26f7437a.html</loc>
+    <loc>https://blog.20040829.xyz/posts/81063a43.html</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -731,6 +749,15 @@
   </url>
   
   <url>
+    <loc>https://blog.20040829.xyz/posts/8ac408a.html</loc>
+    
+    <lastmod>2025-08-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/posts/4ca0b726.html</loc>
     
     <lastmod>2025-08-25</lastmod>
@@ -749,16 +776,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/8ac408a.html</loc>
-    
-    <lastmod>2025-08-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/posts/b7365014.html</loc>
+    <loc>https://blog.20040829.xyz/posts/229b2f64.html</loc>
     
     <lastmod>2025-08-25</lastmod>
     
@@ -776,15 +794,6 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/229b2f64.html</loc>
-    
-    <lastmod>2025-08-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/posts/d8a89553.html</loc>
     
     <lastmod>2025-08-25</lastmod>
@@ -794,7 +803,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/d2381bcd.html</loc>
+    <loc>https://blog.20040829.xyz/posts/b7365014.html</loc>
     
     <lastmod>2025-08-25</lastmod>
     
@@ -803,7 +812,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/8d9e654e.html</loc>
+    <loc>https://blog.20040829.xyz/posts/d2381bcd.html</loc>
     
     <lastmod>2025-08-25</lastmod>
     
@@ -822,6 +831,15 @@
   
   <url>
     <loc>https://blog.20040829.xyz/posts/f7534411.html</loc>
+    
+    <lastmod>2025-08-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/8d9e654e.html</loc>
     
     <lastmod>2025-08-25</lastmod>
     
@@ -875,7 +893,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/86afc630.html</loc>
+    <loc>https://blog.20040829.xyz/posts/227b7dd1.html</loc>
     
     <lastmod>2025-07-25</lastmod>
     
@@ -884,7 +902,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/227b7dd1.html</loc>
+    <loc>https://blog.20040829.xyz/posts/86afc630.html</loc>
     
     <lastmod>2025-07-25</lastmod>
     
@@ -974,7 +992,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/498824af.html</loc>
+    <loc>https://blog.20040829.xyz/posts/e381ec24.html</loc>
     
     <lastmod>2025-05-06</lastmod>
     
@@ -983,7 +1001,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/e381ec24.html</loc>
+    <loc>https://blog.20040829.xyz/posts/498824af.html</loc>
     
     <lastmod>2025-05-06</lastmod>
     
@@ -1037,6 +1055,15 @@
   </url>
   
   <url>
+    <loc>https://blog.20040829.xyz/posts/a9ba4134.html</loc>
+    
+    <lastmod>2025-04-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/posts/52427a31.html</loc>
     
     <lastmod>2025-04-15</lastmod>
@@ -1073,33 +1100,6 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/d522d575.html</loc>
-    
-    <lastmod>2025-04-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/posts/ab688311.html</loc>
-    
-    <lastmod>2025-04-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/posts/a9ba4134.html</loc>
-    
-    <lastmod>2025-04-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/posts/64d0aedf.html</loc>
     
     <lastmod>2025-04-15</lastmod>
@@ -1110,6 +1110,24 @@
   
   <url>
     <loc>https://blog.20040829.xyz/posts/2aa61245.html</loc>
+    
+    <lastmod>2025-04-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/d522d575.html</loc>
+    
+    <lastmod>2025-04-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/ab688311.html</loc>
     
     <lastmod>2025-04-15</lastmod>
     
@@ -1163,7 +1181,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/e255a10a.html</loc>
+    <loc>https://blog.20040829.xyz/posts/1d100b8e.html</loc>
     
     <lastmod>2025-04-15</lastmod>
     
@@ -1172,7 +1190,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/1d100b8e.html</loc>
+    <loc>https://blog.20040829.xyz/posts/e255a10a.html</loc>
     
     <lastmod>2025-04-15</lastmod>
     
@@ -1217,15 +1235,6 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/3df7151f.html</loc>
-    
-    <lastmod>2025-04-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/posts/d454cca6.html</loc>
     
     <lastmod>2025-04-15</lastmod>
@@ -1235,7 +1244,25 @@
   </url>
   
   <url>
+    <loc>https://blog.20040829.xyz/posts/3df7151f.html</loc>
+    
+    <lastmod>2025-04-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/posts/a477be03.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/33fe25d7.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1262,34 +1289,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/33fe25d7.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/posts/2746ea03.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/posts/d9e956d7.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/posts/f8039f9d.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1307,7 +1307,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/744c3029.html</loc>
+    <loc>https://blog.20040829.xyz/posts/f8039f9d.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1325,6 +1325,15 @@
   </url>
   
   <url>
+    <loc>https://blog.20040829.xyz/posts/d9e956d7.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/posts/df7753ac.html</loc>
     
     <lastmod>2025-03-12</lastmod>
@@ -1334,7 +1343,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/11eb8e1b.html</loc>
+    <loc>https://blog.20040829.xyz/posts/744c3029.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1343,7 +1352,16 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/posts/f8d9baa7.html</loc>
+    <loc>https://blog.20040829.xyz/posts/66656213.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/11eb8e1b.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1362,6 +1380,15 @@
   
   <url>
     <loc>https://blog.20040829.xyz/posts/5612417a.html</loc>
+    
+    <lastmod>2025-03-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/posts/f8d9baa7.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1398,15 +1425,6 @@
   
   <url>
     <loc>https://blog.20040829.xyz/posts/d3168874.html</loc>
-    
-    <lastmod>2025-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/posts/66656213.html</loc>
     
     <lastmod>2025-03-12</lastmod>
     
@@ -1591,6 +1609,118 @@
   </url>
   
   <url>
+    <loc>https://blog.20040829.xyz/tags/NLP/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/bug/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/js/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/java/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/%E9%94%BB%E7%82%BC/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/%E7%A7%91%E6%99%AE/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/%E5%85%B6%E4%BB%96/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/Python/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/Jenkins/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/PostgreSQL/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/%E6%84%9F%E6%83%B3/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/%E7%94%B5%E5%BD%B1/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/tags/nodejs/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/tags/%E7%B2%BE%E7%9B%8A/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -1626,118 +1756,6 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/tags/NLP/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/java/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/js/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/%E9%94%BB%E7%82%BC/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/Python/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/Jenkins/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/%E5%85%B6%E4%BB%96/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/%E7%A7%91%E6%99%AE/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/nodejs/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/PostgreSQL/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/bug/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/%E6%84%9F%E6%83%B3/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/tags/%E7%94%B5%E5%BD%B1/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/tags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -1752,7 +1770,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
+    <loc>https://blog.20040829.xyz/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1766,14 +1784,14 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://blog.20040829.xyz/tags/%E9%A1%B9%E7%9B%AE/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/tags/%E9%A1%B9%E7%9B%AE/</loc>
+    <loc>https://blog.20040829.xyz/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1794,14 +1812,14 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/tags/spring%E6%A1%86%E6%9E%B6/</loc>
+    <loc>https://blog.20040829.xyz/tags/juc/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/tags/juc/</loc>
+    <loc>https://blog.20040829.xyz/tags/spring%E6%A1%86%E6%9E%B6/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1845,13 +1863,6 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/categories/AIOps/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/categories/NLP/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -1859,21 +1870,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/categories/java/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/categories/%E5%89%8D%E7%AB%AF/</loc>
+    <loc>https://blog.20040829.xyz/categories/bug/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1887,7 +1884,28 @@
   </url>
   
   <url>
+    <loc>https://blog.20040829.xyz/categories/java/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/categories/%E9%94%BB%E7%82%BC/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/categories/%E7%A7%91%E6%99%AE/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/categories/%E5%85%B6%E4%BB%96/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1908,35 +1926,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/categories/%E5%85%B6%E4%BB%96/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/categories/%E7%A7%91%E6%99%AE/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/categories/nodejs/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.20040829.xyz/categories/PostgreSQL/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.20040829.xyz/categories/bug/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1957,7 +1947,35 @@
   </url>
   
   <url>
+    <loc>https://blog.20040829.xyz/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/categories/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.20040829.xyz/categories/%E7%94%B5%E5%BD%B1/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/categories/nodejs/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.20040829.xyz/categories/AIOps/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1978,7 +1996,7 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
+    <loc>https://blog.20040829.xyz/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1992,14 +2010,14 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://blog.20040829.xyz/categories/%E9%A1%B9%E7%9B%AE/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/categories/%E9%A1%B9%E7%9B%AE/</loc>
+    <loc>https://blog.20040829.xyz/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2020,14 +2038,14 @@
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/categories/spring%E6%A1%86%E6%9E%B6/</loc>
+    <loc>https://blog.20040829.xyz/categories/juc/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.20040829.xyz/categories/juc/</loc>
+    <loc>https://blog.20040829.xyz/categories/spring%E6%A1%86%E6%9E%B6/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

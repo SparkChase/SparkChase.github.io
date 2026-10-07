@@ -1,0 +1,10 @@
+Rikka Desk Pet artwork by YibinLi188
+https://github.com/YibinLi188/Rikka-desk-pet
+Revision: 0134c1a2676566bcc3de1b5ac73577db0744c00f
+
+Upstream code: MIT (see UPSTREAM-LICENSE.txt).
+Artwork is not covered by that code license. The upstream README states:
+这是一个非官方、非商业的二创桌宠项目，与角色原作及其权利方没有关联。代码以 MIT 协议发布；仓库中的角色图像仅用于本项目的非商业展示与交流，请勿将角色素材单独用于商业用途。
+
+Prepared here for local, non-commercial website preview. Public website reuse has not been confirmed with the artwork author.
+Changes: nearest-neighbor resizing, transparent 256x320 canvases, lossless WebP encoding, and a closed-eye patch aligned to the original idle pose.

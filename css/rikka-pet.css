@@ -1,0 +1,102 @@
+/* Small, self-contained companion. It never transforms the page or wallpaper. */
+:root { --layer-rikka-pet: 30; }
+#rikka-pet, #rikka-pet-menu, #rikka-pet-restore {
+  --pet-ink: #352d49;
+  --pet-muted: #665b79;
+  --pet-paper: #fcfaff;
+  --pet-line: #cec5de;
+  --pet-accent: #594183;
+  box-sizing: border-box;
+  font: 13px/1.6 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: var(--pet-ink);
+  position: fixed;
+  z-index: var(--layer-rikka-pet);
+}
+[data-theme='dark'] :is(#rikka-pet, #rikka-pet-menu, #rikka-pet-restore) {
+  --pet-ink: #f2eafa;
+  --pet-muted: #c9bdda;
+  --pet-paper: #272238;
+  --pet-line: #685878;
+  --pet-accent: #d9c1ff;
+}
+#rikka-pet[hidden], #rikka-pet-menu[hidden], #rikka-pet-restore[hidden], #rikka-pet [hidden] { display: none !important; }
+#rikka-pet {
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  width: 144px; height: 184px; overflow: visible; user-select: none;
+}
+#rikka-pet button, #rikka-pet-menu button, #rikka-pet-restore {
+  font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+#rikka-pet .rp-character {
+  display: block; position: absolute; bottom: 0; left: 4px;
+  width: 136px; height: 170px; margin: 0; padding: 0; border: 0;
+  border-radius: 8px; background: transparent; touch-action: none; cursor: grab;
+}
+#rikka-pet[data-dragging='true'] .rp-character { cursor: grabbing; }
+#rikka-pet .rp-frame {
+  display: block; width: 100%; height: 100%; object-fit: contain;
+  margin: 0; padding: 0; border: 0; border-radius: 0; box-shadow: none;
+  transform: none !important; transition: none !important; animation: none !important;
+  pointer-events: none; image-rendering: pixelated;
+}
+#rikka-pet .rp-controls {
+  display: flex; position: absolute; right: 0; top: 0; gap: 4px;
+}
+#rikka-pet .rp-controls button {
+  display: grid; place-items: center; width: 32px; height: 32px; padding: 0;
+  border: 1px solid var(--pet-line); border-radius: 50%; color: var(--pet-ink);
+  background: var(--pet-paper); line-height: 1; font-size: 18px;
+}
+#rikka-pet .rp-controls button:hover { background: #e8def3; color: #352d49; }
+#rikka-pet .rp-speech {
+  position: absolute; bottom: calc(100% + 8px); left: 0;
+  width: max-content; max-width: min(210px, calc(100vw - 32px));
+  padding: 9px 12px; border-radius: 10px;
+  border: 1px solid var(--pet-line); background: var(--pet-paper);
+  overflow-wrap: anywhere; pointer-events: none;
+}
+#rikka-pet .rp-speech[data-below='true'] { bottom: auto; top: calc(100% + 8px); }
+#rikka-pet .rp-speech[data-align='right'] { left: auto; right: 0; }
+#rikka-pet-menu {
+  width: 252px; padding: 16px; background: var(--pet-paper);
+  border: 1px solid var(--pet-line); border-radius: 12px;
+  max-height: calc(100dvh - 24px); overflow-y: auto;
+  z-index: calc(var(--layer-rikka-pet) + 1);
+}
+#rikka-pet-menu .rp-menu-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+#rikka-pet-menu .rp-menu-heading strong { font-size: 15px; }
+#rikka-pet-menu .rp-menu-close { min-width: 32px; min-height: 32px; background: transparent; color: var(--pet-muted); border: 0; font-size: 20px; }
+#rikka-pet-menu .rp-menu-hint { margin: 4px 0 14px; color: var(--pet-muted); font-size: 12px; }
+#rikka-pet-menu .rp-states { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+#rikka-pet-menu .rp-states button {
+  min-height: 44px; padding: 8px 10px; background: transparent;
+  border: 1px solid var(--pet-line); border-radius: 8px; color: var(--pet-ink);
+}
+#rikka-pet-menu .rp-states button:hover { border-color: var(--pet-accent); }
+#rikka-pet-menu .rp-states button[aria-pressed='true'] { background: #594183; border-color: #594183; color: #fff; }
+[data-theme='dark'] #rikka-pet-menu .rp-states button[aria-pressed='true'] { background: #d9c1ff; border-color: #d9c1ff; color: #272238; }
+#rikka-pet-menu .rp-options { display: flex; flex-wrap: wrap; gap: 0 12px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--pet-line); }
+#rikka-pet-menu .rp-options button { min-height: 44px; padding: 4px 0; background: transparent; border: 0; color: var(--pet-ink); }
+#rikka-pet-menu .rp-options button:disabled { color: var(--pet-muted); cursor: default; }
+#rikka-pet-restore {
+  left: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom));
+  display: inline-flex; align-items: center; gap: 7px; min-height: 44px;
+  padding: 8px 12px; background: var(--pet-paper); border: 1px solid var(--pet-line); border-radius: 22px;
+}
+#rikka-pet-restore svg { width: 17px; height: 17px; color: var(--pet-accent); }
+:is(#rikka-pet, #rikka-pet-menu) :is(button, a):focus-visible, #rikka-pet-restore:focus-visible {
+  outline: 2px solid var(--pet-accent); outline-offset: 3px;
+}
+body:is(.read-mode, .rh-wallpaper-only) :is(#rikka-pet, #rikka-pet-menu, #rikka-pet-restore) { display: none !important; }
+@media (max-width: 800px) {
+  #rikka-pet { width: 116px; height: 156px; }
+  #rikka-pet .rp-character { width: 112px; height: 140px; left: 2px; }
+  #rikka-pet .rp-controls button { width: 44px; height: 44px; }
+  #rikka-pet-menu .rp-menu-close { min-width: 44px; min-height: 44px; }
+  #rikka-pet-menu { width: 248px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #rikka-pet *, #rikka-pet-menu *, #rikka-pet-restore { animation: none !important; transition: none !important; }
+}
+@media print { #rikka-pet, #rikka-pet-menu, #rikka-pet-restore { display: none !important; } }
