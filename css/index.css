@@ -1393,7 +1393,7 @@ input::placeholder {
   z-index: -999;
   width: 100%;
   height: 100%;
-  background: url(https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/1.png);
+  background: var(--default-bg, url(/assets/rikka-desktop.png));
   background-attachment: local;
   background-position: center;
   background-size: cover;
@@ -1665,7 +1665,7 @@ figure.highlight pre .javascript .function {
 #article-container pre,
 #article-container code {
   font-size: 14.5px;
-  font-family: Consolas_1, var(--global-font), "Microsoft YaHei", Menlo, "PingFang SC", "Microsoft JhengHei", sans-serif !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
 }
 #article-container code {
   padding: 2px 4px;
@@ -5099,7 +5099,7 @@ mjx-container[display],
   border-radius: 5px !important;
 }
 [data-theme="dark"] #web_bg {
-  background: var(--darkmode-bg);
+  background: var(--darkmode-bg, url(/assets/rikka-desktop.png));
   background-attachment: local;
   background-position: center;
   background-size: cover;
@@ -5107,14 +5107,14 @@ mjx-container[display],
 }
 @media screen and (max-width: 800px) {
   #web_bg {
-    background: var(--mobileday-bg);
+    background: var(--mobileday-bg, url(/assets/rikka-mobile.png));
     background-attachment: local !important;
     background-position: center !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
   }
   [data-theme="dark"] #web_bg {
-    background: var(--mobilenight-bg);
+    background: var(--mobilenight-bg, url(/assets/rikka-mobile.png));
     background-attachment: local !important;
     background-position: center !important;
     background-size: cover !important;
@@ -9675,6 +9675,66 @@ hr:before {
   scale: 1.05;
   transition: all 0.3s ease-in-out;
 }
+/* Honor reduced-motion preferences without hiding readable content. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .Cuteen_DarkSky { display: none !important; }
+}
+
+#blog-notifications {
+  position: fixed; top: 60px; left: 16px; z-index: 2001;
+  width: min(340px, calc(100vw - 32px)); pointer-events: none;
+}
+.blog-notification {
+  position: relative; margin-bottom: 10px; padding: 16px 38px 16px 16px;
+  border-radius: 8px; background: #f5faf9; color: #203f37;
+  border: 1px solid #93b5a9; pointer-events: auto;
+}
+.blog-notification p { margin: 8px 0 0; line-height: 1.6; }
+.blog-notification button {
+  position: absolute; top: 8px; right: 8px; width: 28px; height: 28px;
+  border: 0; background: transparent; color: inherit; cursor: pointer; font-size: 22px;
+}
+[data-theme="dark"] .blog-notification { background: #243a34; color: #edf7f3; }
+
+/* Keep a readable first slide when JavaScript or Swiper fails to initialize. */
+#swiper_container:not([data-slider-ready]) .blog-slider__item:not(:first-child) { display: none; }
+#swiper_container:not([data-slider-ready]) .blog-slider__item:first-child .blog-slider__img img,
+#swiper_container:not([data-slider-ready]) .blog-slider__item:first-child .blog-slider__content > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* A usable rail: large hit areas with small visual dots, scoped wheel/drag. */
+#swiper_container .blog-slider__pagination {
+  display: flex; flex-direction: column; align-items: center;
+  width: 44px !important; right: 8px; touch-action: none;
+}
+#swiper_container .blog-slider__pagination .swiper-pagination-bullet {
+  position: relative; flex: 0 0 36px; width: 44px; height: 36px;
+  margin: 0; padding: 0; border: 0; border-radius: 6px;
+  background: transparent; opacity: 1; cursor: pointer;
+}
+#swiper_container .swiper-pagination-bullet::before {
+  content: ''; position: absolute; left: 50%; top: 50%;
+  width: 11px; height: 11px; border-radius: 10px;
+  transform: translate(-50%, -50%); background: #858585; opacity: .35;
+}
+#swiper_container .swiper-pagination-bullet-active::before {
+  height: 26px; background: var(--btn-bg); opacity: 1;
+}
+#swiper_container .swiper-pagination-bullet:focus-visible { outline: 2px solid var(--btn-bg); outline-offset: -3px; }
+@media (max-width: 600px) {
+  #swiper_container .blog-slider__pagination { flex-direction: row; width: auto !important; justify-content: center; }
+  #swiper_container .blog-slider__pagination .swiper-pagination-bullet { flex-basis: 36px; width: 36px; }
+  #swiper_container .swiper-pagination-bullet-active::before { width: 26px; height: 11px; }
+}
+
 .search-dialog {
   position: fixed;
   top: 10%;

@@ -1,3 +1,35 @@
+// Lightweight notifications replace the Vue/Element UI instances used only for toasts.
+function blogNotify(options) {
+  let stack = document.getElementById('blog-notifications');
+  if (!stack) {
+    stack = document.createElement('div'); stack.id = 'blog-notifications';
+    stack.setAttribute('aria-live', 'polite'); document.body.append(stack);
+  }
+  const note = document.createElement('div'); note.className = 'blog-notification';
+  const title = document.createElement('strong'); title.textContent = options.title || '';
+  const text = document.createElement('p'); text.textContent = options.message || '';
+  const close = document.createElement('button'); close.type = 'button'; close.textContent = '×';
+  close.setAttribute('aria-label', '关闭通知'); close.onclick = () => note.remove();
+  note.append(title, text, close); stack.append(note);
+  while (stack.children.length > 3) stack.firstElementChild.remove();
+  setTimeout(() => note.remove(), options.duration || 5000);
+}
+
+// Pause visual effects when disabled, offscreen, or reduced motion is requested.
+function runVisualEffect(draw, enabled, element) {
+  let frame = 0;
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const active = () => !document.hidden && !motion.matches && enabled();
+  const tick = () => { frame = 0; if (active()) { draw(); frame = requestAnimationFrame(tick); } };
+  const sync = () => { if (!active()) { cancelAnimationFrame(frame); frame = 0; } else if (!frame) frame = requestAnimationFrame(tick); };
+  const observer = new MutationObserver(sync);
+  observer.observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+  if (element) observer.observe(element, {attributes:true, attributeFilter:['style']});
+  document.addEventListener('visibilitychange', sync);
+  motion.addEventListener('change', sync);
+  sync();
+}
+
 /* 阅读进度 start */
 document.addEventListener('pjax:complete', function () {
   window.onscroll = percent;
@@ -298,38 +330,8 @@ document.addEventListener('pjax:complete', showWelcome);
 
 //----------------------------------------------------------------
 
-/* 微博热搜 start */
-document.addEventListener('pjax:complete', getWeibo);
-document.addEventListener('DOMContentLoaded', getWeibo);
+/* 微博热搜：未配置接口，不发起请求。 */
 
-function getWeibo() {
-  fetch('').then(data => data.json()).then(data => {  // 这里要写上你的API!!!
-    let html = '<style>.weibo-new{background:#ff3852}.weibo-hot{background:#ff9406}.weibo-jyzy{background:#ffc000}.weibo-recommend{background:#00b7ee}.weibo-adrecommend{background:#febd22}.weibo-friend{background:#8fc21e}.weibo-boom{background:#bd0000}.weibo-topic{background:#ff6f49}.weibo-topic-ad{background:#4dadff}.weibo-boil{background:#f86400}#weibo-container{overflow-y:auto;-ms-overflow-style:none;scrollbar-width:none}#weibo-container::-webkit-scrollbar{display:none}.weibo-list-item{display:flex;flex-direction:row;justify-content:space-between;flex-wrap:nowrap}.weibo-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:auto}.weibo-num{float:right}.weibo-hotness{display:inline-block;padding:0 6px;transform:scale(.8) translateX(-3px);color:#fff;border-radius:8px}</style>'
-    html += '<div class="weibo-list">'
-    let hotness = {
-      '爆': 'weibo-boom',
-      '热': 'weibo-hot',
-      '沸': 'weibo-boil',
-      '新': 'weibo-new',
-      '荐': 'weibo-recommend',
-      '音': 'weibo-jyzy',
-      '影': 'weibo-jyzy',
-      '剧': 'weibo-jyzy',
-      '综': 'weibo-jyzy'
-    }
-    for (let item of data) {
-      html += '<div class="weibo-list-item"><div class="weibo-hotness ' + hotness[(item.hot || '荐')] + '">' + (item.hot || '荐') + '</div>'
-        + '<span class="weibo-title"><a title="' + item.title + '"href="' + item.url + '" target="_blank" rel="external nofollow noreferrer" style="color:#a08ed5">' + item.title + '</a></span>'
-        + '<div class="weibo-num"><span>' + item.num + '</span></div></div>'
-    }
-    html += '</div>'
-    document.getElementById('weibo-container').innerHTML = html
-  }).catch(function (error) {
-    console.log(error);
-  });
-}
-
-/* 微博热搜 end */
 
 //----------------------------------------------------------------
 
@@ -345,9 +347,7 @@ function debounce(fn, time) {
 // 复制提醒
 document.addEventListener("copy", function () {
   debounce(function () {
-    new Vue({
-      data: function () {
-        this.$notify({
+    blogNotify({
           title: "哎嘿！复制成功🍬",
           message: "若要转载最好保留原文链接哦，给你一个大大的赞！",
           position: 'top-left',
@@ -355,9 +355,7 @@ document.addEventListener("copy", function () {
           showClose: true,
           type: "success",
           duration: 5000
-        });
-      }
-    })
+        })
   }, 300);
 })
 
@@ -366,9 +364,7 @@ document.addEventListener("copy", function () {
 document.onkeydown = function (e) {
   if (123 == e.keyCode || (e.ctrlKey && e.shiftKey && (74 === e.keyCode || 73 === e.keyCode || 67 === e.keyCode)) || (e.ctrlKey && 85 === e.keyCode)) {
     debounce(function () {
-      new Vue({
-        data: function () {
-          this.$notify({
+      blogNotify({
             title: "你已被发现😜",
             message: "小伙子，扒源记住要遵循GPL协议！",
             position: 'top-left',
@@ -376,9 +372,7 @@ document.onkeydown = function (e) {
             showClose: true,
             type: "warning",
             duration: 5000
-          });
-        }
-      })
+          })
     }, 300);
   }
 };
@@ -444,7 +438,6 @@ if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobi
           n.arc(o.x, o.y, o.size, 0, 2 * Math.PI),
           n.fill()
       }
-      t(h)
     }
       , l = e => {
         e.x = Math.floor(Math.random() * i.width),
@@ -486,7 +479,7 @@ if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobi
             opacity: d
           })
         }
-        h()
+        runVisualEffect(h, () => localStorage.getItem("snow") === "block", i)
       }
       )()
   }
@@ -546,9 +539,8 @@ function dark() {
     h = s.getContext("2d");
     for (var t = 0; t < i; t++) c[t] = new y, c[t].reset();
     u()
-  }(), function t() {
-    document.getElementsByTagName('html')[0].getAttribute('data-theme') == 'dark' && u(), window.requestAnimationFrame(t)
-  }()
+  }();
+  runVisualEffect(u, () => document.documentElement.dataset.theme === 'dark' && localStorage.getItem('universe') !== 'none', s)
 };
 dark()
 /* 星空特效 end */
@@ -1071,9 +1063,7 @@ function changeMouseMode() {
     mouseMode = "off";
     localStorage.setItem("mouse", "off");
     debounce(function () {
-      new Vue({
-        data: function () {
-          this.$notify({
+      blogNotify({
             title: "切换右键模式成功🍔",
             message: "当前鼠标右键已恢复为系统默认！",
             position: 'top-left',
@@ -1081,17 +1071,13 @@ function changeMouseMode() {
             showClose: true,
             type: "success",
             duration: 5000
-          });
-        }
-      })
+          })
     }, 300);
   } else {
     mouseMode = "on";
     localStorage.setItem("mouse", "on");
     debounce(function () {
-      new Vue({
-        data: function () {
-          this.$notify({
+      blogNotify({
             title: "切换右键模式成功🍔",
             message: "当前鼠标右键已更换为网站指定样式！",
             position: 'top-left',
@@ -1099,9 +1085,7 @@ function changeMouseMode() {
             showClose: true,
             type: "success",
             duration: 5000
-          });
-        }
-      })
+          })
     }, 300);
   }
 }
@@ -1197,9 +1181,9 @@ function createtime2() {
 createtime2();
 
 // 重写console方法
-console.log = function () { };
-console.error = function () { };
-console.warn = function () { };
+// Keep browser diagnostics available.
+
+
 
 /* 控制台输出字符画 end */
 
@@ -1234,9 +1218,7 @@ function switchNightMode() {
     document.getElementById('modeicon').setAttribute('xlink:href', '#icon-sun')
     // 延时弹窗提醒
     setTimeout(() => {
-      new Vue({
-        data: function () {
-          this.$notify({
+      blogNotify({
             title: "关灯啦🌙",
             message: "当前已成功切换至夜间模式！",
             position: 'top-left',
@@ -1244,9 +1226,7 @@ function switchNightMode() {
             showClose: true,
             type: "success",
             duration: 5000
-          });
-        }
-      })
+          })
     }, 2000)
   } else {
     // 先设置太阳月亮透明度
@@ -1261,9 +1241,7 @@ function switchNightMode() {
     saveToLocal.set('theme', 'light', 2)
     document.querySelector('body').classList.add('DarkMode'), document.getElementById('modeicon').setAttribute('xlink:href', '#icon-moon')
     setTimeout(() => {
-      new Vue({
-        data: function () {
-          this.$notify({
+      blogNotify({
             title: "开灯啦🌞",
             message: "当前已成功切换至白天模式！",
             position: 'top-left',
@@ -1271,9 +1249,7 @@ function switchNightMode() {
             showClose: true,
             type: "success",
             duration: 5000
-          });
-        }
-      })
+          })
     }, 2000)
   }
   // handle some cases
@@ -1288,16 +1264,14 @@ function switchNightMode() {
 
 /* 分享按钮 start */
 // 分享本页
-function share_() {
+async function share_() {
   let url = window.location.origin + window.location.pathname
   try {
     // 截取标题
-    var title = document.title;
-    var subTitle = title.endsWith("| Yangjiayu") ? title.substring(0, title.length - 14) : title;
-    navigator.clipboard.writeText('Yangjiayu的站内分享\n标题：' + subTitle + '\n链接：' + url + '\n欢迎来访！🍭🍭🍭');
-    new Vue({
-      data: function () {
-        this.$notify({
+    var title = OriginTitile || document.title;
+    var subTitle = title.replace(/\s*\|\s*Yangjiayu$/, "");
+    await navigator.clipboard.writeText('Yangjiayu的站内分享\n标题：' + subTitle + '\n链接：' + url + '\n欢迎来访！🍭🍭🍭');
+    blogNotify({
           title: "成功复制分享信息🎉",
           message: "您现在可以通过粘贴直接跟小伙伴分享了！",
           position: 'top-left',
@@ -1305,12 +1279,10 @@ function share_() {
           showClose: true,
           type: "success",
           duration: 5000
-        });
-        // return { visible: false }
-      }
-    })
+        })
   } catch (err) {
     console.error('复制失败！', err);
+    blogNotify({title: '复制失败', message: '浏览器未允许写入剪贴板，请手动复制地址栏链接。', duration: 5000});
   }
   // new ClipboardJS(".share", { text: function () { return '标题：' + document.title + '\n链接：' + url } });
   // btf.snackbarShow("本页链接已复制到剪切板，快去分享吧~")
@@ -2668,16 +2640,15 @@ class Cursor {
       this.cursor.classList.add("hidden");
       document.body.append(this.cursor);
     }
-    var el = document.getElementsByTagName('*');
-    for (let i = 0; i < el.length; i++)
-      if (getStyle2(el[i], "cursor") == "pointer")
-        this.pt.push(el[i].outerHTML);
+
     var colorVal = map.get(localStorage.getItem("themeColor"));
     document.body.appendChild((this.scr = document.createElement("style")));
     this.scr.innerHTML = `* {cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='8px' height='8px'><circle cx='4' cy='4' r='4' opacity='1.0' fill='` + colorVal + `'/></svg>") 4 4, auto}`;
   }
 
   refresh() {
+    cancelAnimationFrame(this.frame);
+    this.frame = 0;
     this.scr.remove();
     this.cursor.classList.remove("hover");
     this.cursor.classList.remove("active");
@@ -2690,9 +2661,9 @@ class Cursor {
   }
 
   init() {
-    document.onmouseover = e => this.pt.includes(e.target.outerHTML) && this.cursor.classList.add("hover");
-    document.onmouseout = e => this.pt.includes(e.target.outerHTML) && this.cursor.classList.remove("hover");
-    document.onmousemove = e => { (this.pos.curr == null) && this.move(e.clientX - 8, e.clientY - 8); this.pos.curr = { x: e.clientX - 8, y: e.clientY - 8 }; this.cursor.classList.remove("hidden"); };
+    document.onmouseover = e => e.target.closest('a, button, [role=button], input, select') && this.cursor.classList.add("hover");
+    document.onmouseout = e => e.target.closest('a, button, [role=button], input, select') && this.cursor.classList.remove("hover");
+    document.onmousemove = e => { (this.pos.curr == null) && this.move(e.clientX - 8, e.clientY - 8); this.pos.curr = { x: e.clientX - 8, y: e.clientY - 8 }; this.cursor.classList.remove("hidden"); if (!this.frame) this.render(); };
     document.onmouseenter = e => this.cursor.classList.remove("hidden");
     document.onmouseleave = e => this.cursor.classList.add("hidden");
     document.onmousedown = e => this.cursor.classList.add("active");
@@ -2700,6 +2671,8 @@ class Cursor {
   }
 
   render() {
+    this.frame = 0;
+    if (document.hidden || !this.pos.curr) return;
     if (this.pos.prev) {
       // 跟踪速度调节
       this.pos.prev.x = Math.lerp(this.pos.prev.x, this.pos.curr.x, 0.15);
@@ -2708,12 +2681,15 @@ class Cursor {
     } else {
       this.pos.prev = this.pos.curr;
     }
-    requestAnimationFrame(() => this.render());
+    if (Math.abs(this.pos.prev.x - this.pos.curr.x) + Math.abs(this.pos.prev.y - this.pos.curr.y) > 0.2) {
+      this.frame = requestAnimationFrame(() => this.render());
+    }
   }
 }
 
 (() => {
-  CURSOR = new Cursor();
+  CURSOR = matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? new Cursor() : {refresh() {}};
   // 需要重新获取列表时，使用 CURSOR.refresh()
 })();
 
@@ -2795,7 +2771,7 @@ class Cursor {
 var now = new Date();
 function createtime() {
   // 当前时间
-  now.setTime(now.getTime() + 1000);
+  now = new Date();
   var start = new Date("02/21/2025 00:00:00"); // 旅行者1号开始计算的时间
   var dis = Math.trunc(23400000000 + ((now - start) / 1000) * 17); // 距离=秒数*速度 记住转换毫秒
   var unit = (dis / 149600000).toFixed(6);  // 天文单位
@@ -2812,17 +2788,25 @@ function createtime() {
   var seconds = (now - grt) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
     snum = Math.round(seconds);
   1 == String(snum).length && (snum = "0" + snum);
-  let currentTimeHtml = "";
-  (currentTimeHtml =
-    hnum < 18 && hnum >= 9
-      ? `<img class='boardsign' src='https://lskypro.acozycotage.net/Fomalhaut/badge/F小屋-科研摸鱼中.svg' title='什么时候能够实现财富自由呀~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${dnum} 天 ${hnum} 小时 ${mnum} 分 ${snum} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${dis} 千米，约为 ${unit} 个天文单位 🚀</div>`
-      : `<img class='boardsign' src='https://lskypro.acozycotage.net/Fomalhaut/badge/F小屋-下班休息啦.svg' title='下班了就该开开心心地玩耍~'><br> <div style="font-size:13px;font-weight:bold">本站居然运行了 ${dnum} 天 ${hnum} 小时 ${mnum} 分 ${snum} 秒 <i id="heartbeat" class='fas fa-heartbeat'></i> <br> 旅行者 1 号当前距离地球 ${dis} 千米，约为 ${unit} 个天文单位 🚀</div>`),
-    document.getElementById("workboard") &&
-    (document.getElementById("workboard").innerHTML = currentTimeHtml);
+  const board = document.getElementById('workboard');
+  if (!board) return;
+  if (!board.querySelector('[data-runtime]')) {
+    board.innerHTML = '<img class="boardsign" loading="lazy" decoding="async"><br><div style="font-size:13px;font-weight:bold"><span data-runtime></span> <i id="heartbeat" class="fas fa-heartbeat"></i><br><span data-voyager></span></div>';
+  }
+  const working = now.getHours() >= 9 && now.getHours() < 18;
+  const badge = working ? 'F小屋-科研摸鱼中.svg' : 'F小屋-下班休息啦.svg';
+  const img = board.querySelector('.boardsign');
+  if (img.dataset.badge !== badge) {
+    img.dataset.badge = badge;
+    img.src = 'https://lskypro.acozycotage.net/Fomalhaut/badge/' + badge;
+    img.alt = working ? '科研摸鱼中' : '下班休息啦';
+  }
+  board.querySelector('[data-runtime]').textContent = `本站居然运行了 ${dnum} 天 ${hnum} 小时 ${mnum} 分 ${snum} 秒`;
+  board.querySelector('[data-voyager]').textContent = `旅行者 1 号当前距离地球 ${dis} 千米，约为 ${unit} 个天文单位 🚀`;
 }
 // 设置重复执行函数，周期1000ms
 setInterval(() => {
-  createtime();
+  if (!document.hidden) createtime();
 }, 1000);
 
 /*页脚计时器 end */
@@ -2831,7 +2815,7 @@ setInterval(() => {
 
 
 /* fps检测 start */
-if (window.localStorage.getItem("fpson") == undefined || window.localStorage.getItem("fpson") == "1") {
+if (window.localStorage.getItem("fpson") == "1") {
   var rAF = function () {
     return (
       window.requestAnimationFrame ||
@@ -2897,9 +2881,7 @@ if (localStorage.getItem("reset_4") == undefined) {
   }
   clearItem();
   setTimeout(function () {
-    new Vue({
-      data: function () {
-        this.$notify({
+    blogNotify({
           title: "提示🍒",
           message: " (｡･∀･)ﾉﾞ由于网站部分设置项更新，当前已为您重置所有设置，祝您愉快！",
           position: 'top-left',
@@ -2907,9 +2889,7 @@ if (localStorage.getItem("reset_4") == undefined) {
           showClose: true,
           type: "success",
           duration: 8000
-        });
-      }
-    })
+        })
   }, 1500);
 }
 
@@ -2932,14 +2912,14 @@ function clearItem() {
 
 // 设置字体
 if (localStorage.getItem("font") == undefined) {
-  localStorage.setItem("font", "LXGW");
+  localStorage.setItem("font", "default");
 }
 setFont(localStorage.getItem("font"));
 function setFont(n) {
   localStorage.setItem("font", n)
   if (n == "default") {
     document.documentElement.style.setProperty('--global-font', '-apple-system');
-    document.body.style.fontFamily = "-apple-system, Consolas_1, BlinkMacSystemFont, 'Segoe UI' , 'Helvetica Neue' , Lato, Roboto, 'PingFang SC' , 'Microsoft JhengHei' , 'Microsoft YaHei' , sans-serif";
+    document.body.style.fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI' , 'Helvetica Neue' , Lato, Roboto, 'PingFang SC' , 'Microsoft JhengHei' , 'Microsoft YaHei' , sans-serif";
   }
   else {
     document.documentElement.style.setProperty('--global-font', n);
@@ -3013,7 +2993,7 @@ function setSnow() {
 
 // 帧率监测开关
 if (localStorage.getItem("fpson") == undefined) {
-  localStorage.setItem("fpson", "1");
+  localStorage.setItem("fpson", "0");
 }
 function fpssw() {
   if (document.getElementById("fpson").checked) {
@@ -3185,10 +3165,10 @@ if (localStorage.getItem("blogbg") != undefined) {
   setBg(localStorage.getItem("blogbg"));
 } else {
   document.getElementById("defineBg").innerText = `:root{
-    --default-bg: url(https://img.picui.cn/free/2025/03/24/67e0fc7331280.png);
-    --darkmode-bg:url(https://img.picui.cn/free/2025/03/24/67e0fc7331280.png);
-    --mobileday-bg: url(https://img.picui.cn/free/2025/03/24/67e0fc7331280.png);
-    --mobilenight-bg: url(https://img.picui.cn/free/2025/03/24/67e0fc7331280.png);
+    --default-bg: url(/assets/rikka-desktop.png);
+    --darkmode-bg: url(/assets/rikka-desktop.png);
+    --mobileday-bg: url(/assets/rikka-mobile.png);
+    --mobilenight-bg: url(/assets/rikka-mobile.png);
   }`;
 }
 // 切换背景主函数
@@ -3219,9 +3199,7 @@ function getPicture_() {
     var link = "url(" + document.getElementById("pic-link").value + ")";
     changeBg(link);
     // 提示切换成功
-    new Vue({
-      data: function () {
-        this.$notify({
+    blogNotify({
           title: "可以啦🍨",
           message: "切换自定义背景成功！",
           position: 'top-left',
@@ -3229,14 +3207,10 @@ function getPicture_() {
           showClose: true,
           type: "success",
           duration: 5000
-        });
-      }
-    })
+        })
   }).catch(() => {
     // 无效的图片链接，提示无效
-    new Vue({
-      data: function () {
-        this.$notify({
+    blogNotify({
           title: "链接不对🤣",
           message: "请输入有效的图片链接！",
           position: 'top-left',
@@ -3244,9 +3218,7 @@ function getPicture_() {
           showClose: true,
           type: "warning",
           duration: 5000
-        });
-      }
-    })
+        })
   })
 }
 // 判断图片链接是否可用

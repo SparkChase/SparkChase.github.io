@@ -1,0 +1,122 @@
+{
+  "jquery-3.6.3.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js",
+    "sha256": "a6f3f0faea4b3d48e03176341bef0ed3151ffbf226d4c6635f1c6039c0500575"
+  },
+  "vue-2.6.14.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js",
+    "sha256": "9174c425c445377df4562ad9165ea08fdf9433a808296d7de5f619791df10e17"
+  },
+  "element-ui-2.15.6.js": {
+    "url": "https://cdn.jsdelivr.net/npm/element-ui@2.15.6/lib/index.js",
+    "sha256": "24ebdea828e938d3a45128b41979b320b4cbd40c8c0d4bad6a9cd9bc3bfa4e0c"
+  },
+  "element-ui-2.15.6.css": {
+    "url": "https://cdn.jsdelivr.net/npm/element-ui@2.15.6/lib/theme-chalk/index.css",
+    "sha256": "85a22fbdbbb8db72c5eaace4af0fd5d0f2c97de98482237620739eea022d778f"
+  },
+  "fonts/element-icons.woff": {
+    "url": "https://cdn.jsdelivr.net/npm/element-ui@2.15.6/lib/theme-chalk/fonts/element-icons.woff",
+    "sha256": "ab40a58972be2ceab32e7e35dab3131b959aae63835d7bda1a79ae51f9a73c17"
+  },
+  "fonts/element-icons.ttf": {
+    "url": "https://cdn.jsdelivr.net/npm/element-ui@2.15.6/lib/theme-chalk/fonts/element-icons.ttf",
+    "sha256": "a30f5b3ba6a48822eae041e0ca5412a289125e4ba661d047dae565ac43b4a6b2"
+  },
+  "sweetalert2-8.19.0.all.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/sweetalert2@8.19.0/dist/sweetalert2.all.min.js",
+    "sha256": "1fb5bdf552db295a96ea4b5c90679159db62417fb69fe0b57792e57daf79cfd9"
+  },
+  "winbox-0.2.82.bundle.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/winbox@0.2.82/dist/winbox.bundle.min.js",
+    "sha256": "8cd0a133fc5108b392e20faca94b6a093de78c16524f25200da1d8b43b86c06a"
+  },
+  "fancybox-4.0.31.umd.js": {
+    "url": "https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.umd.js",
+    "sha256": "d1a7f655b0b8be63ec6bc38b04028198ba32b8aab86c194a2b628e80c59aca2a"
+  },
+  "fancybox-4.0.31.css": {
+    "url": "https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0.31/dist/fancybox.css",
+    "sha256": "ee03159a1ee2d979a8f7d9afbdf9d29fd7597ee9d38a2ee3e323dd99300c511d"
+  },
+  "typed-2.0.12.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js",
+    "sha256": "5154391ed1d39ada814f7298e5c77802f238ee9a74809c0833eab8e470fda0b9"
+  },
+  "snackbar-0.1.16.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js",
+    "sha256": "34eaac416486ba5585e23d327c5945c24f6b985a40a115799e8746a881f28d4a"
+  },
+  "snackbar-0.1.16.min.css": {
+    "url": "https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css",
+    "sha256": "a9fb1d56a55e28f572e7c1f1f6a0889fc36c761d93535ca2704ec1e441e2f92b"
+  },
+  "fontawesome/css/all.min.css": {
+    "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css",
+    "sha256": "8d321d88cb97fdedc3189506c25de9292c6e73a60ebaab496243346c6404480e"
+  },
+  "swiper.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/hexo-butterfly-swiper@1.0.12/lib/swiper.min.js",
+    "sha256": "f2ce7eb089bba678231b3521fa0b5fd07bb67eb043256ec45306246df9acc64a"
+  },
+  "swiper_init.js": {
+    "url": "https://cdn.jsdelivr.net/npm/hexo-butterfly-swiper@1.0.12/lib/swiper_init.js",
+    "sha256": "9f0814c4ab99f75637e1d45dfd2eaa2c5ca394a116b646242da90020059cd9bd"
+  },
+  "swiper.min.css": {
+    "url": "https://cdn.jsdelivr.net/npm/hexo-butterfly-swiper@1.0.12/lib/swiper.min.css",
+    "sha256": "8087679cf0f77b05748eb972d20c09a2e3da68257510fefeac4eeea846a1f730"
+  },
+  "swiperstyle.css": {
+    "url": "https://cdn.jsdelivr.net/npm/hexo-butterfly-swiper@1.0.12/lib/swiperstyle.css",
+    "sha256": "312c2f99bbbe552a207276fa54f9cfa4a951ede1475c6f379d7d1b6e863b43e4"
+  },
+  "fontawesome/webfonts/fa-brands-400.woff2": {
+    "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/webfonts/fa-brands-400.woff2",
+    "sha256": "29bc44694c394921d1f00271128a2e4cd8293516216e24eac07a73fa821fc1f5"
+  },
+  "fontawesome/webfonts/fa-brands-400.ttf": {
+    "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/webfonts/fa-brands-400.ttf",
+    "sha256": "9e122861bc5f7d6190d580b22acc5b1c3f8cdba9f495593cccd3b47d2cbfa2fd"
+  },
+  "fontawesome/webfonts/fa-regular-400.woff2": {
+    "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/webfonts/fa-regular-400.woff2",
+    "sha256": "fa79fc4f2559112ff3dd27cf5be216d9b5f88066ceef728264f5a3a1a195fc1e"
+  },
+  "fontawesome/webfonts/fa-regular-400.ttf": {
+    "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/webfonts/fa-regular-400.ttf",
+    "sha256": "709034805d10429d24862ad685d561808328329debdbca4f70487b508320a3ff"
+  },
+  "fontawesome/webfonts/fa-solid-900.woff2": {
+    "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/webfonts/fa-solid-900.woff2",
+    "sha256": "1b099f88c06ed0869872561c157f0ec9cbe133a0939d9ece4ee1e1f54bd4683d"
+  },
+  "fontawesome/webfonts/fa-solid-900.ttf": {
+    "url": "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/webfonts/fa-solid-900.ttf",
+    "sha256": "1782156bfa2054db429277b42f143298a1ce03437c05e2779ca7875112b19d3c"
+  },
+  "font_3586335_hsivh70x0fm.js": {
+    "url": "https://at.alicdn.com/t/c/font_3586335_hsivh70x0fm.js",
+    "sha256": "36469fab94fdca139bd098b96eb67126f0ebdf2a1db0ebd2cde9cc4c998590a8"
+  },
+  "font_3636804_gr02jmjr3y9.js": {
+    "url": "https://at.alicdn.com/t/c/font_3636804_gr02jmjr3y9.js",
+    "sha256": "5ea4a3c79ad0a91f7ddbdef239538d7f0b7993f51809849de92dca26ddf563c0"
+  },
+  "font_3612150_kfv55xn3u2g.js": {
+    "url": "https://at.alicdn.com/t/c/font_3612150_kfv55xn3u2g.js",
+    "sha256": "30071bdec95b10043d6af6b32483ed0c4e2a0f031baee9a36ba865a4d1546f8d"
+  },
+  "tag-plugins.css": {
+    "url": "https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@1.0.18/lib/tag_plugins.css",
+    "sha256": "374bae878d6c72cdd3e00c3f8354cd1dc81b1be7881e27083a31f21d4cd69b1e"
+  },
+  "font-awesome-animation.min.css": {
+    "url": "https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@1.0.18/lib/assets/font-awesome-animation.min.css",
+    "sha256": "10fa38d6f20bb78b9ddcb57530310c8d12fea3c87162709edf2a2b1a8b91b737"
+  },
+  "carousel-touch.js": {
+    "url": "https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@1.0.18/lib/assets/carousel-touch.js",
+    "sha256": "92a0dea503b235a3f40626155dc3690935ea7a1cd966a990f2d260bcaa9708c4"
+  }
+}

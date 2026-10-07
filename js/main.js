@@ -778,24 +778,3 @@ document.addEventListener('DOMContentLoaded', function () {
   refreshFn()
   unRefreshFn()
 })
-
-
-
-// 动态设置背景
-document.addEventListener("DOMContentLoaded", function () {
-  const bgAPI = "https://api.yimian.xyz/img?type=moe&size=1920x1080";
-
-  // 创建图片预加载
-  const img = new Image();
-  img.src = bgAPI;
-
-  img.onload = function () {
-    document.body.style.background = `url(${bgAPI}) center/cover no-repeat fixed`;
-    document.body.style.backgroundAttachment = "fixed";
-  };
-
-  // 失败时使用备用图
-  img.onerror = function () {
-    document.body.style.background = "url(https://img.picui.cn/free/2025/02/22/67b923d40c915.jpg)";
-  };
-});
