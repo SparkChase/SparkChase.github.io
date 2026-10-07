@@ -1,0 +1,180 @@
+/* ljj.world's portrait-led composition, adapted to the Rikka identity.
+   Original CSS; the photograph belongs to the blog author. */
+#page-header.rikka-portrait-home {
+  --rp-bg: #f4f2f9;
+  --rp-grid: #5144860b;
+  --rp-line: #51448626;
+  --rp-space: clamp(28px, 6vw, 112px);
+  position: relative;
+  height: 100svh;
+  min-height: 760px;
+  max-height: 1100px;
+  color: var(--rk-ink);
+  background: var(--rp-bg);
+  isolation: isolate;
+}
+[data-theme='dark'] #page-header.rikka-portrait-home {
+  --rp-bg: #1c1c30;
+  --rp-grid: #cfbff60b;
+  --rp-line: #cfbff633;
+}
+#page-header.rikka-portrait-home::before { display: none; }
+#page-header.rikka-portrait-home #nav {
+  height: 72px;
+  padding-inline: var(--rp-space);
+  background: var(--rp-bg);
+  border-bottom: 1px solid var(--rp-line);
+}
+#page-header.rikka-portrait-home #site-name { font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
+#page-header.rikka-portrait-home #site-name::before { display: none; }
+#page-header.rikka-portrait-home #site-name::after {
+  content: '.'; position: static; display: inline; color: #9f7730;
+  width: auto; height: auto; background: none; font-size: inherit;
+}
+.rp-stage {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  overflow: clip;
+  background-image: linear-gradient(var(--rp-grid) 1px, transparent 1px), linear-gradient(90deg, var(--rp-grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: var(--rp-space) 72px;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+#page-header.rikka-portrait-home #site-info {
+  position: absolute;
+  z-index: 2;
+  top: 48%;
+  left: var(--rp-space);
+  width: 48%;
+  max-width: 660px;
+  padding: 0;
+  transform: translateY(-50%);
+  text-align: left;
+}
+.rp-label {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0 0 32px; color: var(--rk-accent); font-size: .875rem;
+}
+#page-header.rikka-portrait-home #site-title {
+  margin: 0; padding: 0; color: var(--rk-ink);
+  font-family: inherit; font-size: inherit !important;
+  line-height: 1.15; letter-spacing: -.025em; text-shadow: none;
+}
+.rp-greeting { display: block; font-size: clamp(1.8rem, 2.8vw, 2.6rem); font-weight: 500; }
+.rp-name { display: block; margin-top: 14px; font-size: clamp(3.8rem, 6.4vw, 6rem); font-weight: 750; letter-spacing: -.025em; }
+.rp-name-dot { color: #9f7730; margin-left: .06em; }
+[data-theme='dark'] .rp-name-dot { color: var(--rk-gold); }
+#page-header.rikka-portrait-home #site-subtitle {
+  margin: 28px 0 0; color: var(--rk-muted); text-shadow: none;
+  font-size: clamp(1rem, 1.25vw, 1.125rem); line-height: 1.95;
+  font-weight: 400; max-width: 32em; text-wrap: pretty;
+}
+.rp-actions { display: flex; align-items: center; gap: 16px; margin-top: 32px; }
+#page-header.rikka-portrait-home .rp-actions a {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 28px;
+  min-height: 52px; padding: 7px 8px 7px 22px; border-radius: 5px;
+  color: var(--rk-ink); font-size: .9375rem; font-weight: 600; text-decoration: none;
+  transition: background 180ms, color 180ms;
+}
+#page-header.rikka-portrait-home .rp-actions .rikka-read { color: #fff; background: #514486; }
+#page-header.rikka-portrait-home .rp-actions .rikka-read:hover { background: #403469; transform: none; }
+.rp-actions a > span { display: grid; place-items: center; width: 36px; height: 36px; font-size: 21px; font-weight: 400; transition: transform 220ms cubic-bezier(.16,1,.3,1); }
+.rp-actions .rikka-read > span { background: #ffffff17; border-radius: 3px; }
+.rp-actions .rikka-read:hover > span { transform: translateY(3px); }
+.rp-actions .rp-about { border: 1px solid var(--rp-line); background: var(--rp-bg); }
+.rp-actions .rp-about:hover > span { transform: translate(2px, -2px); }
+#page-header.rikka-portrait-home .rp-actions .rp-about:hover { background: color-mix(in srgb, var(--rk-accent) 7%, var(--rp-bg)); }
+[data-theme='dark'] #page-header.rikka-portrait-home .rp-actions .rikka-read { color: #27233b; background: var(--rk-gold); }
+[data-theme='dark'] .rp-actions .rikka-read > span { background: #27233b0d; }
+.rp-note { margin: 22px 0 0; color: var(--rk-muted); font-size: .8125rem; line-height: 1.8; }
+.rp-portrait {
+  position: absolute; z-index: 1;
+  right: max(24px, calc((100vw - 1500px) / 2)); bottom: 0;
+  width: min(49vw, 660px, calc((100svh - 100px) * .7277)); margin: 0;
+  pointer-events: none;
+}
+.rp-portrait img { display: block; width: 100%; height: auto; max-width: none; }
+.rp-bottom {
+  position: absolute; z-index: 2; left: var(--rp-space); right: var(--rp-space); bottom: 64px;
+  display: flex; align-items: end; justify-content: space-between;
+}
+.rp-collection {
+  display: inline-flex; align-items: center; gap: 16px;
+  max-width: 390px; padding: 12px 16px 12px 0; border-top: 1px solid var(--rp-line);
+  color: var(--rk-ink); text-decoration: none;
+}
+.rp-collection-image { width: 72px; height: 64px; overflow: hidden; flex-shrink: 0; border-radius: 5px; }
+.rp-collection-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 350ms cubic-bezier(.16,1,.3,1); }
+.rp-collection:hover img { transform: scale(1.07); }
+.rp-collection-copy { display: flex; flex-direction: column; gap: 5px; }
+.rp-collection-copy strong { color: var(--rk-ink); font-size: .9375rem; font-weight: 600; }
+.rp-collection-copy > span { color: var(--rk-muted); font-size: .8125rem; }
+.rp-collection-arrow { margin-left: 16px; font-size: 23px; color: var(--rk-accent); transition: transform 220ms; }
+.rp-collection:hover .rp-collection-arrow { transform: translate(2px, -2px); }
+.rp-caption { display: none; }
+#page-header.rikka-portrait-home .rp-scroll {
+  position: absolute; z-index: 2; left: var(--rp-space); bottom: 12px;
+  display: flex; align-items: center; gap: 16px; min-height: 44px;
+  padding: 0; color: var(--rk-muted); font-size: .75rem;
+  background: transparent; border-radius: 0; transform: none;
+}
+.rp-scroll span:last-child { font-size: 18px; }
+.rikka-portrait-home :is(a,button):focus-visible { outline: 2px solid var(--rk-accent); outline-offset: 5px; }
+/* Content is visible before JavaScript; WAAPI adds a finite entrance only. */
+.rp-portrait.is-unavailable { display: none; }
+@media (min-width: 1600px) {
+  #page-header.rikka-portrait-home #site-info { top: 47%; }
+}
+@media (min-width: 901px) and (max-height: 780px) {
+  #page-header.rikka-portrait-home { min-height: 700px; }
+  .rp-portrait { width: min(45vw, 550px, calc((100svh - 100px) * .7277)); }
+  #page-header.rikka-portrait-home #site-info { top: 46%; }
+  .rp-label { margin-bottom: 24px; }
+  .rp-name { font-size: clamp(3.8rem, 6vw, 5.25rem); }
+  .rp-bottom { bottom: 52px; }
+}
+@media (max-width: 1100px) and (min-width: 901px) {
+  #page-header.rikka-portrait-home #site-info { width: 48%; }
+  #page-header.rikka-portrait-home #site-subtitle { max-width: 26em; }
+  .rp-portrait { right: -20px; }
+}
+@media (max-width: 900px) {
+  #page-header.rikka-portrait-home { height: 100svh; min-height: 1050px; max-height: 1150px; --rp-space: 32px; }
+  #page-header.rikka-portrait-home #nav { height: 64px; }
+  #page-header.rikka-portrait-home #site-info { top: 132px; width: calc(100% - 64px); max-width: 610px; transform: none; }
+  .rp-label { margin-bottom: 24px; }
+  .rp-greeting { font-size: 1.8rem; }
+  .rp-name { font-size: 4.4rem; margin-top: 10px; }
+  #page-header.rikka-portrait-home #site-subtitle { font-size: 1rem; margin-top: 22px; }
+  .rp-actions { margin-top: 24px; }
+  .rp-note { display: none; }
+  .rp-portrait { width: min(56vw, 480px); right: 0; }
+  .rp-bottom { bottom: 74px; right: auto; }
+  .rp-collection { flex-direction: column; align-items: flex-start; max-width: 220px; padding-right: 0; gap: 12px; }
+  .rp-collection-image { width: 96px; height: 72px; }
+  .rp-collection-arrow { display: none; }
+}
+@media (max-width: 600px) {
+  #page-header.rikka-portrait-home { --rp-space: 24px; height: auto; min-height: 0; max-height: none; }
+  .rp-stage { display: flex; flex-direction: column; padding-top: 108px; height: auto; background-size: 40px 40px; }
+  #page-header.rikka-portrait-home #nav { padding-inline: 24px; }
+  #page-header.rikka-portrait-home #site-info { position: relative; top: auto; left: auto; width: auto; max-width: none; margin-inline: 24px; }
+  .rp-label { font-size: .75rem; margin-bottom: 22px; gap: 10px; }
+  .rp-greeting { font-size: 1.625rem; }
+  .rp-name { font-size: clamp(3.35rem, 14vw, 4.5rem); margin-top: 8px; }
+  #page-header.rikka-portrait-home #site-subtitle { margin-top: 20px; font-size: .9375rem; line-height: 1.85; max-width: 24em; }
+  .rp-actions { gap: 12px; margin-top: 24px; }
+  #page-header.rikka-portrait-home .rp-actions a { min-height: 48px; gap: 16px; padding: 5px 6px 5px 16px; font-size: .875rem; }
+  .rp-actions a > span { width: 30px; }
+  .rp-portrait { position: relative; width: 82%; max-width: 440px; right: auto; bottom: auto; align-self: flex-end; margin-top: 32px; }
+  .rp-bottom { position: relative; left: auto; right: auto; bottom: auto; display: block; padding: 0 24px; background: var(--rp-bg); border-top: 1px solid var(--rp-line); }
+  .rp-collection { display: flex; flex-direction: row; align-items: center; max-width: none; padding: 18px 0; border: 0; gap: 14px; }
+  .rp-collection-image { width: 64px; height: 56px; }
+  .rp-collection-arrow { display: block; margin-left: auto; }
+  #page-header.rikka-portrait-home .rp-scroll { left: 24px; bottom: 112px; writing-mode: vertical-rl; gap: 12px; padding: 12px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rikka-portrait-home *, .rikka-portrait-home *::before, .rikka-portrait-home *::after { animation: none !important; transition: none !important; }
+  .rp-actions a:hover > span, .rp-collection:hover img, .rp-collection:hover .rp-collection-arrow { transform: none; }
+}
