@@ -1,0 +1,87 @@
+/* A listening scene using the site's existing Rikka palette and artwork. */
+body:has(.rikka-music) #page-header { height: 64px; }
+body:has(.rikka-music) #web_bg { background: var(--rk-surface); }
+body:has(.rikka-music) #web_bg::before { display: none; }
+body:has(.rikka-music) #content-inner { max-width: 1220px; padding: 36px 32px 56px; }
+.rikka-music { width: 100%; min-width: 0; color: var(--rk-ink); }
+.rikka-music :is(h1,h2,p,figure) { margin: 0; }
+.rikka-music :is(h1,h2) { color: inherit; text-wrap: balance; }
+.rikka-music button { font: inherit; cursor: pointer; }
+.rikka-music button:disabled { cursor: default; opacity: .5; }
+.rm-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.rm-heading h1 { font-size: clamp(30px, 3vw, 42px); letter-spacing: -.025em; line-height: 1.35; }
+.rm-heading p { margin-top: 8px; color: var(--rk-muted); font-size: 15px; }
+.rm-heading a { display: inline-flex; align-items: center; min-height: 44px; color: var(--rk-accent); font-size: 14px; }
+.rm-scene { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: clamp(28px, 4vw, 56px); }
+.rm-art { position: relative; min-height: 380px; overflow: hidden; border-radius: 12px; background: #30324e; }
+.rm-art img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 70% center; position: absolute; inset: 0; }
+.rm-art figcaption { display: flex; justify-content: space-between; align-items: center; gap: 16px; position: absolute; inset: auto 0 0; padding: 64px 24px 24px; color: #fff; background: linear-gradient(transparent, #17192fe8); font-size: 14px; }
+.rm-playing-indicator { display: flex; align-items: center; gap: 4px; height: 22px; }
+.rm-playing-indicator i { width: 3px; height: 15px; border-radius: 2px; background: #f2d38a; transform: scaleY(.3); }
+.rikka-music[data-playing='true'] .rm-playing-indicator i { animation: rm-pulse 900ms ease-in-out infinite alternate; }
+.rm-playing-indicator i:nth-child(2) { animation-delay: -400ms !important; }
+.rm-playing-indicator i:nth-child(3) { animation-delay: -700ms !important; }
+.rm-playing-indicator i:nth-child(4) { animation-delay: -200ms !important; }
+.rm-player { align-self: center; padding-block: 12px; min-width: 0; }
+.rm-caption { color: var(--rk-muted); font-size: 13px; }
+.rm-player h2 { margin-top: 8px; font-size: clamp(27px, 3vw, 38px); line-height: 1.4; }
+.rm-description { margin-top: 6px !important; color: var(--rk-muted); font-size: 14px; line-height: 1.8; }
+.rm-transport { display: flex; align-items: center; gap: 14px; margin-top: 24px; }
+.rm-play { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: 112px; min-height: 48px; padding: 10px 20px; border: 0; border-radius: 8px; background: var(--rk-accent); color: var(--rk-surface); }
+.rm-play-symbol { font-size: 14px; width: 16px; }
+.rm-reset { border: 0; padding: 10px 0; min-height: 44px; background: transparent; color: var(--rk-accent); font-size: 13px !important; white-space: nowrap; }
+.rm-volume { display: flex; align-items: center; gap: 8px; margin-left: auto; color: var(--rk-muted); font-size: 12px; }
+.rm-volume input { width: 66px; min-height: 44px; margin: 0; accent-color: var(--rk-accent); cursor: pointer; }
+.rm-timeline { display: flex; align-items: center; gap: 14px; margin: 20px 0 16px; }
+.rm-timeline progress { flex: 1; min-width: 0; width: 100%; height: 3px; border: 0; border-radius: 2px; overflow: hidden; background: color-mix(in srgb, var(--rk-muted) 18%, transparent); color: var(--rk-accent); }
+.rm-timeline progress::-webkit-progress-bar { background: color-mix(in srgb, var(--rk-muted) 18%, transparent); }
+.rm-timeline progress::-webkit-progress-value { background: var(--rk-accent); }
+.rm-timeline progress::-moz-progress-bar { background: var(--rk-accent); }
+.rm-time { color: var(--rk-muted); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rm-tracks { list-style: none; padding: 0; margin: 0; }
+.rm-tracks li + li { border-top: 1px solid color-mix(in srgb, var(--rk-muted) 16%, transparent); }
+.rm-tracks button { display: flex; align-items: center; gap: 16px; width: 100%; padding: 12px; min-height: 66px; text-align: left; color: var(--rk-ink); border: 0; border-radius: 6px; background: transparent; }
+.rm-tracks button[aria-pressed='true'] { background: color-mix(in srgb, var(--rk-accent) 9%, transparent); }
+.rm-track-number { font-size: 12px; font-variant-numeric: tabular-nums; color: var(--rk-muted); }
+.rm-track-copy { display: flex; flex-direction: column; gap: 2px; }
+.rm-track-copy strong { font-weight: 500; font-size: 14px; }
+.rm-track-copy small { color: var(--rk-muted); font-size: 11px; }
+.rm-track-marker { margin-left: auto; color: var(--rk-accent); font-size: 18px; }
+.rm-status { color: var(--rk-muted); margin-top: 12px !important; font-size: 12px; min-height: 22px; }
+.rm-instrument { margin-top: 36px; padding-top: 24px; border-top: 1px solid color-mix(in srgb, var(--rk-muted) 20%, transparent); }
+.rm-instrument-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 18px; }
+.rm-instrument-heading h2 { font-size: 18px; font-weight: 500; }
+.rm-instrument-heading p { color: var(--rk-muted); font-size: 12px; }
+.rm-keys { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 10px; }
+.rm-keys button { display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 98px; padding: 17px 6px 10px; border: 1px solid color-mix(in srgb, var(--rk-accent) 25%, transparent); border-radius: 6px; background: color-mix(in srgb, var(--rk-accent) 4%, var(--rk-surface)); color: var(--rk-ink); transition: transform 160ms ease-out, background 160ms ease-out; }
+.rm-keys kbd { font: inherit; color: var(--rk-muted); font-size: 11px; }
+.rm-keys button:is(:active, .is-sounding) { transform: translateY(3px); background: var(--rk-accent); color: var(--rk-surface); }
+.rm-keys button:is(:active, .is-sounding) kbd { color: inherit; }
+.rm-footnote { margin-top: 18px !important; color: var(--rk-muted); font-size: 12px; }
+.rikka-music :is(a,button,input):focus-visible { outline: 3px solid var(--rk-accent); outline-offset: 4px; }
+@media (hover: hover) { .rm-tracks button:hover { background: color-mix(in srgb, var(--rk-accent) 12%, transparent); } .rm-keys button:hover { border-color: var(--rk-accent); } }
+@media (max-width: 760px) {
+  body:has(.rikka-music) #content-inner { padding: 20px 20px 40px; }
+  .rm-heading { gap: 12px; margin-bottom: 20px; }
+  .rm-heading a { font-size: 12px; }
+  .rm-scene { grid-template-columns: 1fr; gap: 20px; }
+  .rm-art { min-height: 0; aspect-ratio: 16 / 9; }
+  .rm-art img { object-position: center; }
+  .rm-art figcaption { padding: 40px 18px 16px; font-size: 12px; }
+  .rm-player { padding: 0; }
+  .rm-player h2 { font-size: 28px; }
+  .rm-transport { gap: 12px; margin-top: 18px; }
+  .rm-volume { gap: 4px; }
+  .rm-volume input { width: 56px; }
+  .rm-play { min-width: 98px; padding-inline: 14px; }
+  .rm-instrument { margin-top: 24px; }
+  .rm-keys { gap: 5px; }
+  .rm-keys button { min-height: 92px; padding-inline: 2px; font-size: 13px; }
+}
+@media (max-width: 360px) { .rm-volume { flex-direction: column; gap: 0; } }
+@keyframes rm-pulse { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .rikka-music .rm-playing-indicator i { animation: none !important; }
+  .rikka-music[data-playing='true'] .rm-playing-indicator i { transform: none; }
+  .rm-keys button { transition: none; transform: none !important; }
+}

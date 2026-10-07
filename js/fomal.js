@@ -113,6 +113,7 @@ $.ajax({
   dataType: 'jsonp',
   success: function (res) {
     ipLoacation = res;
+    showWelcome();
   }
 })
 function getDistance(e1, n1, e2, n2) {
@@ -132,6 +133,13 @@ function getDistance(e1, n1, e2, n2) {
 }
 
 function showWelcome() {
+  const welcome = document.getElementById('welcome-info');
+  if (!welcome) return;
+  // The optional location service can fail or finish after the page load.
+  if (typeof ipLoacation === 'undefined' || !ipLoacation?.result?.location || !ipLoacation.result.ad_info) {
+    welcome.textContent = '欢迎来到我的小世界，很高兴在这里遇见你。';
+    return;
+  }
 
   let dist = getDistance(113.34499552, 23.15537143, ipLoacation.result.location.lng, ipLoacation.result.location.lat); //这里换成自己的经纬度
   let pos = ipLoacation.result.ad_info.nation;
