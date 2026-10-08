@@ -36,11 +36,11 @@ html body { background-color: #e7e9f5; }
 #web_bg, #page-header { animation: none; }
 #web_bg::before {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(90deg, #f2f3ff30, transparent 60%);
+  background: linear-gradient(90deg, #f3f1fbe8 0%, #f3f1fbcc 38%, #f3f1fb00 70%);
   pointer-events: none;
 }
 [data-theme='dark'] #web_bg::before {
-  background: linear-gradient(90deg, #15172ee8 0%, #1a1c38c4 45%, #171c4280 100%);
+  background: linear-gradient(90deg, #10162dd9 0%, #10162d80 40%, transparent 72%);
 }
 /* Keep the artwork clear in the hero; content surfaces carry reading contrast. */
 #page-header.full_page { min-height: 680px; height: 100svh; max-height: 1200px; }
@@ -94,7 +94,7 @@ html body { background-color: #e7e9f5; }
 .rikka-sigil::before { content: ''; position: absolute; inset: 12px; border: 1px solid currentColor; transform: rotate(45deg); }
 .rikka-sigil::after { content: ''; position: absolute; inset: 24px; border: 1px solid currentColor; border-radius: 50%; }
 .rikka-sigil span { font-size: 30px; }
-[data-theme='dark'] .rikka-sigil { opacity: .65; }
+[data-theme='dark'] .rikka-sigil { opacity: 0; }
 #page-header.full_page #scroll-down { bottom: 18px; }
 #page-header.full_page #scroll-down .scroll-down-effects { color: var(--rk-accent); animation: none; }
 #content-inner { scroll-margin-top: 80px; }
@@ -188,7 +188,19 @@ html body { background-color: #e7e9f5; }
 [data-theme='dark'] :is(#recent-posts > .recent-post-item, #aside-content .card-widget, #post, #page, #archive, #tag, #category) { background: var(--rk-surface) !important; }
 
 @media (max-width: 800px) {
-  #page-header.full_page { height: 100svh; min-height: 700px; max-height: 1100px; }
+  #page-header.full_page {
+    height: 100svh; min-height: 760px; max-height: 1100px;
+    background-color: var(--rk-surface);
+    background-image: linear-gradient(180deg, var(--rk-surface), transparent 32%), var(--mobileday-bg, url('/assets/rikka-scenes/seaside-small.webp'));
+    background-size: 100% 48%, auto 48%;
+    background-position: center bottom, 76% bottom;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+  }
+  [data-theme='dark'] #page-header.full_page {
+    background-image: linear-gradient(180deg, var(--rk-surface), transparent 32%), var(--mobilenight-bg, url('/assets/rikka-scenes/moonlight-small.webp'));
+    background-position: center bottom, 72% bottom;
+  }
   #page-header.full_page #site-info { top: 108px; left: 7%; width: 86%; transform: none; }
   #page-header .rikka-hero #site-title { font-size: clamp(38px, 9vw, 60px) !important; margin-bottom: 12px; }
   #page-header .rikka-hero #site-subtitle { font-size: 16px; line-height: 1.8; margin-bottom: 20px; }

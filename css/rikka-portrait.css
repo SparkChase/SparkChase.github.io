@@ -5,6 +5,11 @@
 #page-header .rikka-hero-actions { flex-wrap: wrap; }
 body.rp-on-cover #rightside { visibility: hidden; opacity: 0; pointer-events: none; }
 .rikka-featured { margin-bottom: 28px; padding: 28px 32px 0; border-radius: 12px; background: var(--rk-surface); color: var(--rk-ink); }
+.rf-scene { position: relative; display: block; margin: -28px -32px 28px; overflow: hidden; border-radius: 12px 12px 0 0; }
+.rf-scene img { display: block; width: 100%; height: clamp(220px, 24vw, 300px); object-fit: cover; object-position: center 46%; }
+.rf-scene > span { position: absolute; inset: auto 0 0; padding: 48px 32px 20px; color: #fff; background: linear-gradient(transparent, #17192fe6); font-size: 15px; }
+.rf-scene b { margin-left: 12px; font-weight: 400; }
+.rf-scene:focus-visible { outline: 3px solid var(--rk-accent); outline-offset: 4px; }
 .rf-heading, .rf-latest { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .rikka-featured h2 { margin: 0; font-size: 23px; font-weight: 650; line-height: 1.5; color: inherit; }
 .rf-heading p { margin: 8px 0 0; color: var(--rk-muted); font-size: 14px; line-height: 1.8; }
@@ -107,6 +112,8 @@ body:has(.rikka-profile) .page-title { display: none; }
 @media (max-width: 800px) {
   .rikka-featured { padding: 24px 22px 0; }
   .rf-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .rf-scene { margin: -24px -22px 24px; }
+  .rf-scene > span { padding-inline: 22px; font-size: 14px; }
   .rf-link { grid-template-columns: minmax(0, 1fr) 20px; gap: 6px 12px; padding: 20px 0; }
   .rf-topic { grid-column: 1; font-size: 12px; }
   .rf-copy { grid-column: 1; }

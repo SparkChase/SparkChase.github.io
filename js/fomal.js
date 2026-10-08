@@ -3100,10 +3100,10 @@ if (localStorage.getItem("blogbg-rikka-v1") != undefined) {
   setBg(localStorage.getItem("blogbg-rikka-v1"));
 } else {
   document.getElementById("defineBg").innerText = `:root{
-    --default-bg: url(/assets/rikka-desktop.6e37ea6bd74e.webp);
-    --darkmode-bg: url(/assets/rikka-desktop.6e37ea6bd74e.webp);
-    --mobileday-bg: url(/assets/rikka-mobile.1e660a262a6f.webp);
-    --mobilenight-bg: url(/assets/rikka-mobile.1e660a262a6f.webp);
+    --default-bg: url(/assets/rikka-scenes/seaside.webp);
+    --darkmode-bg: url(/assets/rikka-scenes/moonlight.webp);
+    --mobileday-bg: url(/assets/rikka-scenes/seaside-small.webp);
+    --mobilenight-bg: url(/assets/rikka-scenes/moonlight-small.webp);
   }`;
 }
 // 切换背景主函数
