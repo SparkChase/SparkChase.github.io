@@ -83,6 +83,7 @@ const initLocalSearch = () => {
   mask.addEventListener('click', close)
   input.addEventListener('input', () => { ++revision; clearTimeout(timer); timer = setTimeout(render, 100) })
   document.addEventListener('pjax:complete', bind)
+  document.addEventListener('pjax:send', close)
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initLocalSearch, {once:true})
 else initLocalSearch()

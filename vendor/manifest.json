@@ -130,5 +130,17 @@
   "instantpage-5.1.0.js": {
     "url": "https://cdn.jsdelivr.net/npm/instant.page@5.1.0/instantpage.js",
     "sha256": "0dd4a234f47bd5138054ca93e8d8876a02c0b59bfd107781c98b95c728193398"
+  },
+  "aplayer-1.10.1.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js",
+    "sha256": "e98ec22436a5b6878d824f997ed8020fd8cb8261afe31294a3c9d0d07800c15a"
+  },
+  "aplayer-1.10.1.min.css": {
+    "url": "https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css",
+    "sha256": "baa4101a70dc9912af84ac1ce559b85d3d46436a15eadd54d0d47637db55f814"
+  },
+  "pjax-0.2.8.js": {
+    "url": "https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js",
+    "sha256": "af04114466bf78973ec2eab91ecb8ca8d43c99cd996e8f8361334508667579ac"
   }
 }

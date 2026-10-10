@@ -1255,6 +1255,12 @@ function share() {
 //动态标题
 var OriginTitile = document.title;
 var titleTime;
+document.addEventListener('pjax:send', function () { clearTimeout(titleTime); });
+document.addEventListener('pjax:complete', function () {
+  clearTimeout(titleTime);
+  OriginTitile = GLOBAL_CONFIG_SITE.tabTitle;
+  document.title = OriginTitile;
+});
 document.addEventListener('visibilitychange', function () {
   if (document.hidden) {
     //离开当前页面时标签显示内容

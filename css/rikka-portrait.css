@@ -7,7 +7,7 @@ body.rp-on-cover #rightside { visibility: hidden; opacity: 0; pointer-events: no
 .rikka-featured { margin-bottom: 28px; padding: 28px 32px 0; border-radius: 12px; background: var(--rk-surface); color: var(--rk-ink); }
 .rf-scene { position: relative; display: block; margin: -28px -32px 28px; overflow: hidden; border-radius: 12px 12px 0 0; }
 .rf-scene img { display: block; width: 100%; height: clamp(220px, 24vw, 300px); object-fit: cover; object-position: center 46%; }
-.rf-scene > span { position: absolute; inset: auto 0 0; padding: 48px 32px 20px; color: #fff; background: linear-gradient(transparent, #17192fe6); font-size: 15px; }
+.rf-scene > span { position: absolute; inset: auto 0 0; padding: 48px 32px 20px; color: #fff; background: linear-gradient(transparent, oklch(16% 0 0 / .9)); font-size: 15px; }
 .rf-scene b { margin-left: 12px; font-weight: 400; }
 .rf-scene:focus-visible { outline: 3px solid var(--rk-accent); outline-offset: 4px; }
 .rf-heading, .rf-latest { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -42,8 +42,8 @@ body:has(.rikka-profile) .page-title { display: none; }
 #article-container .yp-intro .yp-lead { color: var(--rk-ink); font-size: 19px; line-height: 1.8; }
 .yp-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 26px; }
 #article-container .yp-actions a { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 48px; padding: 8px 0; font-size: 15px; }
-#article-container .yp-actions .yp-primary { background: #514486; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; }
-#article-container .yp-actions .yp-primary:hover { background: #3f346b; }
+#article-container .yp-actions .yp-primary { background: var(--rk-accent); color: var(--rk-on-accent); padding: 10px 20px; border-radius: 6px; text-decoration: none; }
+#article-container .yp-actions .yp-primary:hover { background: var(--rk-ink); }
 #article-container .yp-actions a span { transition: transform 180ms ease-out; }
 #article-container .yp-actions a:hover span { transform: translate(2px, -2px); }
 #article-container .yp-portrait { width: 320px; overflow: hidden; border-radius: 10px; background: #45373f; }
@@ -103,7 +103,7 @@ body:has(.rikka-profile) .page-title { display: none; }
 .yp-learning-list dd { margin: 8px 0 0; color: var(--rk-muted); font-size: 14px; }
 #article-container .rikka-profile .rikka-contact img { max-width: 100%; margin: 12px 0; }
 :is(.rikka-profile, .rikka-featured) :is(a,summary):focus-visible, .rikka-me-link:focus-visible { outline: 2px solid var(--rk-accent); outline-offset: 5px; }
-[data-theme='dark'] #article-container .yp-actions .yp-primary { background: #e7c477; color: #27233b; }
+[data-theme='dark'] #article-container .yp-actions .yp-primary { background: var(--rk-accent); color: var(--rk-on-accent); }
 @media (max-width: 1000px) {
   .yp-hero { grid-template-columns: minmax(0, 1fr) 260px; gap: 32px; }
   #article-container .yp-portrait { width: 260px; }

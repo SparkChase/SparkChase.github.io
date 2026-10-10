@@ -1,11 +1,11 @@
 /* Small, self-contained companion. It never transforms the page or wallpaper. */
 :root { --layer-rikka-pet: 30; }
 #rikka-pet, #rikka-pet-menu, #rikka-pet-restore {
-  --pet-ink: #352d49;
-  --pet-muted: #665b79;
-  --pet-paper: #fcfaff;
-  --pet-line: #cec5de;
-  --pet-accent: #594183;
+  --pet-ink: var(--rk-ink);
+  --pet-muted: var(--rk-muted);
+  --pet-paper: var(--rk-surface);
+  --pet-line: var(--rk-line);
+  --pet-accent: var(--rk-accent);
   box-sizing: border-box;
   font: 13px/1.6 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
   color: var(--pet-ink);
@@ -13,11 +13,11 @@
   z-index: var(--layer-rikka-pet);
 }
 [data-theme='dark'] :is(#rikka-pet, #rikka-pet-menu, #rikka-pet-restore) {
-  --pet-ink: #f2eafa;
-  --pet-muted: #c9bdda;
-  --pet-paper: #272238;
-  --pet-line: #685878;
-  --pet-accent: #d9c1ff;
+  --pet-ink: var(--rk-ink);
+  --pet-muted: var(--rk-muted);
+  --pet-paper: var(--rk-surface);
+  --pet-line: var(--rk-line);
+  --pet-accent: var(--rk-accent);
 }
 #rikka-pet[hidden], #rikka-pet-menu[hidden], #rikka-pet-restore[hidden], #rikka-pet [hidden] { display: none !important; }
 #rikka-pet {
@@ -48,7 +48,7 @@
   border: 1px solid var(--pet-line); border-radius: 50%; color: var(--pet-ink);
   background: var(--pet-paper); line-height: 1; font-size: 18px;
 }
-#rikka-pet .rp-controls button:hover { background: #e8def3; color: #352d49; }
+#rikka-pet .rp-controls button:hover { background: var(--rk-line); color: var(--rk-ink); }
 #rikka-pet .rp-speech {
   position: absolute; bottom: calc(100% + 8px); left: 0;
   width: max-content; max-width: min(210px, calc(100vw - 32px));
@@ -74,8 +74,8 @@
   border: 1px solid var(--pet-line); border-radius: 8px; color: var(--pet-ink);
 }
 #rikka-pet-menu .rp-states button:hover { border-color: var(--pet-accent); }
-#rikka-pet-menu .rp-states button[aria-pressed='true'] { background: #594183; border-color: #594183; color: #fff; }
-[data-theme='dark'] #rikka-pet-menu .rp-states button[aria-pressed='true'] { background: #d9c1ff; border-color: #d9c1ff; color: #272238; }
+#rikka-pet-menu .rp-states button[aria-pressed='true'] { background: var(--rk-accent); border-color: var(--rk-accent); color: #fff; }
+[data-theme='dark'] #rikka-pet-menu .rp-states button[aria-pressed='true'] { background: var(--rk-accent); border-color: var(--rk-accent); color: var(--rk-surface); }
 #rikka-pet-menu .rp-options { display: flex; flex-wrap: wrap; gap: 0 12px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--pet-line); }
 #rikka-pet-menu .rp-options button { min-height: 44px; padding: 4px 0; background: transparent; border: 0; color: var(--pet-ink); }
 #rikka-pet-menu .rp-options button:disabled { color: var(--pet-muted); cursor: default; }
