@@ -1,0 +1,1135 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><div id="myscoll"></div><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Jev 是革命还是骗局？从 0 拆一个「非自回归决策模型」 | Yangjiayu</title><meta name="keywords" content="LLM,Jev"><meta name="author" content="Yangjiayu"><meta name="copyright" content="Yangjiayu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="用本地模型和真 Jev 做了几组实验，看它的快和没有幻觉到底是怎么回事，顺便聊聊怎么判断 AI 时代的新概念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jev 是革命还是骗局？从 0 拆一个「非自回归决策模型」">
+<meta property="og:url" content="https://blog.20040829.xyz/posts/b5279633.html">
+<meta property="og:site_name" content="Yangjiayu">
+<meta property="og:description" content="用本地模型和真 Jev 做了几组实验，看它的快和没有幻觉到底是怎么回事，顺便聊聊怎么判断 AI 时代的新概念。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/5.png">
+<meta property="article:published_time" content="2026-10-15T14:13:12.000Z">
+<meta property="article:modified_time" content="2026-10-15T14:13:12.000Z">
+<meta property="article:author" content="Yangjiayu">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="Jev">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/5.png"><link rel="shortcut icon" href="/assets/rikka-favicon.c6ea1cc64db9.png"><link rel="canonical" href="https://blog.20040829.xyz/posts/b5279633"><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script>(() => {
+  // Respect a saved custom background; do not preload an unused default.
+  try { if (localStorage.getItem('blogbg-rikka-v1')) return } catch (_) {}
+  const images = {"desktop":"/assets/rikka-scenes/seaside.webp","mobile":"/assets/rikka-scenes/seaside-small.webp","desktopDark":"/assets/rikka-scenes/moonlight.webp","mobileDark":"/assets/rikka-scenes/moonlight-small.webp"};
+  const preload = document.createElement('link');
+  preload.rel = 'preload';
+  preload.as = 'image';
+  preload.type = 'image/webp';
+  const mobile = matchMedia('(max-width: 800px)').matches;
+  const dark = document.documentElement.dataset.theme === 'dark';
+  preload.href = mobile ? (dark ? images.mobileDark : images.mobile) : (dark ? images.desktopDark : images.desktop);
+  preload.fetchPriority = 'high';
+  document.head.appendChild(preload);
+})();</script><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="/vendor/fontawesome/css/all.min.8d321d88cb97.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/vendor/snackbar-0.1.16.min.a9fb1d56a55e.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/vendor/fancybox-4.0.31.ee03159a1ee2.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search-index.json","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"var(--theme-color)","bgDark":"#191919","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jev 是革命还是骗局？从 0 拆一个「非自回归决策模型」',
+  tabTitle: "Jev 是革命还是骗局？从 0 拆一个「非自回归决策模型」 | Yangjiayu",
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-10-15 22:13:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><link rel="stylesheet" href="/css/rikka.css"><link rel="stylesheet" href="/css/rikka-home.css"><link rel="stylesheet" href="/css/rikka-theme.css"><link rel="stylesheet" href="/css/rikka-footer.css"><link rel="stylesheet" href="/css/rikka-pet.css"><link rel="stylesheet" href="/css/rikka-gallery.css"><link rel="stylesheet" href="/css/rikka-portrait.css"><style id="themeColor"></style><style id="rightSide"></style><style id="transPercent"></style><style id="blurNum"></style><style id="settingStyle"></style><span id="fps"></span><style id="defineBg"></style><style id="menu_shadow"></style><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="/vendor/swiper.min.8087679cf0f7.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/vendor/swiperstyle.312c2f99bbbe.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/vendor/font-awesome-animation.min.10fa38d6f20b.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/vendor/tag-plugins.374bae878d6c.css" media="defer" onload="this.media='all'"><script src="/vendor/carousel-touch.92a0dea503b2.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Yangjiayu" type="application/atom+xml">
+</head><body><link rel="stylesheet" href="/css/global-music.css"><aside id="global-music" aria-label="全站音乐播放器" data-playing="false"><section class="gm-panel" id="gm-panel" hidden aria-labelledby="gm-heading"><header class="gm-header"><button class="gm-move" type="button" aria-label="移动播放器，方向键调整位置" aria-describedby="gm-move-hint" title="拖动调整位置"><svg class="gm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18M3 12h18m-12-6 3-3 3 3m-6 12 3 3 3-3M6 9l-3 3 3 3m12-6 3 3-3 3"></path></svg></button><div class="gm-heading-copy"><span id="gm-heading">随身听</span><span class="gm-subheading">给阅读配一首歌</span></div><button class="gm-close" type="button" aria-label="收起音乐播放器" title="收起，音乐继续播放"><svg class="gm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg></button></header><div id="gm-aplayer"></div><div class="gm-controls"><div class="gm-progress"><input class="gm-seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="歌曲播放进度" disabled><span class="gm-time">0:00 / 0:00</span></div><div class="gm-transport"><button class="gm-prev" type="button" aria-label="上一首" disabled><svg class="gm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 5v14m12-14L8 12l10 7Z"></path></svg></button><button class="gm-play" type="button" aria-label="播放音乐" disabled><span class="gm-play-icon"><svg class="gm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 11 7-11 7Z" fill="currentColor" stroke="none"></path></svg></span><span class="gm-pause-icon"><svg class="gm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 5v14M16 5v14" stroke-width="4"></path></svg></span></button><button class="gm-next" type="button" aria-label="下一首" disabled><svg class="gm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 5v14M6 5l10 7-10 7Z"></path></svg></button></div><div class="gm-settings"><button class="gm-loop" type="button" aria-label="切换循环方式" disabled>列表循环</button><label class="gm-volume-label"><span>音量</span><input class="gm-volume" type="range" min="0" max="100" value="45" aria-label="音乐音量" disabled></label></div><button class="gm-list-toggle" type="button" aria-controls="gm-playlist" aria-expanded="false" disabled><span class="gm-list-label">歌单</span><svg class="gm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"></path></svg></button></div><p class="gm-status" role="status">正在加载在线歌单…</p><button class="gm-retry" type="button" hidden>重新加载歌单</button><a class="gm-source" href="https://music.163.com/#/playlist?id=7361890587" target="_blank" rel="noopener noreferrer">在网易云打开歌单 ↗</a></section><button class="gm-expand" type="button" aria-label="打开随身听" aria-controls="gm-panel" aria-expanded="false" aria-describedby="gm-move-hint" title="随身听 · 点击展开，拖动移位"><svg class="gm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 18V5l11-2v13M9 9l11-2"></path><ellipse cx="6" cy="18" rx="3" ry="2.5"></ellipse><ellipse cx="17" cy="16" rx="3" ry="2.5"></ellipse></svg><span class="gm-indicator" aria-hidden="true"></span></button><span class="gm-sr-only" id="gm-move-hint">拖动可移动位置，也可以聚焦后按方向键移动，按 Home 恢复默认位置。收起后音乐继续播放。</span><noscript>请启用 JavaScript 以播放音乐。</noscript></aside><script id="global-music-config" type="application/json">{"enabled":true,"volume":0.45,"playlist":{"name":"日系动漫配乐 · 轻音乐","server":"netease","id":"7361890587","api":"https://api.injahow.cn/meting/","url":"https://music.163.com/#/playlist?id=7361890587"}}</script><script defer src="/js/global-music.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img decoding="async" src="/assets/rikka-avatar.273dc7d2b0f5.webp" onerror="onerror=null;src='/assets/r1.jpg'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">161</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">33</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon--article"></use></svg><span class="menu_word" style="font-size:17px"> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1">                   </use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-sekuaibiaoqian">                   </use></svg><span class="menu_word" style="font-size:17px"> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-fenlei">                   </use></svg><span class="menu_word" style="font-size:17px"> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pinweishenghuo"></use></svg><span class="menu_word" style="font-size:17px"> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/life/music/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-yinle">                   </use></svg><span class="menu_word" style="font-size:17px"> 八音盒</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/movies/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-dianying1">                   </use></svg><span class="menu_word" style="font-size:17px"> 影院</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/games/"><i class="fa-fw fas fa-dumbbell faa-tada"></i><span class="menu_word" style="font-size:17px"> 健身</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/books/"><i class="fa-fw fas fa-book-open faa-tada"></i><span class="menu_word" style="font-size:17px"> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-shejiaoxinxi"></use></svg><span class="menu_word" style="font-size:17px"> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/social/fcircle/"><i class="fa-fw fas fa-pen-nib faa-tada"></i><span class="menu_word" style="font-size:17px"> 未定稿</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-liuyan">                   </use></svg><span class="menu_word" style="font-size:17px"> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-maoliang"></use></svg><span class="menu_word" style="font-size:17px"> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/custom/work.html"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-lianjie">                   </use></svg><span class="menu_word" style="font-size:17px"> 项目</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/about/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-paperplane">                   </use></svg><span class="menu_word" style="font-size:17px"> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Yangjiayu</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-home"></use></svg><span class="menu_word" style="font-size:17px"> 首页</span></a></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon--article"></use></svg><span class="menu_word" style="font-size:17px"> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-guidang1">                   </use></svg><span class="menu_word" style="font-size:17px"> 归档</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-sekuaibiaoqian">                   </use></svg><span class="menu_word" style="font-size:17px"> 标签</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-fenlei">                   </use></svg><span class="menu_word" style="font-size:17px"> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-pinweishenghuo"></use></svg><span class="menu_word" style="font-size:17px"> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/life/music/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-yinle">                   </use></svg><span class="menu_word" style="font-size:17px"> 八音盒</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/movies/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-dianying1">                   </use></svg><span class="menu_word" style="font-size:17px"> 影院</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/games/"><i class="fa-fw fas fa-dumbbell faa-tada"></i><span class="menu_word" style="font-size:17px"> 健身</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/life/books/"><i class="fa-fw fas fa-book-open faa-tada"></i><span class="menu_word" style="font-size:17px"> 书籍</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-shejiaoxinxi"></use></svg><span class="menu_word" style="font-size:17px"> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/social/fcircle/"><i class="fa-fw fas fa-pen-nib faa-tada"></i><span class="menu_word" style="font-size:17px"> 未定稿</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-liuyan">                   </use></svg><span class="menu_word" style="font-size:17px"> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page group faa-parent animated-hover hide" href="javascript:void(0);"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-maoliang"></use></svg><span class="menu_word" style="font-size:17px"> 个人</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/custom/work.html"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-lianjie">                   </use></svg><span class="menu_word" style="font-size:17px"> 项目</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/personal/about/"><svg class="menu_icon faa-tada" aria-hidden="true" style="width:1.30em;height:1.30em;vertical-align:-0.15em;fill:currentColor;overflow:hidden;"><use xlink:href="#icon-paperplane">                   </use></svg><span class="menu_word" style="font-size:17px"> 关于</span></a></li></ul></div></div><center id="name-container"><a id="page-name" href="javascript:scrollToTop()">PAGE_NAME</a></center><div id="nav-right"><div id="search-button"><a class="search faa-parent animated-hover" title="检索站内任何你想要的信息"><svg class="faa-tada icon" style="height:24px;width:24px;fill:currentColor;position:relative;top:6px" aria-hidden="true"><use xlink:href="#icon-valentine_-search-love-find-heart"></use></svg><span> 搜索</span></a></div><a class="meihua faa-parent animated-hover" onclick="toggleWinbox()" title="美化设置-自定义你的风格" id="meihua-button"><svg class="faa-tada icon" style="height:26px;width:26px;fill:currentColor;position:relative;top:8px" aria-hidden="true"><use xlink:href="#icon-tupian1"></use></svg></a><button class="sun_moon rikka-mode-toggle" type="button" onclick="switchNightMode()" title="解除封印 · 切换夜间模式" aria-label="解除封印 · 切换夜间模式" aria-pressed="false" id="nightmode-button"><span class="rikka-eye" aria-hidden="true"><span class="rikka-eye-pupil"></span></span></button><div id="toggle-menu"><a><i class="fas fa-bars fa-fw"></i></a></div></div></div></nav><div id="post-info"><h1 class="post-title">Jev 是革命还是骗局？从 0 拆一个「非自回归决策模型」</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><svg class="meta_icon post-meta-icon" style="width:30px;height:30px;position:relative;top:10px"><use xlink:href="#icon-rili"></use></svg><span class="post-meta-label">发表于 </span><time class="post-meta-date-created" datetime="2026-10-15T14:13:12.000Z" title="发表于 2026-10-15 22:13:12">2026-10-15</time><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-gengxin1"></use></svg><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-15T14:13:12.000Z" title="更新于 2026-10-15 22:13:12">2026-10-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:18px;height:18px;position:relative;top:5px"><use xlink:href="#icon-biaoqian"></use></svg><a class="post-meta-categories" href="/categories/LLM/">LLM</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:8px"><use xlink:href="#icon-charuword"></use></svg><span class="post-meta-label">字数总计:</span><span class="word-count">9407</span><span class="post-meta-separator">|</span><svg class="meta_icon post-meta-icon" style="width:20px;height:20px;position:relative;top:5px"><use xlink:href="#icon-shizhong"></use></svg><span class="post-meta-label">阅读时长:</span><span>29分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Jev 是革命还是骗局？从 0 拆一个「非自回归决策模型」"><svg class="meta_icon post-meta-icon" style="width:25px;height:25px;position:relative;top:5px"><use xlink:href="#icon-eye"></use></svg><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>Jev 是革命还是骗局？从 0 拆一个「非自回归决策模型」</h1>
+<p>最近 Jev 蛮火的，但一直没时间真的去试一下，今天下午有空就动手实操了下。</p>
+<p>同一个模型，有人写「这是通往 AGI 的一步」，有人写「这些案例都是骗人的」。</p>
+<p>闪客两条视频我都看了：一条叫《你管这破玩意叫 Jev？》，一条叫《这些 Jev 的案例都是骗人的》。它们说的其实不是同一件事，第一条拆的是模型本身，「快」和「没有幻觉」是怎么来的；第二条拆的是用它做的 demo，「8 分钟通关我的世界」到底证明了什么。</p>
+<p>这篇比较长，先给个目录：</p>
+<ul>
+<li>拆解（第一到九节）：它是什么、为什么快、「没有幻觉」错在哪、那个 demo 证明了什么、真 Jev 实测</li>
+<li>方法（第十节）：怎么对待 AI 时代的新知识</li>
+<li>动手（第十一节）：一套能跑的作业</li>
+</ul>
+<hr>
+<h2 id="一、先把「是不是骗局」换成一个能回答的问题">一、先把「是不是骗局」换成一个能回答的问题</h2>
+<p>「Jev 是不是骗局」这个问题没法回答，因为它没有边界。你没法证明一个东西「是骗局」，就像你没法证明一个人「是坏人」。</p>
+<p>能回答的是这四个：</p>
+<ul>
+<li>它把哪一部分工作，从原来的做法里拿走了？</li>
+<li>拿走之后，延迟、成本、正确性各发生了什么变化？</li>
+<li>它宣称解决的问题，和它实际解决的问题，是同一个吗？</li>
+<li>那个用来证明它的 demo，如果换掉它，结果会变吗？</li>
+</ul>
+<p>这四个问题都有明确答案，而且大部分你可以在自己电脑上测出来。下面我一边讲机制，一边把每个问题的实验做掉。</p>
+<hr>
+<h2 id="二、大模型不擅长什么：从计算器说起">二、大模型不擅长什么：从计算器说起</h2>
+<p>先从一个大家都认的共识开始。</p>
+<p>大模型不擅长精确计算。你问它 4837 × 291 等于多少，它可能给你一个很像但不对的数。这件事没人有异议，所以工程上的标准做法是：把计算交给计算器，别让模型算。</p>
+<p>视频里有个很好的类比。假设我发布一个模型，宣称比普通大模型快 1 万倍、完全没有幻觉、永久免费，但它只能做两个数的加法，而且输入必须严格符合我规定的格式。</p>
+<p>你一眼就看出来我在耍花招。因为我做的事情，本质上是把加法从模型里拿出来，交给了一段代码。代码当然比模型又快又准又便宜。</p>
+<p>关键不在于「这算不算作弊」，而在于这个边界划在哪里、划得合不合理。</p>
+<p>计算器这个边界划得很干净：两个数相加有唯一正确答案，而且不需要理解语义。</p>
+<p>那么，还有哪类问题，大模型其实也不擅长，但边界没那么干净？</p>
+<hr>
+<h2 id="三、第二类问题：固定枚举的判断">三、第二类问题：固定枚举的判断</h2>
+<p>想象一个客服工单系统。工单进来，你需要回答几个问题：</p>
+<ul>
+<li>该路由给哪个部门？（billing / technical / refund / account）</li>
+<li>紧急程度几级？（0 / 1 / 2 / 3）</li>
+<li>客户流失风险高吗？（是 / 否）</li>
+</ul>
+<p>对大模型来说这没什么难度。但请注意你实际上在干什么：你把一个擅长自由发挥的生成式模型，强行当成了一个分类器，还限制了它的输出格式。</p>
+<p>这跟让大模型当计算器是一回事，不是它真正擅长的用法。</p>
+<p>那能不能像计算器一样，单独写个程序处理？不能。因为这里需要理解语义：你得读懂「我上周五用信用卡续费了年度会员，但 App 里还是显示免费版」，才能判断这是 billing 还是 technical。</p>
+<p>所以这里有一个真实的优化空间，但边界不能像计算器那样一刀切。</p>
+<p>这就是 Jev 这类模型切进去的地方。官方文档对它的定位可以概括成一句话：</p>
+<blockquote>
+<p>保留大模型的语言理解能力，但不生成文本，直接返回你的代码能用的类型化判断和概率。</p>
+</blockquote>
+<p>它的官方文档把用法定义成三种「原语」（primitives）：</p>
+<table>
+<thead>
+<tr>
+<th>原语</th>
+<th>回答什么</th>
+<th>返回什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>choice</code></td>
+<td>从一组选项里选一个</td>
+<td>选中的选项 + 每个选项的概率 + 置信度</td>
+</tr>
+<tr>
+<td><code>score</code></td>
+<td>把内容放到等级量表上（比如 0-3）</td>
+<td>分值 + 各等级概率 + 置信度</td>
+</tr>
+<tr>
+<td><code>noul</code></td>
+<td>一个是非问题</td>
+<td>P(true)，0 到 1</td>
+</tr>
+</tbody>
+</table>
+<p>一次请求可以混着问多个问题。请求长这样：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;state&quot;</span><span class="punctuation">:</span> <span class="string">&quot;客户说信用卡续费成功，但 App 里还是免费版……&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;model&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jev-latest&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;questions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;department&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;choice&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;instructions&quot;</span><span class="punctuation">:</span> <span class="string">&quot;这条工单应该路由给哪个部门？&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;criteria&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;billing&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span><span class="punctuation">,</span> <span class="attr">&quot;technical&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span><span class="punctuation">,</span> <span class="attr">&quot;refund&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span> <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>返回的是：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;model&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jev-1.13.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;answers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;department&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;choice&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;choice&quot;</span><span class="punctuation">:</span> <span class="string">&quot;billing&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;probabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;billing&quot;</span><span class="punctuation">:</span> <span class="number">0.88</span><span class="punctuation">,</span> <span class="attr">&quot;technical&quot;</span><span class="punctuation">:</span> <span class="number">0.12</span><span class="punctuation">,</span> <span class="attr">&quot;refund&quot;</span><span class="punctuation">:</span> <span class="number">0.0</span> <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;confidence&quot;</span><span class="punctuation">:</span> <span class="number">0.81</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;usage&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span> <span class="attr">&quot;input_tokens&quot;</span><span class="punctuation">:</span> <span class="number">318</span><span class="punctuation">,</span> <span class="attr">&quot;output_tokens&quot;</span><span class="punctuation">:</span> <span class="number">34</span> <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>注意 <code>answers</code> 里没有一句自然语言。这是理解后面所有事情的关键：它返回的是类型化的值，你的代码可以直接分支、排序、路由，不需要解析。</p>
+<p>顺带一提，<code>usage</code> 里 <code>output_tokens</code> 是 34，但输出 token 不计费，你只为 input token 付钱。</p>
+<hr>
+<h2 id="四、为什么它能「快」：三个可以分开测量的机制">四、为什么它能「快」：三个可以分开测量的机制</h2>
+<p>现在回答第一个问题，它的快，是哪几部分贡献的？</p>
+<p>先把基础做法摆出来，给它一个公平的位置。</p>
+<p>基础做法是一次调用，让模型读完工单，回答全部 5 个问题，输出一个 JSON。</p>
+<p>这个做法在很多场景下够用。工单量不大、延迟不敏感、下游能容错，它完全没问题。引入新方案之前，先确认基础做法在什么条件下会失效。</p>
+<p>失效条件有三个，一个比一个深。</p>
+<h3 id="缺口一：自回归生成，是一个字一个字往外蹦的">缺口一：自回归生成，是一个字一个字往外蹦的</h3>
+<p>大模型输出文本的方式叫自回归：生成第一个 token，把它接到输入后面，再生成第二个，如此往复。输出长度直接决定耗时。</p>
+<p>你问 5 个问题、要求输出结构化 JSON，模型要先写花括号、写字段名、写引号、写逗号。这些字符对下游代码毫无价值，但每一个都要花时间生成。</p>
+<p>一个非常朴素的优化：把 5 个问题拆成 5 次调用，并发发出去。每次只输出一个很短的 JSON，5 次同时跑，理论上快 5 倍。这就是「并行采样」最朴素的版本。</p>
+<p>但这里有个前提，我在实验里会撞上它。</p>
+<h3 id="缺口二：重复的前缀，可以共享">缺口二：重复的前缀，可以共享</h3>
+<p>5 次调用里，工单文本完全一样，只有问题不同。也就是说，模型对工单的「理解」被重复计算了 5 次。</p>
+<p>推理服务里有个东西叫 KV cache：模型读过的内容，中间计算结果可以存下来复用。如果多个请求共享同一段前缀，这段前缀的 KV cache 就能复用，省掉重复计算。</p>
+<p>这是纯工程优化，跟模型本身没关系。</p>
+<h3 id="缺口三：既然只要一个标签，为什么要生成文本">缺口三：既然只要一个标签，为什么要生成文本</h3>
+<p>这是最本质的一步，也是这类模型真正动刀的地方。</p>
+<p>先说清楚来源。官方文档确认了行为：No text generation, no parsing，不生成文本，返回类型化的值和概率分布。但官方没有公开技术论文和权重，所以「内部到底怎么实现的」这一层，只能从民间开源实现（视频里提到有人把 Qwen 的最后一层改造成打分器）和第三方技术文章里还原。</p>
+<p>下面这段是「这类模型」的通用做法，不是 Jev 官方确认的架构。但因为它能解释你观察到的所有行为，作为心智模型是够用的。</p>
+<p>一个标准的 Transformer 语言模型，最后一层做的事情是：把隐藏状态映射成一个词表上的概率分布，词表可能有十几万 token，然后从这个分布里采样出下一个 token。这个映射层通常叫分类头（lm head）。</p>
+<p>Jev 这类模型把这一层换掉了。它不再映射到词表，而是针对你给出的那几个候选选项，分别过一个小的打分器，直接得到每个选项的分数，softmax 之后就是概率。</p>
+<p>这就是为什么它不生成文本，它压根就没有生成文本的那个头。</p>
+<p>那它输出的 JSON 是哪来的？是工程代码拼的。模型给出 <code>&#123;&quot;billing&quot;: 0.91, &quot;technical&quot;: 0.06, ...&#125;</code>，你的代码挑出概率最高的那个，拼成 <code>&#123;&quot;department&quot;: &quot;billing&quot;&#125;</code> 返回给用户。</p>
+<p>这个细节很重要，讲「幻觉」的时候会用到。</p>
+<hr>
+<h2 id="五、实验一：把「快」拆成能测量的东西">五、实验一：把「快」拆成能测量的东西</h2>
+<p>我把上面三种做法在同一台机器上跑了一遍。同一个工单，问 5 个固定枚举的判断问题：</p>
+<ul>
+<li>A1 串行自由生成：一次调用问完 5 个问题，让模型自由生成 JSON</li>
+<li>A2 拆开并发：自己把 5 个问题拆开，5 个 HTTP 请求并发发出去</li>
+<li>A3 约束解码：一次调用，但用 JSON Schema 约束输出</li>
+</ul>
+<p>环境是 Apple M5 / 24GB / 本地 gemma4:12b，3 轮取中位数：</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>HTTP 次数</th>
+<th>耗时 ms</th>
+<th>输出 token</th>
+<th>能解析成 JSON</th>
+<th>严格结构通过</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1 串行自由生成</td>
+<td>1</td>
+<td>4811</td>
+<td>53</td>
+<td>100%</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>A2 拆开并发</td>
+<td>5</td>
+<td>7265</td>
+<td>40</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>A3 约束解码</td>
+<td>1</td>
+<td>4456</td>
+<td>50</td>
+<td>100%</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p>两个反直觉的地方。</p>
+<h3 id="反直觉一：拆开并发没有更快，反而更慢">反直觉一：拆开并发没有更快，反而更慢</h3>
+<p>7265ms 对 4811ms。为什么？</p>
+<p>因为 ollama 默认只给一个推理槽位。5 个请求是排队的，每个请求还要重新 prefill 一遍工单文本。所谓「并发」，在服务端变成了串行。</p>
+<p>「并行」不是免费的技巧，它是一种要花钱买的基础设施。视频里说「手动拆成三次并行调用就能快三倍」，这个结论成立的前提是，你有一个真正能并发的服务层（托管 API，或者配好并发槽位的推理服务）。</p>
+<p>我给服务端开了 4 个槽位想验证这一点，结果在 24GB 机器上跑 12B 模型时以 HTTP 500 告终，没拿到干净数据。日志里能看到代价：4 个槽位意味着上下文被切成 4 份，每个槽位 4096，模型本身已经吃掉 9399 MiB 显存。</p>
+<p>这就是那句「复杂度不会消失，只会转移」的具体样子：你把复杂度从模型生成转移到了服务端调度，代价是显存、上下文长度和运维复杂度。</p>
+<h3 id="反直觉二：A1-的-JSON-100-能解析，但严格校验-0-通过">反直觉二：A1 的 JSON 100% 能解析，但严格校验 0% 通过</h3>
+<p>A1 返回的是这个：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;department&quot;</span><span class="punctuation">:</span> <span class="string">&quot;billing&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;urgency&quot;</span><span class="punctuation">:</span> <span class="number">3</span><span class="punctuation">,</span> <span class="attr">&quot;churn_risk&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line"> <span class="attr">&quot;sentiment&quot;</span><span class="punctuation">:</span> <span class="string">&quot;angry&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;human_intervention_required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>语法完全合法。但对照我约定的 schema：</p>
+<ul>
+<li><code>need_human</code> 被悄悄改名成 <code>human_intervention_required</code></li>
+<li><code>urgency</code> 从字符串 <code>&quot;3&quot;</code> 变成了数字 <code>3</code></li>
+<li><code>churn_risk</code> 从 <code>&quot;true&quot;</code> 变成了布尔 <code>true</code></li>
+</ul>
+<p>下游代码按 <code>need_human</code> 取值，会直接拿到 <code>None</code>。这就是视频里说的「结构幻觉」，它输出的一定是 JSON，但不一定是你约定的那个 JSON。</p>
+<p>而且三轮全都一样，不是偶发。</p>
+<p>还要注意一点：A2 和 A3 的严格通过率是 100%，功劳不在「拆开」，而在「约束」。A2 的每个子问题我也加了 schema 约束。所以这里其实是两个独立机制：</p>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>解决什么</th>
+<th>我的实验里的效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>拆开并发</td>
+<td>输出长度 → 延迟</td>
+<td>单槽位下无效果甚至更慢</td>
+</tr>
+<tr>
+<td>约束解码</td>
+<td>输出结构 → 可靠性</td>
+<td>结构通过率 0% → 100%</td>
+</tr>
+</tbody>
+</table>
+<p>把两件事混在一起讲，就是营销话术的常见做法。</p>
+<hr>
+<h2 id="六、「没有幻觉」这句话，错在哪">六、「没有幻觉」这句话，错在哪</h2>
+<p>现在回答第三个问题：它宣称解决的问题，和它实际解决的问题，是同一个吗？</p>
+<p>先说「幻觉」这个词。它在日常讨论里被混着用了，其实至少有两层意思：</p>
+<ul>
+<li>结构幻觉：输出的格式不符合约定，JSON 缺字段、枚举值越界、类型不对</li>
+<li>内容幻觉：格式完美，但答案是错的</li>
+</ul>
+<p>视频里说，Jev 官网宣称「解决了幻觉」。而根据前面的机制，它解决的只是第一层：因为输出不是模型生成的，是程序按你的 <code>criteria</code> 拼的，所以枚举值不可能越界，JSON 不可能破损。这不是概率意义上的「很难出错」，是工程意义上的「不可能出错」。</p>
+<p>这确实是价值。但它跟「回答得对不对」没关系。</p>
+<p>我做了个实验验证这个区分。8 道固定枚举的题，用 JSON Schema 约束解码来问，其中 2 道是陷阱题，正确答案根本不在选项里：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>JSON 合法率</th>
+<th>值在枚举内</th>
+<th>答案正确率</th>
+<th>中位耗时 ms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>约束解码</td>
+<td>100%</td>
+<td>100%</td>
+<td>37.5%</td>
+<td>2889</td>
+</tr>
+</tbody>
+</table>
+<p>8 题全部产出合法 JSON，全部落在枚举内，只有 3 题答对。</p>
+<p>两道陷阱题它照样给出了「完全合法」的答案：<code>账号安全</code>、<code>6</code>。格式上无懈可击，内容上完全错误。</p>
+<p>结构正确率 100%，内容正确率 37.5%。这两个数字可以同时成立。</p>
+<p>顺便说个坑：这个实验我第一次跑的时候没关闭思考模式，模型把 200 个 token 全花在内部推理上，<code>response</code> 字段是空的。「模型没输出」和「模型输出错了」是两回事，我把那次数据标为无效了。这种坑只有自己跑才会遇到。</p>
+<hr>
+<h2 id="七、实验二：那个末影龙-demo-证明了什么">七、实验二：那个末影龙 demo 证明了什么</h2>
+<p>现在回答第四个问题：那个 demo，如果换掉 Jev，结果会变吗？</p>
+<p>先说视频二作者做了什么。他把那个开源项目下载到本地跑起来，然后把交互日志全部捞出来做了可视化。关键发现是：</p>
+<ul>
+<li>165 次「决策」里，129 次（78.2%）只给了 1 个候选动作</li>
+<li>给 2 个候选的时候，两个选项的差别只是坐标差 1 格（挖这个方块还是那个方块）</li>
+<li>地图种子是固定的，完整通关路线、物资坐标、先收集什么收集多少，全部写在规划模型的系统提示词里</li>
+<li>那些「方向键、空格、鼠标移动」的操作，是程序预先写好的动作模板</li>
+</ul>
+<p>所以他的实验是：把决策模型换成随机选择器，结果一样；把规划模型也去掉，结果还是一样。</p>
+<p>我没有那个项目的代码，也没法测量它。但我可以按他报告的这个结构做模拟，看看「决策模型」在这种结构下能贡献什么。这个模拟不需要任何模型，几秒钟就跑完：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">=== 场景 1：候选动作由程序预置（那个 Minecraft 项目的结构）===</span></span><br><span class="line">决策次数 165，其中只有 1 个候选的 129 次，占比 78.2%</span><br><span class="line"></span><br><span class="line">选择策略                       通关率      多花步数          5 次里至少成功一次</span><br><span class="line">无模型（照路线执行）               57.7%       0.0               98.6%</span><br><span class="line">随机选择器                    57.7%      19.7               98.6%</span><br><span class="line">永远选第一个                   57.7%       0.0               98.6%</span><br><span class="line">完美选择器（上界）                57.7%       0.0               98.6%</span><br><span class="line"></span><br><span class="line"><span class="section">=== 场景 2：候选动作没有被预筛过（真正需要判断的场景）===</span></span><br><span class="line">每一步给 5 个候选，正确动作的位置随机，选错一步就崩</span><br><span class="line"></span><br><span class="line">选择策略                       通关率</span><br><span class="line">随机选择器                     0.0%</span><br><span class="line">永远选第一个                    0.0%</span><br><span class="line">完美选择器（上界）               100.0%</span><br></pre></td></tr></table></figure>
+<p>读法：场景 1 里四种策略的差距，就是「决策模型」在这个 demo 里的全部贡献，零。</p>
+<p>「随机选择器」唯一的影响是多花 19.7 步（多挖几个方块），通关率一模一样。因为 78.2% 的步骤只有一个候选，剩下 21.8% 的步骤选错也无所谓。</p>
+<p>而场景 2 才是决策模型真正被需要的地方：候选没被预筛过，选错一步就崩，随机策略的成功率是 0。</p>
+<p>那个 demo 从来没有进入场景 2。</p>
+<p>这里要小心一个推理跳跃。这个结论不说明「Jev 没用」，它说明的是：</p>
+<blockquote>
+<p>那个 demo 没有证明 Jev 有用。</p>
+</blockquote>
+<p>这两句话差别很大。作者可能确实是个工程能力很强的程序员，能搭出这套东西本身就不容易。问题在于，他把「程序预先写好的路线和动作模板」的功劳，记在了「模型的决策能力」头上。</p>
+<hr>
+<h2 id="八、实验三：直接问真-Jev">八、实验三：直接问真 Jev</h2>
+<p>前面所有实验用的都是本地的 gemma4:12b。它们验证的是方法，「拆开并发」「约束解码」「候选预筛」这些机制到底管不管用。</p>
+<p>但它们回答不了一个问题：Jev 自己准不准。</p>
+<p>所以我调了真的 Jev（<code>/v1/systemone</code>，返回 <code>jev-1.13.0</code>）。下面每组数字都是真实响应。</p>
+<h3 id="先说一个意外发现：官方文档是公开的">先说一个意外发现：官方文档是公开的</h3>
+<p>我原以为会面对一个黑盒，视频里说它「没有公布实现细节」。但 <code>docs.typesafe.ai</code> 有完整的 API 参考、置信度计算公式，还有一页专门讲 Jev 1.13 的已知缺陷。</p>
+<p>那页的开头写着：</p>
+<blockquote>
+<p>Jev isn’t perfect. Here are some jagged edges we are aware of with jev-1.13.</p>
+</blockquote>
+<p>它自己列了 9 条失效模式，其中几条和视频「揭露」的内容高度重合：</p>
+<table>
+<thead>
+<tr>
+<th>官方承认的缺陷</th>
+<th>原文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不会数数</td>
+<td>does not count reliably… The model recognizes the shape of an answer rather than tallying</td>
+</tr>
+<tr>
+<td>不擅长数学</td>
+<td>Jev is not a calculator. We strongly recommend implementing any mathematical logic in code</td>
+</tr>
+<tr>
+<td>选项顺序会影响答案</td>
+<td>the order of a Choice’s options can affect the answer, and jev-1.13 leans toward the option that comes first</td>
+</tr>
+<tr>
+<td>不能生成文本</td>
+<td>not trained to generate text… there are other models for that</td>
+</tr>
+<tr>
+<td>会被对抗性内容影响</td>
+<td>Content written to adversarially steer the model… can move the answer</td>
+</tr>
+</tbody>
+</table>
+<p>这件事本身值得记一笔：一个被批评「靠营销」的产品，把缺陷清单写得比很多开源项目都细。</p>
+<p>而且官方文档明确说了一句关键的话，置信度只是概率分布的派生统计量：</p>
+<blockquote>
+<p>TypeSafe’s <code>confidence</code> is one reasonable way to summarize a distribution, not the only one.</p>
+</blockquote>
+<p>Choice 的公式是 <code>(p_max − 1/n) / (1 − 1/n)</code>。也就是说，「95% 置信度」只意味着概率分布很尖，不代表模型做了二次确认。</p>
+<p>这正是我下面要测的。</p>
+<h3 id="D2：正确答案不在选项里，它还自信吗">D2：正确答案不在选项里，它还自信吗</h3>
+<p>这是我认为最重要的一组。4 道题，3 道是陷阱题，正确答案根本不在选项里，1 道是对照组：</p>
+<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>正确答案</th>
+<th>在选项里？</th>
+<th>它选了</th>
+<th>confidence</th>
+<th>选中项概率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>发票抬头开错，归哪个部门</td>
+<td>财务/开票</td>
+<td>否</td>
+<td>售后维修</td>
+<td>0.94</td>
+<td>0.96</td>
+</tr>
+<tr>
+<td><code>abcdefgh</code> 有几个字母</td>
+<td>8</td>
+<td>否</td>
+<td>6</td>
+<td>0.95</td>
+<td>0.96</td>
+</tr>
+<tr>
+<td>这段 Rust 代码是什么语言</td>
+<td>Rust</td>
+<td>否</td>
+<td>Go</td>
+<td>0.25</td>
+<td>0.50</td>
+</tr>
+<tr>
+<td>对照组：扣款成功但会员没生效</td>
+<td>计费</td>
+<td>是</td>
+<td>计费</td>
+<td>0.69</td>
+<td>0.79</td>
+</tr>
+</tbody>
+</table>
+<p>3 个陷阱题里，2 个给出了 0.94 / 0.95 的高置信度错误答案。</p>
+<p>这就是视频里那个「99% 概率是重度营销 + 99% 置信度」为什么不能当证据。高置信度和正确答案之间，没有必然联系。当正确答案不在选项里时，它不会说「我不确定」，而是挑一个最不坏的，然后给它 96% 的概率。</p>
+<p>第三条陷阱题它给了 0.25 的低置信度，说明这个信号不是完全没用，但你不能依赖它。</p>
+<p>公平地说，这个坑官方文档里提到了，给的解法是加一个显式的「未提及」选项：</p>
+<blockquote>
+<p>it gives you somewhere to put an explicit “not stated” option so a missing part is reported rather than guessed.</p>
+</blockquote>
+<p>但这是「调用方要自己想到」的责任，不是模型自带的保护。而「置信度能告诉你该不该信」这个直觉，在这里是失效的。</p>
+<h3 id="D3：换个选项顺序，答案会翻吗">D3：换个选项顺序，答案会翻吗</h3>
+<p>官方自己承认「偏向前面的选项」。我用同一个工单、同一组选项，只改排列顺序：</p>
+<table>
+<thead>
+<tr>
+<th>排列</th>
+<th>它选了</th>
+<th>confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[计费, 技术, 退款, 账号]</code></td>
+<td>账号问题</td>
+<td>0.43</td>
+</tr>
+<tr>
+<td><code>[账号, 退款, 技术, 计费]</code></td>
+<td>账号问题</td>
+<td>0.32</td>
+</tr>
+<tr>
+<td><code>[退款, 计费, 账号, 技术]</code></td>
+<td>账号问题</td>
+<td>0.23</td>
+</tr>
+</tbody>
+</table>
+<p>答案没翻（三次都选了「账号问题」，而且它在三个排列里分别位于第 4、第 1、第 3 位，看不出位置偏好）。</p>
+<p>但 confidence 从 0.43 掉到 0.23，掉了一半。同一个判断，只因为选项换了个顺序，置信度就变了。</p>
+<p>这条缺陷官方说 in some cases，我的单次测试没复现出答案翻转，但复现出了置信度漂移。如果你用 confidence 做阈值门控（官方推荐的模式），这个漂移会直接影响你的路由决策。</p>
+<h3 id="D4：批量-vs-拆开">D4：批量 vs 拆开</h3>
+<p>官方文档声称：13 个问题放进一次调用，比拆成 13 次调用便宜 12.2 倍、快 10 倍。</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>耗时</th>
+<th>input tokens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 次调用（13 问）</td>
+<td>1306 ms</td>
+<td>870</td>
+</tr>
+<tr>
+<td>13 次调用（并发）</td>
+<td>2872 ms</td>
+<td>7878</td>
+</tr>
+<tr>
+<td>比值</td>
+<td>快 2.2x</td>
+<td>省 9.1x</td>
+</tr>
+</tbody>
+</table>
+<p>省 token 这一项，实测 9.1x，和官方说的 12.2x 很接近。</p>
+<p>速度快这一项，实测只有 2.2x，远低于官方说的 10x。原因很清楚：我这 13 次是并发发的，墙钟时间由最慢的那一个请求决定，而不是 13 倍串行。官方那个 10x 大概是按串行调用算的。</p>
+<p>这个差异本身是个好教材：同一个「快 10 倍」，在不同对照条件下可以是 10x 也可以是 2.2x。看到性能数字，第一件事是问「跟什么比」。</p>
+<p>顺便，这也修正了视频里的一个说法。视频说 Jev 快是因为「把问题拆成多次调用并行发」，官方文档说的恰恰相反：不要拆，放进一次调用。Jev 的「并行」是请求内部一次前向传播里同时算完所有问题，不是扇出成多个请求。</p>
+<h3 id="D5：校准，预测概率和实际正确率对得上吗">D5：校准，预测概率和实际正确率对得上吗</h3>
+<p>30 道有确定答案的是非题，一次调用问完：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>准确率（0.5 为阈值）</td>
+<td>96.7% (29/30)</td>
+</tr>
+<tr>
+<td>真陈述的平均 P(true)</td>
+<td>0.930</td>
+</tr>
+<tr>
+<td>假陈述的平均 P(true)</td>
+<td>0.018</td>
+</tr>
+</tbody>
+</table>
+<p>分桶看：</p>
+<table>
+<thead>
+<tr>
+<th>概率桶</th>
+<th>样本数</th>
+<th>平均预测</th>
+<th>实际为真</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[0, 0.2)</td>
+<td>13</td>
+<td>0.018</td>
+<td>0.0%</td>
+</tr>
+<tr>
+<td>[0.2, 0.4)</td>
+<td>1</td>
+<td>0.370</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>[0.8, 1.01)</td>
+<td>16</td>
+<td>0.965</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p>看起来校准得不错：说「几乎不可能」的 13 题，实际全假；说「几乎肯定」的 16 题，实际全真。</p>
+<p>但要老实说这个测试的局限：这 30 题太简单了，分布是双峰的，29 题落在两端，中间区间只有 1 个样本。它没有真正检验「中间地带」的校准，而中间地带才是置信度真正有用的地方。</p>
+<p>答错的那 1 题也挺有意思：<code>地球上最大的沙漠是撒哈拉沙漠</code>，它给了 P(true)=0.37。严格说，最大的沙漠是南极洲（按降水量定义），所以它的犹豫不算错，是我出题时把常识当成了事实。</p>
+<h3 id="D6：把难度拉开，看置信度跟不跟得上">D6：把难度拉开，看置信度跟不跟得上</h3>
+<p>为了补上 D5 的短板，我又出了 36 道题，按 easy / medium / hard 各 12 道：</p>
+<table>
+<thead>
+<tr>
+<th>难度</th>
+<th>题数</th>
+<th>准确率</th>
+<th>真陈述平均 P</th>
+<th>假陈述平均 P</th>
+<th>Brier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>easy</td>
+<td>12</td>
+<td>100.0%</td>
+<td>0.970</td>
+<td>0.020</td>
+<td>0.0010</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>12</td>
+<td>100.0%</td>
+<td>0.934</td>
+<td>0.084</td>
+<td>0.0148</td>
+</tr>
+<tr>
+<td>hard</td>
+<td>12</td>
+<td>91.7%</td>
+<td>0.876</td>
+<td>0.102</td>
+<td>0.0414</td>
+</tr>
+</tbody>
+</table>
+<p>置信度确实跟着难度走：真陈述的平均 P 从 0.970 一路降到 0.876，Brier 分数单调变差。</p>
+<p>唯一答错的是「珠穆朗玛峰的高度每年都在上升」，它给了 P(true)=0.420。这是诚实的犹豫，不是自信的错误。它知道自己拿不准。</p>
+<h3 id="把-D2-和-D6-放在一起，才是完整结论">把 D2 和 D6 放在一起，才是完整结论</h3>
+<p>这两个实验看起来矛盾：一个说它自信地犯错，一个说它校准良好。其实它们测的是两件不同的事：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有确定答案的是非题（noul）</td>
+<td>校准良好，难度上升时置信度会下降</td>
+</tr>
+<tr>
+<td>选项覆盖不全的选择题（choice）</td>
+<td>会给出 0.94 / 0.95 的自信错误答案</td>
+</tr>
+</tbody>
+</table>
+<p>它的置信度在「我知道我拿不准」这件事上是可信的；但在「我的选项里根本没有正确答案」这件事上，它不会报警。</p>
+<p>这个区别有实际后果。如果你用 <code>choice</code> 做分类，而你的选项集合漏了一种真实情况，模型不会说「这不在我的选项里」，它会挑一个最不坏的，然后给你 96% 的概率。你的下游代码如果按 confidence 门控，会放心地执行这个错误决定。</p>
+<p>官方文档给的解法是显式加一个「未提及」选项。但这是调用方要自己想到的责任，不是模型自带的保护。</p>
+<h3 id="这组实验改变了什么">这组实验改变了什么</h3>
+<p>把跑之前听到的说法，和跑之后的结果并排放：</p>
+<table>
+<thead>
+<tr>
+<th>跑之前听到的说法</th>
+<th>跑之后的结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>它没有公开技术资料</td>
+<td>官方文档完整公开，还自带 9 条缺陷清单</td>
+</tr>
+<tr>
+<td>快是因为把问题拆成多次并行调用</td>
+<td>官方推荐不要拆；批量省 token 9.1x、快 2.2x</td>
+</tr>
+<tr>
+<td>选项顺序会影响答案</td>
+<td>答案稳定，但 confidence 漂移一半</td>
+</tr>
+<tr>
+<td>它其实是个很聪明的分类器</td>
+<td>选项覆盖不全时，它会自信地给错答案（D2）</td>
+</tr>
+<tr>
+<td>它的置信度是校准过的</td>
+<td>属实，但只在是非题上（D6）</td>
+</tr>
+</tbody>
+</table>
+<p>它是个真实的、可用的工程工具，官方文档也相当诚实。但「置信度」这个信号，不能当成「答案正确」的保证来用。</p>
+<hr>
+<h2 id="九、所以-Jev-到底有没有用">九、所以 Jev 到底有没有用</h2>
+<p>绕了一圈，回到最初的问题。我的判断是：</p>
+<p>它是一个真实的工程优化，但它优化的那个东西，和它宣传的那个东西，不是同一个。</p>
+<p>值得用的场景：</p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>任务是固定枚举的判断，且选项集合稳定</td>
+<td>打分器只在给定选项上工作，选项越稳定收益越大</td>
+</tr>
+<tr>
+<td>调用量很大，延迟和成本敏感</td>
+<td>省掉的是逐字生成的开销，量越大越明显</td>
+</tr>
+<tr>
+<td>下游是代码而不是人</td>
+<td>只需要一个标签，不需要读一段自然语言</td>
+</tr>
+<tr>
+<td>你能接受把格式约束写进调用方</td>
+<td>这是它的代价，见下</td>
+</tr>
+</tbody>
+</table>
+<p>不值得用的场景：</p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需要开放式生成（写文案、总结、对话）</td>
+<td>它压根不生成文本，这是能力边界不是性能问题</td>
+</tr>
+<tr>
+<td>选项集合频繁变化或需要模型自己发现新类别</td>
+<td>打分器绑定在给定选项上</td>
+</tr>
+<tr>
+<td>调用量小、延迟不敏感</td>
+<td>基础做法够用，多引入一个模型只增加运维面</td>
+</tr>
+<tr>
+<td>你需要解释性（为什么这么判断）</td>
+<td>它给的是概率，不是理由</td>
+</tr>
+</tbody>
+</table>
+<p>而它的代价，视频里那句话说得最准：</p>
+<blockquote>
+<p>复杂度不会消失，只会转移。</p>
+</blockquote>
+<p>它把复杂度从模型生成转移到了调用方：</p>
+<ul>
+<li>你的输入必须符合它要求的格式</li>
+<li>你的选项集合必须是固定的、有限的</li>
+<li>它的输出是相对固化的，要接入别处得你自己处理</li>
+<li>你多了一个需要部署、监控、版本管理的模型</li>
+</ul>
+<p>默认建议：如果你手上有一批「高级 if-else」式的判断任务，而且量足够大，这类模型值得试。但先做个对照实验，用你现在的大模型加约束解码跑一遍，看看差距值不值得多引入一个组件。我上面的实验一就是干这个的。</p>
+<p>关于 <code>confidence</code>，有一条必须记住：它是概率分布的派生统计量，不是「答案正确」的保证。第八节的 D2 里，它对两个正确答案不在选项里的问题给出了 0.94 / 0.95 的置信度。用它做门控可以，但别把它当成正确性校验，尤其要确保你的选项集合覆盖了所有真实情况，或者显式加一个「未提及」选项。</p>
+<hr>
+<h2 id="十、怎么对待-AI-时代的新知识">十、怎么对待 AI 时代的新知识</h2>
+<p>前面所有内容都是「术」。这部分是「道」。</p>
+<h3 id="1-把「真假判断」换成「边界判断」">1. 把「真假判断」换成「边界判断」</h3>
+<p>「这是不是骗局」是个坏问题，因为它逼你在「信」和「不信」之间二选一。而现实里绝大多数技术宣称，是部分为真、部分夸大、边界被故意模糊。</p>
+<p>换成这些问题，你立刻就能开始工作：</p>
+<ul>
+<li>它把哪部分工作拿走了？</li>
+<li>拿走之后，什么变好了，什么变差了？</li>
+<li>它宣称解决的问题，和它实际解决的问题，是同一个吗？</li>
+<li>那个 demo，如果换掉它，结果会变吗？</li>
+</ul>
+<p>这四个问题有一个共同点：它们都能被验证，而不是被相信。</p>
+<h3 id="2-把声明分成四类">2. 把声明分成四类</h3>
+<p>看到一个新东西，先把它的说法分成四堆：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>例子</th>
+<th>你该怎么做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可测量</td>
+<td>「快 10 倍」「$0.042/百万 token」</td>
+<td>找对照条件、找样本量。能自己测就自己测</td>
+</tr>
+<tr>
+<td>可验证</td>
+<td>「不生成文本」「返回概率分布」</td>
+<td>找一手材料：官方文档、API、代码</td>
+</tr>
+<tr>
+<td>无法验证</td>
+<td>「砍掉了分类头」「用了 RLCD 算法」</td>
+<td>官方没公开论文和权重，只能当第三方还原</td>
+</tr>
+<tr>
+<td>只能靠信任</td>
+<td>「通往 AGI」「革命性突破」</td>
+<td>直接归到营销，不用花时间反驳</td>
+</tr>
+</tbody>
+</table>
+<p>大部分争论之所以吵不出结果，是因为双方在用不同类别的声明互相攻击。一边拿「通往 AGI」来证明价值，一边拿「成本对比不公平」来证明骗局，两边说的都对，但不在同一个层面上。</p>
+<h3 id="3-一手材料永远比二手转述便宜">3. 一手材料永远比二手转述便宜</h3>
+<p>这次最直观的例子就是模型名被转写成三种写法。而这只是最表层。</p>
+<p>我在核查的时候还发现一个更有意思的：那篇「我一年前就做了同样的事」的技术文章，声称自己的第二篇论文提出了「基于 RL 的 schema 决策框架」。我去查了那篇论文的实际标题：</p>
+<blockquote>
+<p>Confidence-Aware Routing for Large Language Model Reliability Enhancement</p>
+</blockquote>
+<p>讲的是生成前用置信度做路由，跟「schema 决策框架」不是一回事。第一篇文章的标题和摘要倒是对得上。</p>
+<p>这不是说作者在撒谎，而是说：哪怕是当事人自己写的、带链接的技术文章，涉及「谁先做的」「谁更好」的部分，也会因为立场而失真。而且那篇文章本身就在推广作者自己的开源模型。</p>
+<p>一手材料在哪：</p>
+<ul>
+<li>官方有没有公开技术论文和权重？（Jev 两样都没有）</li>
+<li>有没有可复现的代码？</li>
+<li>那些性能数字的对照条件是什么？</li>
+</ul>
+<p>但这里有个我一开始判断错的地方。</p>
+<p>我最初把「没有公开论文和权重」当成了负面信号。直到翻了它的文档站（第八节），才发现判断标准不该是「公开 vs 不公开」，而是它公开了什么：</p>
+<table>
+<thead>
+<tr>
+<th>公开的东西</th>
+<th>说明什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>技术论文、权重、训练数据</td>
+<td>可复现，但商业模型很少给</td>
+</tr>
+<tr>
+<td>API 参考、行为契约、失效边界</td>
+<td>够你判断「能不能用」，这才是工程上真正需要的</td>
+</tr>
+<tr>
+<td>benchmark 图、营销话术</td>
+<td>基本没用</td>
+</tr>
+</tbody>
+</table>
+<p>「没公开论文」和「没讲清楚」是两件事。前者是商业选择，后者才是你要警惕的信号。</p>
+<h3 id="4-区分「我不懂」和「它没讲清楚」">4. 区分「我不懂」和「它没讲清楚」</h3>
+<p>AI 领域的新概念密度很高，很容易产生一种感觉：听不懂是我水平不够。</p>
+<p>但很多时候，讲不清楚是讲述者的问题。判断方法很简单：如果一个概念你听三遍还是不知道它在什么条件下失效，那大概率不是你的问题。</p>
+<p>真正讲清楚一个技术，一定会讲到它的边界。只讲能力不讲边界的，要么是没想清楚，要么是不想让你想清楚。</p>
+<p>顺便，这篇视频一的作者就做得很规范，他明确说了 Jev「非常有用，是工程实践上的一个很好的优化」，然后才批评它蹭「解决幻觉」的热点。能承认对方价值的人，批评才值得听。</p>
+<h3 id="5-焦虑的正确用法">5. 焦虑的正确用法</h3>
+<p>视频二结尾有句话我很认同：AI 时代该焦虑的时候还是要焦虑，但由错误甚至欺骗性信息导致的焦虑，是没有必要的。</p>
+<p>具体一点：焦虑应该花在「我的工作里，哪部分正在被这类工具替代」上，而不是花在「某个模型是不是通往 AGI」上。前者你能做点什么，后者你什么都做不了。</p>
+<hr>
+<h2 id="十一、怎么动手">十一、怎么动手</h2>
+<p>上面几组实验都是我自己跑的，思路和参数都写在正文里了。想复现的话，下面这几步就够了。</p>
+<h3 id="先跑一个不需要模型的">先跑一个不需要模型的</h3>
+<p>末影龙那个模拟不需要任何模型，纯随机数，几秒钟出结果。它最能说明「一个 demo 可以什么都不证明」。</p>
+<h3 id="再跑需要模型的">再跑需要模型的</h3>
+<p>前面几组用本地 ollama 加一个小模型就能跑，量级和结构差异都看得出来：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ollama pull gemma4:12b</span><br><span class="line">ollama serve</span><br></pre></td></tr></table></figure>
+<p>真 Jev 那组需要一个 API key，从 TypeSafe 的控制台拿，按量计费。跑完 5 个测试大概几万 token，成本不到一分钱。key 只从环境变量读，别写进代码里。</p>
+<h3 id="四个由浅入深的作业">四个由浅入深的作业</h3>
+<p>作业一（改条件）：把实验一里的工单文本换成你自己领域的文本，问题换成你工作里真实存在的判断。看看「自由生成」的字段名还会不会跑偏。换个领域，结论还成立吗？</p>
+<p>作业二（找边界）：把第六节那个约束解码实验的选项从 4 个加到 20 个，再加几道陷阱题。看看「约束解码」的答案正确率怎么变。枚举越多，模型是更准还是更不准？</p>
+<p>作业三（诊断矛盾指标）：第五节那个实验会给你两个数字，「能解析成 JSON」和「严格结构通过」。如果这两个数字差很多，说明什么？如果它们一样，又说明什么？什么情况下你会只看第一个数字，然后被坑？</p>
+<p>作业四（最重要，也最容易做错）：用你自己领域的陷阱题，正确答案故意不放在选项里。看看它会不会照样给你一个高置信度的错误答案。如果你的业务里存在「选项覆盖不全」的可能，这个测试必须先做。</p>
+<h3 id="一个进阶想法">一个进阶想法</h3>
+<p>视频一提到网上有民间实现：把 Qwen 的最后一层分类头拿掉，换成打分器，用专项数据训练。如果你有 GPU，这是理解「非自回归决策」最彻底的方式，因为你会亲眼看到「没有生成头」这件事意味着什么。</p>
+<p>提示：实验一里 A2 和 A3 的严格通过率都是 100%，但原因不同。想清楚这个区别，你就理解了「约束」和「架构」是两条独立的路径。</p>
+<hr>
+<h2 id="结尾">结尾</h2>
+<p>绕了这么大一圈，最后能带走的是这么一句：</p>
+<blockquote>
+<p>不要问「这是不是骗局」，要问「它把哪部分工作拿走了，代价转移给了谁」。</p>
+</blockquote>
+<p>这个判断可以迁移到下一个你遇到的 AI 新概念上，不管它叫什么名字，也不管它的名字被转写成了几种写法。</p>
+<p>一个可以立刻做的动作：把末影龙那个模拟里「只有 1 个候选」的步骤从 129 降到 0，让决策模型每一步都在真的做选择。工作量涨了将近 5 倍，实测结果是这样：</p>
+<table>
+<thead>
+<tr>
+<th>随机选择器</th>
+<th>单选项 129 步</th>
+<th>单选项 0 步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通关率</td>
+<td>57.7%</td>
+<td>57.7%</td>
+</tr>
+<tr>
+<td>多花步数</td>
+<td>19.7</td>
+<td>92.2</td>
+</tr>
+</tbody>
+</table>
+<p>它多做了 5 倍的决策，通关率纹丝不动。</p>
+<p>决定「决策模型重不重要」的，不是它做了多少次决策，而是它的候选是不是被人预先筛过。这就是「程序预筛」和「模型决策」之间的真实分界线。</p>
+<hr>
+<p><em>本文有两组实测数据。第五、六、七节用的是本地 Apple M5 / 24GB / gemma4:12b，验证的是方法，样本量 3 轮 / 8 题，只够看出量级和结构差异。实验三（第八节）调的是真的 Jev，返回 <code>jev-1.13.0</code>，验证的是产品，每组数字都是真实响应。</em></p>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>Jev 是革命还是骗局？从 0 拆一个「非自回归决策模型」</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://blog.20040829.xyz/posts/b5279633.html">https://blog.20040829.xyz/posts/b5279633.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Yangjiayu</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2026-10-15</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2026-10-15</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LLM/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>LLM</a><a class="post-meta__tags" href="/tags/Jev/"><div class="tags-punctuation"><svg class="faa-tada icon" style="height:1.1em;width:1.1em;fill:currentColor;position:relative;top:2px;margin-right:3px" aria-hidden="true"><use xlink:href="#icon-sekuaibiaoqian"></use></svg></div>Jev</a></div></div><link rel="stylesheet" href="/css/coin.css" media="defer" onload="this.media='all'"/><div class="post-reward"><button class="tip-button reward-button"><span class="tip-button__text">投喂作者</span><div class="coin-wrapper"><div class="coin"><div class="coin__middle"></div><div class="coin__back"></div><div class="coin__front"></div></div></div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98.jpg" target="_blank"><img decoding="async" class="post-qr-code-img" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E6%94%AF%E4%BB%98%E5%AE%9D.jpg" target="_blank"><img loading="lazy" decoding="async" class="post-qr-code-img" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/about/%E6%94%AF%E4%BB%98%E5%AE%9D.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></button></div><audio id="coinAudio" src="https://npm.elemecdn.com/akilar-candyassets@1.0.36/audio/aowu.m4a"></audio><script defer="defer" src="/js/coin.js"></script><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2cec9cbd.html"><img loading="lazy" decoding="async" class="prev-cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/16.png" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">一个词，替你完成了判断</div></div></a></div><div class="next-post pull-right"><a href="/posts/ef32fead.html"><img loading="lazy" decoding="async" class="next-cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/7.png" onerror="onerror=null;src='/assets/r2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">游戏不是无用，只是它的价值不只在结果里</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2de3af35.html" title="LLM时代为什么一定要补数学基础：从导数、向量到深度学习与大模型"><img loading="lazy" decoding="async" class="cover" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/11.png" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2026-04-09</div><div class="title">LLM时代为什么一定要补数学基础：从导数、向量到深度学习与大模型</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><svg class="meta_icon" style="width:22px;height:22px;position:relative;top:5px"><use xlink:href="#icon-mulu1"></use></svg><span style="font-weight:bold">目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Jev 是革命还是骗局？从 0 拆一个「非自回归决策模型」</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%85%88%E6%8A%8A%E3%80%8C%E6%98%AF%E4%B8%8D%E6%98%AF%E9%AA%97%E5%B1%80%E3%80%8D%E6%8D%A2%E6%88%90%E4%B8%80%E4%B8%AA%E8%83%BD%E5%9B%9E%E7%AD%94%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">一、先把「是不是骗局」换成一个能回答的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B8%8D%E6%93%85%E9%95%BF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BB%8E%E8%AE%A1%E7%AE%97%E5%99%A8%E8%AF%B4%E8%B5%B7"><span class="toc-text">二、大模型不擅长什么：从计算器说起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%AC%AC%E4%BA%8C%E7%B1%BB%E9%97%AE%E9%A2%98%EF%BC%9A%E5%9B%BA%E5%AE%9A%E6%9E%9A%E4%B8%BE%E7%9A%84%E5%88%A4%E6%96%AD"><span class="toc-text">三、第二类问题：固定枚举的判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%83%E8%83%BD%E3%80%8C%E5%BF%AB%E3%80%8D%EF%BC%9A%E4%B8%89%E4%B8%AA%E5%8F%AF%E4%BB%A5%E5%88%86%E5%BC%80%E6%B5%8B%E9%87%8F%E7%9A%84%E6%9C%BA%E5%88%B6"><span class="toc-text">四、为什么它能「快」：三个可以分开测量的机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E5%8F%A3%E4%B8%80%EF%BC%9A%E8%87%AA%E5%9B%9E%E5%BD%92%E7%94%9F%E6%88%90%EF%BC%8C%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AD%97%E4%B8%80%E4%B8%AA%E5%AD%97%E5%BE%80%E5%A4%96%E8%B9%A6%E7%9A%84"><span class="toc-text">缺口一：自回归生成，是一个字一个字往外蹦的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E5%8F%A3%E4%BA%8C%EF%BC%9A%E9%87%8D%E5%A4%8D%E7%9A%84%E5%89%8D%E7%BC%80%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%85%B1%E4%BA%AB"><span class="toc-text">缺口二：重复的前缀，可以共享</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E5%8F%A3%E4%B8%89%EF%BC%9A%E6%97%A2%E7%84%B6%E5%8F%AA%E8%A6%81%E4%B8%80%E4%B8%AA%E6%A0%87%E7%AD%BE%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%9F%E6%88%90%E6%96%87%E6%9C%AC"><span class="toc-text">缺口三：既然只要一个标签，为什么要生成文本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%AE%9E%E9%AA%8C%E4%B8%80%EF%BC%9A%E6%8A%8A%E3%80%8C%E5%BF%AB%E3%80%8D%E6%8B%86%E6%88%90%E8%83%BD%E6%B5%8B%E9%87%8F%E7%9A%84%E4%B8%9C%E8%A5%BF"><span class="toc-text">五、实验一：把「快」拆成能测量的东西</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E7%9B%B4%E8%A7%89%E4%B8%80%EF%BC%9A%E6%8B%86%E5%BC%80%E5%B9%B6%E5%8F%91%E6%B2%A1%E6%9C%89%E6%9B%B4%E5%BF%AB%EF%BC%8C%E5%8F%8D%E8%80%8C%E6%9B%B4%E6%85%A2"><span class="toc-text">反直觉一：拆开并发没有更快，反而更慢</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E7%9B%B4%E8%A7%89%E4%BA%8C%EF%BC%9AA1-%E7%9A%84-JSON-100-%E8%83%BD%E8%A7%A3%E6%9E%90%EF%BC%8C%E4%BD%86%E4%B8%A5%E6%A0%BC%E6%A0%A1%E9%AA%8C-0-%E9%80%9A%E8%BF%87"><span class="toc-text">反直觉二：A1 的 JSON 100% 能解析，但严格校验 0% 通过</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E3%80%8C%E6%B2%A1%E6%9C%89%E5%B9%BB%E8%A7%89%E3%80%8D%E8%BF%99%E5%8F%A5%E8%AF%9D%EF%BC%8C%E9%94%99%E5%9C%A8%E5%93%AA"><span class="toc-text">六、「没有幻觉」这句话，错在哪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%AE%9E%E9%AA%8C%E4%BA%8C%EF%BC%9A%E9%82%A3%E4%B8%AA%E6%9C%AB%E5%BD%B1%E9%BE%99-demo-%E8%AF%81%E6%98%8E%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-text">七、实验二：那个末影龙 demo 证明了什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%AE%9E%E9%AA%8C%E4%B8%89%EF%BC%9A%E7%9B%B4%E6%8E%A5%E9%97%AE%E7%9C%9F-Jev"><span class="toc-text">八、实验三：直接问真 Jev</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E8%AF%B4%E4%B8%80%E4%B8%AA%E6%84%8F%E5%A4%96%E5%8F%91%E7%8E%B0%EF%BC%9A%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E6%98%AF%E5%85%AC%E5%BC%80%E7%9A%84"><span class="toc-text">先说一个意外发现：官方文档是公开的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#D2%EF%BC%9A%E6%AD%A3%E7%A1%AE%E7%AD%94%E6%A1%88%E4%B8%8D%E5%9C%A8%E9%80%89%E9%A1%B9%E9%87%8C%EF%BC%8C%E5%AE%83%E8%BF%98%E8%87%AA%E4%BF%A1%E5%90%97"><span class="toc-text">D2：正确答案不在选项里，它还自信吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#D3%EF%BC%9A%E6%8D%A2%E4%B8%AA%E9%80%89%E9%A1%B9%E9%A1%BA%E5%BA%8F%EF%BC%8C%E7%AD%94%E6%A1%88%E4%BC%9A%E7%BF%BB%E5%90%97"><span class="toc-text">D3：换个选项顺序，答案会翻吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#D4%EF%BC%9A%E6%89%B9%E9%87%8F-vs-%E6%8B%86%E5%BC%80"><span class="toc-text">D4：批量 vs 拆开</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#D5%EF%BC%9A%E6%A0%A1%E5%87%86%EF%BC%8C%E9%A2%84%E6%B5%8B%E6%A6%82%E7%8E%87%E5%92%8C%E5%AE%9E%E9%99%85%E6%AD%A3%E7%A1%AE%E7%8E%87%E5%AF%B9%E5%BE%97%E4%B8%8A%E5%90%97"><span class="toc-text">D5：校准，预测概率和实际正确率对得上吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#D6%EF%BC%9A%E6%8A%8A%E9%9A%BE%E5%BA%A6%E6%8B%89%E5%BC%80%EF%BC%8C%E7%9C%8B%E7%BD%AE%E4%BF%A1%E5%BA%A6%E8%B7%9F%E4%B8%8D%E8%B7%9F%E5%BE%97%E4%B8%8A"><span class="toc-text">D6：把难度拉开，看置信度跟不跟得上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%8A-D2-%E5%92%8C-D6-%E6%94%BE%E5%9C%A8%E4%B8%80%E8%B5%B7%EF%BC%8C%E6%89%8D%E6%98%AF%E5%AE%8C%E6%95%B4%E7%BB%93%E8%AE%BA"><span class="toc-text">把 D2 和 D6 放在一起，才是完整结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%99%E7%BB%84%E5%AE%9E%E9%AA%8C%E6%94%B9%E5%8F%98%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-text">这组实验改变了什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E6%89%80%E4%BB%A5-Jev-%E5%88%B0%E5%BA%95%E6%9C%89%E6%B2%A1%E6%9C%89%E7%94%A8"><span class="toc-text">九、所以 Jev 到底有没有用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E6%80%8E%E4%B9%88%E5%AF%B9%E5%BE%85-AI-%E6%97%B6%E4%BB%A3%E7%9A%84%E6%96%B0%E7%9F%A5%E8%AF%86"><span class="toc-text">十、怎么对待 AI 时代的新知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8A%8A%E3%80%8C%E7%9C%9F%E5%81%87%E5%88%A4%E6%96%AD%E3%80%8D%E6%8D%A2%E6%88%90%E3%80%8C%E8%BE%B9%E7%95%8C%E5%88%A4%E6%96%AD%E3%80%8D"><span class="toc-text">1. 把「真假判断」换成「边界判断」</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%8A%8A%E5%A3%B0%E6%98%8E%E5%88%86%E6%88%90%E5%9B%9B%E7%B1%BB"><span class="toc-text">2. 把声明分成四类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%80%E6%89%8B%E6%9D%90%E6%96%99%E6%B0%B8%E8%BF%9C%E6%AF%94%E4%BA%8C%E6%89%8B%E8%BD%AC%E8%BF%B0%E4%BE%BF%E5%AE%9C"><span class="toc-text">3. 一手材料永远比二手转述便宜</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%8C%BA%E5%88%86%E3%80%8C%E6%88%91%E4%B8%8D%E6%87%82%E3%80%8D%E5%92%8C%E3%80%8C%E5%AE%83%E6%B2%A1%E8%AE%B2%E6%B8%85%E6%A5%9A%E3%80%8D"><span class="toc-text">4. 区分「我不懂」和「它没讲清楚」</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%84%A6%E8%99%91%E7%9A%84%E6%AD%A3%E7%A1%AE%E7%94%A8%E6%B3%95"><span class="toc-text">5. 焦虑的正确用法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E6%80%8E%E4%B9%88%E5%8A%A8%E6%89%8B"><span class="toc-text">十一、怎么动手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E8%B7%91%E4%B8%80%E4%B8%AA%E4%B8%8D%E9%9C%80%E8%A6%81%E6%A8%A1%E5%9E%8B%E7%9A%84"><span class="toc-text">先跑一个不需要模型的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%8D%E8%B7%91%E9%9C%80%E8%A6%81%E6%A8%A1%E5%9E%8B%E7%9A%84"><span class="toc-text">再跑需要模型的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E4%B8%AA%E7%94%B1%E6%B5%85%E5%85%A5%E6%B7%B1%E7%9A%84%E4%BD%9C%E4%B8%9A"><span class="toc-text">四个由浅入深的作业</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E8%BF%9B%E9%98%B6%E6%83%B3%E6%B3%95"><span class="toc-text">一个进阶想法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%B0%BE"><span class="toc-text">结尾</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-color: transparent;"><div id="footer-wrap"><div class="rikka-footer-main"><div class="rikka-footer-intro"><div class="rikka-footer-heading"><img class="rikka-footer-avatar" src="/assets/rikka-avatar.273dc7d2b0f5.webp" width="56" height="56" alt="小鸟游六花" loading="lazy" decoding="async"/><strong>故事还在继续。</strong></div><p>代码、日常，和那些值得珍藏的小小奇迹。</p><div class="rikka-footer-status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m12 2 2.8 7.2L22 12l-7.2 2.8L12 22l-2.8-7.2L2 12l7.2-2.8Z"></path></svg><span>和六花一起，慢慢变强</span></div></div><nav class="rikka-footer-nav" aria-label="页脚导航"><a href="/personal/about/">关于我</a><a href="/archives/">文章归档</a><a href="/comments/">留点什么</a><a href="/social/link/">我的朋友</a><a href="/box/gallery/">我的画廊</a><a href="/custom/work.html">项目与实践</a></nav></div><div class="rikka-footer-bottom"><div class="copyright"><span>© 2025–2026 Yangjiayu</span></div><nav class="rikka-credits" aria-label="网站技术与源码"><a href="https://hexo.io/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7Z M8 7v10m8-10v10M8 12h8"></path></svg>Hexo</a><a href="https://butterfly.js.org/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12C4-2 0 5 4 12c-5 8 5 11 8 0Zm0 0C20-2 24 5 20 12c5 8-5 11-8 0Zm0-3v9"></path></svg>Butterfly</a><a href="https://github.com/SparkChase" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6m8-12 6 6-6 6m-2-15-4 18"></path></svg>GitHub</a></nav></div><div id="workboard"><span data-runtime="data-runtime"></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button class="rikka-mode-toggle" type="button" onclick="switchNightMode()" title="解除封印 · 切换夜间模式" aria-label="解除封印 · 切换夜间模式" aria-pressed="false"><span class="rikka-eye" aria-hidden="true"><span class="rikka-eye-pupil"></span></span></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button class="share" type="button" title="右键模式" onclick="changeMouseMode()"><i class="fas fa-mouse"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog right_side"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button class="share" type="button" title="分享链接" onclick="share()"><i class="fas fa-share-nodes"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部" aria-label="回到顶部"><svg class="go-up-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span id="percent" aria-hidden="true"><span class="scroll-percent-value">0</span><span>%</span></span></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div class="js-pjax" id="rightMenu"><div class="rightMenu-group rightMenu-small"><a class="rightMenu-item" href="javascript:window.history.back();"><i class="fa fa-arrow-left"></i></a><a class="rightMenu-item" href="javascript:window.history.forward();"><i class="fa fa-arrow-right"></i></a><a class="rightMenu-item" href="javascript:window.location.reload();"><i class="fa fa-refresh"></i></a><a class="rightMenu-item" href="javascript:rmf.scrollToTop();"><i class="fa fa-arrow-up"></i></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-text"><a class="rightMenu-item" href="javascript:rmf.copySelect();"><i class="fa fa-copy"></i><span>复制</span></a><a class="rightMenu-item" href="javascript:window.open(&quot;https://www.baidu.com/s?wd=&quot;+window.getSelection().toString());window.location.reload();"><i class="fa fa-search"></i><span>百度搜索</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-too"><a class="rightMenu-item" href="javascript:window.open(window.getSelection().toString());window.location.reload();"><i class="fa fa-link"></i><span>转到链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-paste"><a class="rightMenu-item" href="javascript:rmf.paste()"><i class="fa fa-copy"></i><span>粘贴</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-post"><a class="rightMenu-item" href="#post-comment"><i class="fas fa-comment"></i><span>空降评论</span></a><a class="rightMenu-item" href="javascript:rmf.copyWordsLink()"><i class="fa fa-link"></i><span>复制本文地址</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-to"><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>新窗口打开</span></a><a class="rightMenu-item" id="menu-too" href="javascript:rmf.open()"><i class="fa fa-link"></i><span>转到链接</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制链接</span></a></div><div class="rightMenu-group rightMenu-line hide" id="menu-img"><a class="rightMenu-item" href="javascript:rmf.saveAs()"><i class="fa fa-download"></i><span>保存图片</span></a><a class="rightMenu-item" href="javascript:rmf.openWithNewTab()"><i class="fa fa-window-restore"></i><span>在新窗口打开</span></a><a class="rightMenu-item" href="javascript:rmf.copyLink()"><i class="fa fa-copy"></i><span>复制图片链接</span></a></div><div class="rightMenu-group rightMenu-line"><a class="rightMenu-item" href="javascript:randomPost()"><i class="fa fa-paper-plane"></i><span>随便逛逛</span></a><a class="rightMenu-item" href="javascript:switchNightMode();"><i class="fa fa-moon"></i><span>昼夜切换</span></a><a class="rightMenu-item" href="/personal/about/"><i class="fa fa-info-circle"></i><span>关于博客</span></a><a class="rightMenu-item" href="javascript:toggleWinbox();"><i class="fas fa-cog"></i><span>美化设置</span></a><a class="rightMenu-item" href="javascript:rmf.fullScreen();"><i class="fas fa-expand"></i><span>切换全屏</span></a><a class="rightMenu-item" href="javascript:window.print();"><i class="fa-solid fa-print"></i><span>打印页面</span></a></div></div><div><script defer src="/js/utils.js"></script><script defer src="/js/main.js"></script><script defer src="/vendor/fancybox-4.0.31.umd.d1a7f655b0b8.js"></script><script defer src="/vendor/instantpage-5.1.0.0dd4a234f47b.js" type="module"></script><script defer src="/vendor/snackbar-0.1.16.min.34eaac416486.js"></script><script defer src="/js/search/local-search.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.2/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://www.312782.xyz/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://www.312782.xyz/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('/vendor/twikoo/twikoo.all.min.c1d139b7de1d.js').then(runFn)
+  }
+
+  const start = () => {
+    if ('Twikoo' === 'Twikoo' || !true) {
+      if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+      else loadTwikoo()
+    } else {
+      window.loadOtherComment = () => {
+        loadTwikoo()
+      }
+    }
+  }
+
+  // The theme utilities use defer; wait for them on a full page load.
+  // PJAX navigation runs after DOMContentLoaded, so initialize immediately there.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true })
+  } else {
+    start()
+  }
+})()</script></div><script defer src="/vendor/jquery-3.6.3.min.a6f3f0faea4b.js"></script><script defer type="text/javascript" src="/vendor/sweetalert2-8.19.0.all.min.1fb5bdf552db.js"></script><script defer src="/vendor/winbox-0.2.82.bundle.min.8cd0a133fc51.js"></script><script defer src="/vendor/font_3586335_hsivh70x0fm.36469fab94fd.js"></script><script defer src="/vendor/font_3636804_gr02jmjr3y9.5ea4a3c79ad0.js"></script><script defer src="/vendor/font_3612150_kfv55xn3u2g.30071bdec95b.js"></script><canvas id="universe"></canvas><canvas id="snow"></canvas><script defer src="/js/fomal.js"></script><script defer src="/js/rikka-theme.js"></script><script defer src="/js/rikka-pet.js"></script><script defer src="/js/rikka-gallery.js"></script><script defer src="/js/rikka-portrait.js"></script><link rel="stylesheet" href="/vendor/aplayer-1.10.1.min.baa4101a70dc.css" media="print" onload="this.media='all'"><script defer src="/vendor/aplayer-1.10.1.min.e98ec22436a5.js"></script><script src="/vendor/pjax-0.2.8.af04114466bf.js"></script><script>let pjaxSelectors = [":root > head > title:first-of-type, :root > body > title:first-of-type","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show","#web_bg",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --> <script data-pjax>if(document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    var parent = document.getElementById('recent-posts');
+    var child = '<div class="recent-post-item" style="width:100%;height: auto"><div id="catalog_magnet"><div class="magnet_item"><a class="magnet_link" href="/categories/算法/"><div class="magnet_link_context" style=""><span style="font-weight:500;flex:1">🍡 算法学习笔记 (1)</span><span style="padding:0px 4px;border-radius: 8px;"><i class="fas fa-arrow-circle-right"></i></span></div></a></div><div class="magnet_item" style="visibility: hidden"></div><div class="magnet_item" style="visibility: hidden"></div><a class="magnet_link_more"  href="/categories/" style="flex:1;text-align: center;margin-bottom: 10px;">查看更多...</a></div></div>';
+    console.log('已挂载magnet')
+    parent.insertAdjacentHTML("afterbegin",child)}
+     </script><style>#catalog_magnet{flex-wrap: wrap;display: flex;width:100%;justify-content:space-between;padding: 10px 10px 0 10px;align-content: flex-start;}.magnet_item{flex-basis: calc(33.333333333333336% - 5px);background: #e9e9e9;margin-bottom: 10px;border-radius: 8px;transition: all 0.2s ease-in-out;}.magnet_item:hover{background: var(--text-bg-hover)}.magnet_link_more{color:#555}.magnet_link{color:black}.magnet_link:hover{color:white}@media screen and (max-width: 600px) {.magnet_item {flex-basis: 100%;}}.magnet_link_context{display:flex;padding: 10px;font-size:16px;transition: all 0.2s ease-in-out;}.magnet_link_context:hover{padding: 10px 20px;}</style>
+    <style></style><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/d522d575.html&quot;);" href="javascript:void(0);" alt=""><img loading="lazy" decoding="async" width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/6.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/d522d575.html&quot;);" href="javascript:void(0);" alt="">小程序起步</a><div class="blog-slider__text">初识小程序</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/d522d575.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/8610680.html&quot;);" href="javascript:void(0);" alt=""><img loading="lazy" decoding="async" width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/14.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/8610680.html&quot;);" href="javascript:void(0);" alt="">大模型的token究竟是啥?</a><div class="blog-slider__text">大模型的token究竟是啥?</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/8610680.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/5c2f4951.html&quot;);" href="javascript:void(0);" alt=""><img loading="lazy" decoding="async" width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/12.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/5c2f4951.html&quot;);" href="javascript:void(0);" alt="">基础数据结构(3)</a><div class="blog-slider__text">栈，队列，堆，二叉树</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/5c2f4951.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/45347810.html&quot;);" href="javascript:void(0);" alt=""><img loading="lazy" decoding="async" width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/6.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/45347810.html&quot;);" href="javascript:void(0);" alt="">基础数据结构(2)</a><div class="blog-slider__text">递归</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/45347810.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/6e192bd3.html&quot;);" href="javascript:void(0);" alt=""><img loading="lazy" decoding="async" width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/5.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-15</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/6e192bd3.html&quot;);" href="javascript:void(0);" alt="">基础数据结构(1)</a><div class="blog-slider__text">数组与链表</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/6e192bd3.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;posts/3ec27523.html&quot;);" href="javascript:void(0);" alt=""><img loading="lazy" decoding="async" width="48" height="48" src="https://bilibili123.oss-cn-beijing.aliyuncs.com/websitepic/2.png" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2025-04-21</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;posts/3ec27523.html&quot;);" href="javascript:void(0);" alt="">微信支付</a><div class="blog-slider__text">java整合微信的网页支付包含原理</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;posts/3ec27523.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = '/';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="/vendor/swiper.min.f2ce7eb089bb.js"></script><script defer data-pjax src="/js/home-slider.js"></script><!-- hexo injector body_end end --></body></html>
