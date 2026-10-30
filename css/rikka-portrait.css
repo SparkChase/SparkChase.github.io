@@ -145,3 +145,29 @@ body:has(.rikka-profile) .page-title { display: none; }
   .rikka-profile *, .rikka-featured * { animation: none !important; transition: none !important; }
   .rf-link:hover .rf-arrow, #article-container .yp-actions a:hover span { transform: none; }
 }
+/* Growth timeline: one rail, term labels on the left, no images. */
+.yp-growth { --yp-rail: color-mix(in srgb, var(--rk-muted) 26%, transparent); }
+.yp-growth-head { padding: 18px 0 44px; }
+#article-container .yp-growth-head h1 { font-size: clamp(30px, 3.2vw, 42px); line-height: 1.45; letter-spacing: -.02em; margin-bottom: 16px; }
+#article-container .yp-growth-head p { max-width: 58ch; color: var(--rk-muted); }
+.yp-growth-legend { display: flex; gap: 8px; margin-top: 20px; }
+.yp-growth-legend span { padding: 0 8px; border: 1px solid color-mix(in srgb, var(--rk-muted) 34%, transparent); border-radius: 4px; font-size: 12px; line-height: 22px; color: var(--rk-muted); }
+#article-container .rikka-profile .yp-timeline { margin: 0; padding: 0; list-style: none; }
+#article-container .rikka-profile .yp-node { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 0 26px; padding: 0; }
+#article-container .rikka-profile .yp-node-date { margin: 0; padding-top: 4px; color: var(--rk-muted); font-size: 12px; line-height: 1.7; font-variant-numeric: tabular-nums; }
+#article-container .rikka-profile .yp-node-tag { display: inline-block; margin: 6px 0 0; padding: 0 6px; border: 1px solid color-mix(in srgb, var(--rk-muted) 30%, transparent); border-radius: 4px; color: var(--rk-muted); font-size: 11px; line-height: 19px; }
+#article-container .rikka-profile .yp-node-body { position: relative; padding: 0 0 32px 24px; border-left: 1px solid var(--yp-rail); }
+#article-container .rikka-profile .yp-node-body::before { content: ""; position: absolute; top: 7px; left: -4.5px; width: 7px; height: 7px; border: 1.5px solid color-mix(in srgb, var(--rk-muted) 70%, transparent); border-radius: 50%; background: var(--rk-surface); }
+#article-container .rikka-profile .yp-node:last-child .yp-node-body { padding-bottom: 0; border-left-color: transparent; }
+#article-container .rikka-profile .yp-node:last-child .yp-node-body::before { background: var(--rk-muted); border-color: var(--rk-muted); }
+#article-container .rikka-profile .yp-node-title { margin: 0 0 8px; padding: 0; color: var(--rk-ink); font-size: 17px; line-height: 1.65; font-weight: 600; }
+#article-container .rikka-profile .yp-node-body p { max-width: 60ch; margin: 0 0 8px; padding: 0; color: var(--rk-muted); font-size: 15px; line-height: 1.85; }
+#article-container .rikka-profile .yp-node-body p:last-child { margin-bottom: 0; }
+#article-container .rikka-profile .yp-growth-foot { margin: 44px 0 0; padding: 20px 0 0; border-top: 1px solid color-mix(in srgb, var(--rk-muted) 24%, transparent); color: var(--rk-muted); font-size: 13px; }
+@media (max-width: 700px) {
+  #article-container .rikka-profile .yp-node { grid-template-columns: 62px minmax(0, 1fr); gap: 0 16px; }
+  #article-container .rikka-profile .yp-node-date { font-size: 11px; }
+  #article-container .rikka-profile .yp-node-title { font-size: 16px; }
+  #article-container .rikka-profile .yp-node-body { padding-left: 18px; }
+  #article-container .rikka-profile .yp-node-body p { font-size: 14px; }
+}

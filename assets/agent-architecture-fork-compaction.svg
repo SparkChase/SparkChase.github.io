@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="760" viewBox="0 0 1000 760" role="img" aria-labelledby="title desc">
+  <title id="title">对话分叉与压缩分别改变什么</title>
+  <desc id="desc">原始历史为 m1 到 m6。在 m3 分叉后，新会话继承 m1 到 m3，再独立追加新消息。压缩则保留原始历史，只把模型输入组织为覆盖 m1 到 m3 的摘要和 m4 到 m6。外部环境需要独立管理。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#56748e"/></marker>
+  </defs>
+  <rect width="1000" height="760" rx="20" fill="#f6f8fa"/>
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif" fill="#25313c">
+    <text x="45" y="52" font-size="28" font-weight="600">同一段历史，两种不同的操作</text>
+    <text x="45" y="90" font-size="20" fill="#52616e">切点必须位于完整消息单元之后，图中假设 m3 是有效切点。</text>
+    <text x="45" y="142" font-size="23" font-weight="600">原会话 A：原始记录一直保留</text>
+    <path d="M 90 196 H 885" stroke="#9aaab8" stroke-width="3"/>
+    <g fill="#fff" stroke="#8fa7bc" stroke-width="2">
+      <rect x="75" y="167" width="105" height="58" rx="10"/>
+      <rect x="220" y="167" width="105" height="58" rx="10"/>
+      <rect x="365" y="167" width="105" height="58" rx="10" fill="#e3edf6"/>
+      <rect x="510" y="167" width="105" height="58" rx="10"/>
+      <rect x="655" y="167" width="105" height="58" rx="10"/>
+      <rect x="800" y="167" width="105" height="58" rx="10"/>
+    </g>
+    <g font-size="23" text-anchor="middle">
+      <text x="127" y="204">m1</text><text x="272" y="204">m2</text><text x="417" y="204">m3</text>
+      <text x="562" y="204">m4</text><text x="707" y="204">m5</text><text x="852" y="204">m6</text>
+    </g>
+    <path d="M 417 230 V 259 Q 417 276 439 276 H 562 V 309" fill="none" stroke="#56748e" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="45" y="283" font-size="23" font-weight="600">分叉 B：继承 m1..m3</text>
+    <rect x="75" y="317" width="395" height="58" rx="10" fill="#e3edf6" stroke="#8fa7bc" stroke-width="2"/>
+    <text x="272" y="354" text-anchor="middle" font-size="22">不可变历史前缀 m1 · m2 · m3</text>
+    <path d="M 470 346 H 510 M 615 346 H 655" stroke="#9aaab8" stroke-width="3"/>
+    <rect x="510" y="317" width="105" height="58" rx="10" fill="#fff" stroke="#8fa7bc" stroke-width="2"/>
+    <rect x="655" y="317" width="105" height="58" rx="10" fill="#fff" stroke="#8fa7bc" stroke-width="2"/>
+    <text x="562" y="354" text-anchor="middle" font-size="23">b4</text>
+    <text x="707" y="354" text-anchor="middle" font-size="23">b5</text>
+    <text x="75" y="414" font-size="20" fill="#52616e">新消息各自追加；A 后来的 m4..m6 不会进入 B。</text>
+    <path d="M 45 449 H 955" stroke="#d6dfe7" stroke-width="2"/>
+    <text x="45" y="493" font-size="23" font-weight="600">压缩 A：只改变下一次模型输入</text>
+    <rect x="75" y="521" width="300" height="87" rx="12" fill="#e3edf6" stroke="#8fa7bc" stroke-width="2"/>
+    <text x="225" y="555" text-anchor="middle" font-size="22">摘要 S：覆盖 m1..m3</text>
+    <text x="225" y="587" text-anchor="middle" font-size="19" fill="#52616e">保留来源，可回查原文</text>
+    <text x="404" y="574" font-size="30">+</text>
+    <rect x="450" y="521" width="455" height="87" rx="12" fill="#fff" stroke="#8fa7bc" stroke-width="2"/>
+    <text x="677" y="572" text-anchor="middle" font-size="22">最近的完整消息 m4 · m5 · m6</text>
+    <text x="75" y="647" font-size="20" fill="#52616e">系统指令、当前约束与工具定义另行加入；原始 m1..m6 没有被删除。</text>
+    <rect x="45" y="681" width="910" height="52" rx="10" fill="#dce6ef"/>
+    <text x="70" y="714" font-size="21">外部状态独立管理：聊天分叉不会自动回滚文件、数据库或已执行的动作。</text>
+  </g>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="710" viewBox="0 0 1000 710" role="img" aria-labelledby="title desc">
+  <title id="title">Agent 三层架构与代码依赖方向</title>
+  <desc id="desc">领域层定义消息、会话与规则。应用层编排流程并定义外部能力接口。适配层实现模型、存储与执行能力。箭头表示代码依赖，组装根创建具体实现并注入。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#506d86"/></marker>
+  </defs>
+  <rect width="1000" height="710" rx="20" fill="#f6f8fa"/>
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif" fill="#25313c">
+    <text x="45" y="53" font-size="28" font-weight="600">核心规则留在内部，外部差异交给适配器</text>
+    <text x="45" y="87" font-size="19" fill="#52616e">箭头表示代码依赖。运行时调用可以通过接口到达外部实现。</text>
+    <rect x="45" y="117" width="910" height="130" rx="14" fill="#fff" stroke="#8fa7bc" stroke-width="2"/>
+    <text x="70" y="157" font-size="25" font-weight="600">领域层：系统自己的语言与规则</text>
+    <text x="70" y="194" font-size="21">Session · Message · ToolCall · ToolResult · Context · Decision</text>
+    <text x="70" y="225" font-size="19" fill="#52616e">描述任务，不依赖 HTTP、数据库或模型 SDK</text>
+    <path d="M 500 293 L 500 253" stroke="#506d86" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="520" y="278" font-size="18" fill="#52616e">使用领域概念</text>
+    <rect x="45" y="299" width="910" height="143" rx="14" fill="#eaf1f7" stroke="#8fa7bc" stroke-width="2"/>
+    <text x="70" y="339" font-size="25" font-weight="600">应用层：把概念编排成用例</text>
+    <text x="70" y="377" font-size="21">AgentService · 上下文构建 · 分叉与压缩流程</text>
+    <text x="70" y="414" font-size="20">定义需要的接口：ModelClient · SessionStore · ToolExecutor</text>
+    <path d="M 500 488 L 500 449" stroke="#506d86" stroke-width="2.5" marker-end="url(#arrow)"/>
+    <text x="520" y="473" font-size="18" fill="#52616e">实现接口或调用用例</text>
+    <rect x="45" y="494" width="910" height="120" rx="14" fill="#fff" stroke="#aebbc6" stroke-width="2"/>
+    <text x="70" y="534" font-size="25" font-weight="600">适配层：翻译协议并接触外部世界</text>
+    <text x="70" y="574" font-size="21">HTTP / CLI · 模型协议 · JSONL / 数据库 · 受控执行器</text>
+    <rect x="45" y="640" width="910" height="44" rx="10" fill="#dce6ef"/>
+    <text x="70" y="669" font-size="20">组装根 main.py：创建具体类，注入应用层，启动入口</text>
+  </g>
+</svg>
