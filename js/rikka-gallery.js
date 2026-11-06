@@ -1,5 +1,23 @@
 (() => {
   let cleanup = () => {};
+  let motionReady;
+  const loadMotion = gallery => {
+    if (!gallery.dataset.motionCore) return Promise.resolve();
+    if (!motionReady) {
+      const load = src => new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => { script.remove(); reject(new Error('Gallery motion unavailable')); };
+        document.head.append(script);
+      });
+      motionReady = load(gallery.dataset.motionCore)
+        .then(() => load(gallery.dataset.motionFlip))
+        .then(() => load(gallery.dataset.motionController))
+        .catch(() => { motionReady = null; });
+    }
+    return motionReady;
+  };
   const init = () => {
     const gallery = document.querySelector('.rikka-gallery');
     const dialog = document.querySelector('.rg-dialog');
@@ -22,6 +40,7 @@
     let returnFocus = null;
     let suppressClickUntil = 0;
     let frame = 0;
+    let motion;
     const visibleLinks = () => cards.filter(card => !card.hidden).map(card => card.querySelector('[data-rg-preview]'));
     const shelves = [...gallery.querySelectorAll('.rg-shelf')].map(shelf => ({
       shelf,
@@ -135,15 +154,19 @@
       if (!button) return;
       const format = button.dataset.rgFilter;
       filters.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-      cards.forEach(card => { card.hidden = format !== 'all' && card.dataset.format !== format; });
-      collection.dataset.filter = format;
-      shelves.forEach(({ shelf, rail, cards: items }) => {
-        shelf.hidden = items.every(card => card.hidden);
-        delete rail.dataset.fit;
-        rail.scrollLeft = 0;
-      });
-      updateRails();
-      updateStatus();
+      const change = () => {
+        cards.forEach(card => { card.hidden = format !== 'all' && card.dataset.format !== format; });
+        collection.dataset.filter = format;
+        shelves.forEach(({ shelf, rail, cards: items }) => {
+          shelf.hidden = items.every(card => card.hidden);
+          delete rail.dataset.fit;
+          rail.scrollLeft = 0;
+        });
+        updateRails();
+        updateStatus();
+      };
+      if (motion) motion.filter(change);
+      else change();
     });
 
     function show(link) {
@@ -155,6 +178,8 @@
       download.href = link.href;
       download.download = link.closest('.rg-artwork').querySelector('[download]').download;
       dialog.querySelectorAll('[data-rg-step]').forEach(button => { button.disabled = visibleLinks().length < 2; });
+      const counter = dialog.querySelector('.rg-dialog-count');
+      if (counter) counter.textContent = `光影收藏 · ${String(visibleLinks().indexOf(link) + 1).padStart(2, '0')} / ${visibleLinks().length}`;
     }
     on(gallery, 'click', event => {
       if (performance.now() < suppressClickUntil) { event.preventDefault(); event.stopPropagation(); return; }
@@ -164,28 +189,50 @@
       returnFocus = link;
       show(link);
       dialog.showModal();
-      dialog.querySelector('.rg-close').focus();
-    });
+      dialog.querySelector('.rg-close').focus({ preventScroll: true });
+      motion?.open(link);
+    }, { capture: true });
     const step = amount => {
       const links = visibleLinks();
       if (!links.length) return;
-      show(links[(links.indexOf(current) + amount + links.length) % links.length]);
+      if (dialog.dataset.phase === 'closing') return;
+      const link = links[(links.indexOf(current) + amount + links.length) % links.length];
+      returnFocus = link;
+      if (motion) motion.step(() => show(link), amount);
+      else show(link);
     };
+    const close = () => { if (motion) motion.close(current); else dialog.close(); };
+    // 在 PJAX 的链接监听之前保留浏览器原生下载。
+    const nativeDownload = event => { if (event.target.closest('a[download]')) event.stopPropagation(); };
+    on(gallery, 'click', nativeDownload, { capture: true });
+    on(dialog, 'click', nativeDownload, { capture: true });
     on(dialog, 'click', event => {
-      if (event.target.closest('.rg-close')) dialog.close();
+      if (event.target.closest('.rg-close')) close();
       const button = event.target.closest('[data-rg-step]');
       if (button) step(Number(button.dataset.rgStep));
       if (event.target === dialog) {
         const rect = dialog.getBoundingClientRect();
-        if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+        if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom || dialog.classList.contains('rg-viewer')) close();
       }
     });
+    on(dialog, 'cancel', event => { event.preventDefault(); close(); });
     on(dialog, 'keydown', event => {
+      if (event.key === 'Tab') {
+        const controls = [...dialog.querySelectorAll('button:not(:disabled), a[href]')];
+        const first = controls[0], last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        return;
+      }
       if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
       event.preventDefault();
       step(event.key === 'ArrowLeft' ? -1 : 1);
     });
-    on(dialog, 'close', () => { image.removeAttribute('src'); if (returnFocus?.isConnected) returnFocus.focus(); });
+    on(dialog, 'close', () => {
+      motion?.reset();
+      image.removeAttribute('src');
+      if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
+    });
     on(image, 'error', () => {
       dialog.querySelector('#rg-dialog-size').textContent = '图片暂时无法加载，请关闭预览后重试。';
     });
@@ -193,10 +240,17 @@
       controller.abort();
       resizeObserver.disconnect();
       cancelAnimationFrame(frame);
+      motion?.destroy();
       if (dialog.open) dialog.close();
       image.removeAttribute('src');
       delete gallery.dataset.ready;
     };
+    if (!reducedMotion.matches) loadMotion(gallery).then(() => {
+      if (!controller.signal.aborted && window.createRikkaGalleryMotion) {
+        motion = window.createRikkaGalleryMotion({ gallery, dialog, image, reducedMotion });
+        if (current && dialog.open) show(current);
+      }
+    });
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();

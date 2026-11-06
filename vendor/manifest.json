@@ -142,5 +142,13 @@
   "pjax-0.2.8.js": {
     "url": "https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js",
     "sha256": "af04114466bf78973ec2eab91ecb8ca8d43c99cd996e8f8361334508667579ac"
+  },
+  "gsap-3.15.1.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/gsap.min.js",
+    "sha256": "3d1bea374ab1b703cc5c4105358eec63c4465efdc573931dc116e34a0a190c1b"
+  },
+  "gsap-Flip-3.15.1.min.js": {
+    "url": "https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/Flip.min.js",
+    "sha256": "6e9434933eb2b67373947cdb30e70fdba59b68bb8fa480df4251917c71574199"
   }
 }

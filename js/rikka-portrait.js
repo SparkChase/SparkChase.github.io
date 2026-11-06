@@ -4,10 +4,19 @@
   const running = new Set();
   let generation = 0;
   let coverObserver;
-  const stop = () => {
-    generation++;
+  let portraitObserver;
+  let releasePortrait = () => {};
+  let resumePortrait = () => {};
+  const cancelAnimations = () => {
     running.forEach(animation => animation.cancel());
     running.clear();
+  };
+  const stop = () => {
+    generation++;
+    cancelAnimations();
+    portraitObserver?.disconnect();
+    portraitObserver = null;
+    releasePortrait();
   };
   const leave = () => {
     stop();
@@ -42,16 +51,61 @@
     const portrait = surface.querySelector('[data-rp-portrait]');
     const image = portrait?.querySelector('img');
     if (!image) return;
-    const reveal = () => {
-      if (token !== generation || !surface.isConnected || !image.naturalWidth) return;
-      animate(portrait, [{opacity: .3}, {opacity: 1}], {duration: 680});
+    const photo = portrait.querySelector('.yp-photo');
+    const caption = portrait.querySelector('figcaption');
+    let visible = !('IntersectionObserver' in window);
+    let started = false;
+    releasePortrait = () => {
+      image.removeEventListener('load', reveal);
+      image.removeEventListener('error', abandon);
+      releasePortrait = () => {};
+      resumePortrait = () => {};
     };
-    if (image.complete) reveal();
-    else image.addEventListener('load', reveal, {once: true});
+    const abandon = () => {
+      portraitObserver?.disconnect();
+      portraitObserver = null;
+      releasePortrait();
+    };
+    const reveal = () => {
+      if (started || !visible || document.hidden || reduced.matches || token !== generation || !surface.isConnected || !image.complete || !image.naturalWidth) return;
+      started = true;
+      abandon();
+      animate(portrait, [
+        {opacity: 0, transform: 'translateY(32px) rotate(2.4deg) scale(.96)'},
+        {opacity: 1, transform: 'translateY(0) rotate(0deg) scale(1)'}
+      ], {duration: 1000});
+      animate(photo, [
+        {clipPath: 'inset(0 0 34% 0)'},
+        {clipPath: 'inset(0 0 0% 0)'}
+      ], {duration: 1100});
+      animate(image, [
+        {transform: 'translateY(12px) scale(1.08)'},
+        {transform: 'translateY(0) scale(1)'}
+      ], {duration: 1200});
+      animate(caption, [
+        {opacity: 0, transform: 'translateY(8px)'},
+        {opacity: 1, transform: 'translateY(0)'}
+      ], {duration: 500, delay: 320, fill: 'backwards'});
+    };
+    resumePortrait = reveal;
+    if (reduced.matches) return;
+    if ('IntersectionObserver' in window) {
+      portraitObserver = new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting && entry.intersectionRatio >= .18;
+        reveal();
+      }, {threshold: .18});
+      portraitObserver.observe(portrait);
+    }
+    image.addEventListener('load', reveal, {once: true});
+    image.addEventListener('error', abandon, {once: true});
+    reveal();
   };
   document.addEventListener('pjax:send', leave);
   document.addEventListener('pjax:complete', init);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimations();
+    else resumePortrait();
+  });
   window.addEventListener('pagehide', stop);
   reduced.addEventListener('change', () => { if (reduced.matches) stop(); });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once: true});

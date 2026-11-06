@@ -8,4 +8,6 @@ Vue and Element UI downloads are retained as migration/reference assets but no l
 
 Update deliberately: retrieve the specified upstream version, preserve its license, update the manifest hash, rebuild, and run the browser regression checks. Do not edit minified vendor code by hand.
 
+GSAP Core and Flip 3.15.1 are loaded on demand by the gallery. The npm tarball SHA-512 integrity was verified before copying the upstream distributions; both original license headers are retained. GSAP uses its Standard License, linked in `licenses/gsap-3.15.1.txt`.
+
 Twikoo uses the official 1.7.2 distribution, verified against the npm package integrity and the pinned CDN URL. Its Tencent Cloud admin configuration examples are masked upstream. Keep these official files when updating: the previous local bundle contained a complete example Secret ID that triggered GitHub push protection, including in generated content-hashed copies.

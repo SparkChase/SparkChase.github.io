@@ -116,3 +116,44 @@ body:has(.rg-dialog[open]) { overflow: hidden; }
   .rg-artwork { transform: none; }
   .rg-image img, .rg-caption { transition: none; }
 }
+
+/* 分类指示块与图片一起移动，按钮位置和点击区域始终稳定。 */
+.rikka-gallery[data-motion] .rg-filters { position: relative; isolation: isolate; }
+.rikka-gallery[data-motion] .rg-filters::before {
+  content: ''; position: absolute; z-index: -1; top: 0; bottom: 0; left: 0;
+  width: var(--rg-tab-width); transform: translateX(var(--rg-tab-x));
+  border-radius: 8px; background: var(--rk-accent); pointer-events: none;
+}
+.rikka-gallery[data-motion] .rg-filters button[aria-pressed='true'] { background: transparent; }
+
+/* 原生 dialog 的顶层容纳飞行副本，避免被展架的 overflow 裁切。 */
+.rg-dialog.rg-viewer {
+  --rg-shade: .96;
+  position: fixed; inset: 0; width: 100%; height: 100dvh; max-width: none; max-height: none;
+  margin: 0; padding: 28px clamp(24px, 5vw, 80px); border-radius: 0;
+  background: transparent; color: #f5f3ed; overflow: hidden;
+}
+.rg-viewer[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 16px; }
+.rg-viewer::backdrop { background: rgba(13, 15, 19, var(--rg-shade)); }
+.rg-viewer .rg-dialog-head { margin: 0; align-items: center; z-index: 2; }
+.rg-viewer .rg-dialog-count { margin: 0 0 10px; color: #c5b68b; font-size: 11px; letter-spacing: .16em; font-variant-numeric: tabular-nums; }
+.rg-viewer .rg-dialog-head h2 { color: #f5f3ed; font-size: 23px; font-weight: 500; }
+.rg-viewer #rg-dialog-size { color: #a7a8ac; font-size: 11px; margin-top: 6px; }
+.rg-viewer .rg-full-image { width: 100%; height: 100%; min-height: 0; border-radius: 4px; }
+.rg-viewer .rg-dialog-foot { padding: 0; width: min(560px, 100%); margin: 0 auto; z-index: 2; }
+.rg-viewer :is(button, .rg-download) { border-color: #53545a; color: #eeece5; border-radius: 999px; padding: 10px 22px; background: transparent; }
+.rg-viewer :is(button, .rg-download):hover { border-color: #c5b68b; background: #ffffff0d; }
+.rg-viewer .rg-download { border-color: #c5b68b; color: #e4d8b8; }
+.rg-viewer .rg-close { border-color: transparent; }
+.rg-viewer :is(a,button):focus-visible { outline-color: #e4d8b8; }
+.rg-flight { position: fixed; top: 0; left: 0; max-width: none; max-height: none; margin: 0; object-fit: contain; pointer-events: none; z-index: 1; }
+@media (max-width: 700px) {
+  .rg-dialog.rg-viewer { padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom)); gap: 14px; }
+  .rg-viewer .rg-dialog-head { gap: 8px; }
+  .rg-viewer .rg-dialog-head h2 { font-size: 18px; }
+  .rg-viewer .rg-dialog-count { font-size: 10px; letter-spacing: .12em; }
+  .rg-viewer .rg-close { padding: 8px 10px; }
+  .rg-viewer .rg-dialog-foot { grid-template-columns: 48px minmax(0, 1fr) 48px; gap: 18px; }
+  .rg-viewer .rg-dialog-foot :is(a,button) { padding: 10px; }
+  .rg-viewer .rg-dialog-foot button { font-size: 0; }
+}
