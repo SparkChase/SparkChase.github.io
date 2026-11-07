@@ -6,6 +6,16 @@
 div#swiper_container {
     background:rgba(255, 255, 255, 0)
 }
+/* 构建已输出第一张；脚本下载失败时仍保留可读、可点击的内容。 */
+#swiper_container:not([data-slider-ready]) .swiper-wrapper { transform:none; }
+#swiper_container:not([data-slider-ready]) .swiper-slide { width:100%; }
+#swiper_container:not([data-slider-ready]) .swiper-slide:not(:first-child),
+#swiper_container:not([data-slider-ready]) .blog-slider__pagination { display:none; }
+#swiper_container:not([data-slider-ready]) .swiper-slide:first-child .blog-slider__img img,
+#swiper_container:not([data-slider-ready]) .swiper-slide:first-child .blog-slider__content > * {
+    opacity:1;
+    transform:none;
+}
 .blog-slider {
     width:100%;
     position:relative;
